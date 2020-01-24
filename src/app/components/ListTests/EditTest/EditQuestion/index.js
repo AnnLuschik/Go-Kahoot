@@ -110,12 +110,12 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
         <CustomTypography variant="h6">
           Content of Answers
         </CustomTypography>
-        {!answers.length && (
+        {answers && !answers.length && (
           <CustomTypography  variant="h5" gutterBottom >
-            Sorry, Sorry, there are no answers to this question..
+            Sorry, there are no answers to this question..
           </CustomTypography>
         )}
-        {answers.map(({ID, text}, index) => (
+        {answers && answers.map(({ID, text}, index) => (
           <ContainerAnswers key={ID + index}>
             <UpdateAnswer
               id={ID}

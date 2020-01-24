@@ -7,7 +7,7 @@ import { IconButton, LinearProgress } from "@material-ui/core";
 import { CREATE_NEW_QUESTION } from './graphql';
 
 import {
-  Button, TextField, Checkbox, TextFieldAnswers,
+  Button, TextField, Checkbox, TextFieldAnswers, ContainerAnswer,
   ContainerAnswers, Container, Typography, ButtonAnswer,
 } from './styles';
 
@@ -47,11 +47,11 @@ const QuestionStep = ({ testID, handleNext }) => {
 
   const handleAddAnswer = () => {
     changeAnswers([
-      ...answers,
       {
         text: '',
         sequential: 0,
       },
+      ...answers,
     ]);
   };
 
@@ -109,32 +109,34 @@ const QuestionStep = ({ testID, handleNext }) => {
         >
           Add Answer
         </ButtonAnswer>
-        {answers.map((elem, index) => (
-            <ContainerAnswers key={index} >
-              <TextFieldAnswers
-                type='text'
-                label="Answer"
-                variant="outlined"
-                value={elem.text}
-                onChange={handleChangeAnswerInput(index)}
-              />
-              <Checkbox
-                color="primary"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-                checked={index === question.rightAnswer}
-                onChange={handleChangeCheckbox(index)}
-              />
-              <IconButton
-                aria-label="delete"
-                onClick={handleDeleteAnswer(index)}
-              >
-                <DeleteIcon
-                  fontSize="large"
+        <ContainerAnswers>
+          {answers.map((elem, index) => (
+              <ContainerAnswer key={index} >
+                <TextFieldAnswers
+                  type='text'
+                  label="Answer"
+                  variant="outlined"
+                  value={elem.text}
+                  onChange={handleChangeAnswerInput(index)}
                 />
-              </IconButton>
-            </ContainerAnswers>
-          )
-        )}
+                <Checkbox
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  checked={index === question.rightAnswer}
+                  onChange={handleChangeCheckbox(index)}
+                />
+                <IconButton
+                  aria-label="delete"
+                  onClick={handleDeleteAnswer(index)}
+                >
+                  <DeleteIcon
+                    fontSize="large"
+                  />
+                </IconButton>
+              </ContainerAnswer>
+            )
+          )}
+        </ContainerAnswers>
       </form>
       {error && <p>Something went wrong :(</p>}
     </>

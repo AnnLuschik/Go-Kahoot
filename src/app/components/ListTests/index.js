@@ -44,7 +44,10 @@ const AllTests = () => {
           List of tests
         </CustomTypography>
         <List>
-          {data && !data.tests.length && (
+          {data
+          && data.tests
+          && !data.tests.length
+          && (
             <>
               <CustomTypography  variant="h5" gutterBottom >
                 Sorry, but no one test has been created yet.

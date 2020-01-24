@@ -13,13 +13,12 @@ import {
   CustomTypography, TestTextField, Container, ContainerQuestions,
 } from './styles';
 
-
 const UpdateTest = () => {
   const { location: {pathname } } = useHistory();
   const urlArray = pathname.split('/');
   const urlUUID = urlArray[urlArray.length - 1];
 
-  const [ updatingQuestions, setUpdatingQuestions ] = useState(true);
+  const [ updatingQuestions, setUpdatingQuestions ] = useState(false);
   const [ text, changeText ] = useState('');
   const [ isDisabledField, changeDisable ] = useState(true);
   const { loading, error, data } = useQuery(GET_TEST_BY_UUID(urlUUID));
@@ -92,12 +91,18 @@ const UpdateTest = () => {
         Content of Questions
       </CustomTypography>
       <ContainerQuestions>
-        {!data.testByUUID.questions.length && (
+        {data
+        && data.testByUUID
+        && !data.testByUUID.questions
+        && (
           <CustomTypography  variant="h5" gutterBottom >
             Sorry, there are no answers to this question..
           </CustomTypography>
         )}
-        {data.testByUUID.questions && data.testByUUID.questions.map((question, index) => (
+        {data
+          && data.testByUUID
+          && data.testByUUID.questions
+          && data.testByUUID.questions.map((question, index) => (
           <UpdateQuestion
             key={question.text + index}
             question={question}
