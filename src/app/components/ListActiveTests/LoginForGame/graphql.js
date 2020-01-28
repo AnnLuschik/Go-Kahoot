@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from 'apollo-boost';
 
 export const ACTIVATED_GAME_BY_CODE = (CODE) => gql`
   query {
@@ -68,6 +68,22 @@ export const JOIN_PLAYER_TO_GAME = gql`
           name
         }
       }
+    }
+  }
+`;
+
+export const ONJOINING_PLAYER_TO_GAME = gql`
+  subscription onJoiningPlayerToGame(
+    $gameCode: String!
+    $playerUUID: String!
+  ) {
+    onJoiningPlayerToGame(
+      gameCode: $gameCode
+      playerUUID: $playerUUID
+    ) {
+      UUID
+      gameCode
+      name
     }
   }
 `;

@@ -3,18 +3,18 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import {
-  Avatar, Dialog, DialogActions, DialogContent, DialogTitle,
-  Grid, LinearProgress, ListItem, ListItemAvatar, ListItemText, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle,
+  Grid, LinearProgress, TextField,
 } from '@material-ui/core';
 import {
-  Face as FaceIcon,
   AccountCircle as AccountCircleIcon,
 } from '@material-ui/icons';
 
+import StartTestPage from './StartTestPage';
+
 import { ACTIVATED_GAME_BY_CODE, JOIN_PLAYER_TO_GAME } from './graphql';
 
-import { CustomTypography } from '../styles';
-import { Container, Button, TextTypography } from './styles';
+import { Container, Button } from './styles';
 
 const LoginForGame = () => {
   const history = useHistory();
@@ -24,18 +24,18 @@ const LoginForGame = () => {
 
   const playerLS = JSON.parse(localStorage.getItem('player')) || {};
   const isAdminLS = JSON.parse(localStorage.getItem('isAdmin')) || false;
-  const validateTestUUID = (urlCODE === playerLS.CODE) && isAdminLS && playerLS.isAdmin;
+  const validate = (urlCODE === playerLS.CODE) && isAdminLS && playerLS.isAdmin;
 
-  const [ isAdmin, setPlayer ] = useState(validateTestUUID);
-  const { loading, data, refetch } = useQuery(ACTIVATED_GAME_BY_CODE(urlCODE));
-  const [ joinPlayer ] = useMutation(JOIN_PLAYER_TO_GAME);
+  const [newPlayer, setNewPlayer] = useState(null);
+  const [name, setName] = useState(playerLS.name || '');
+  const [open, setOpen] = useState(!playerLS.name && true);
+  const [isAdmin, setPlayer] = useState(validate);
+  const {loading, data, refetch} = useQuery(ACTIVATED_GAME_BY_CODE(urlCODE));
+  const [joinPlayer] = useMutation(JOIN_PLAYER_TO_GAME);
 
-  const [ name, setName ] = useState(playerLS.name || '');
-  const [ open, setOpen ] = useState(!playerLS.name && true);
+  useEffect(() => setPlayer(validate), [isAdmin, validate]);
 
-  useEffect(() => setPlayer(validateTestUUID), [isAdmin, validateTestUUID]);
-
-  const handleStart = () => {
+  const handleNext = () => {
     joinPlayer({
       variables: {
         gameCode: urlCODE,
@@ -49,10 +49,11 @@ const LoginForGame = () => {
         CODE: data.data.joinPlayerToGame.game.CODE,
       };
 
+      setNewPlayer(player);
       localStorage.setItem('player', JSON.stringify(player));
       toast(`You entered the game by name ${name}`);
       history.replace({ ...history.location, state: { isAdmin: false } });
-      refetch ();
+      refetch();
     });
 
     setOpen(false);
@@ -77,7 +78,7 @@ const LoginForGame = () => {
         >
           <form onSubmit={(e) => {
             e.preventDefault();
-            handleStart(e);
+            handleNext(e);
           }}>
             <DialogTitle>
               In the future, you can see your name in the pivot table.
@@ -118,39 +119,22 @@ const LoginForGame = () => {
             </DialogActions>
           </form>
         </Dialog>
-        <CustomTypography  variant="h5" gutterBottom >
-          Test: {data && data.activatedGameByCode.test.name}
-        </CustomTypography>
-        <TextTypography>
-          Please wait until the Administrator (Test Creator) launches the game.
-        </TextTypography>
-        <Button
-          variant="contained"
-          color="primary"
-          type="button"
-          disabled={!isAdmin}
-        >
-          Start
-        </Button>
-        {data
-        && data.activatedGameByCode
-        && data.activatedGameByCode.players
-        && data.activatedGameByCode.players.map(({ name }, index) => (
-          <ListItem
-            key={name + index}
-            style={playerLS.name === name ? {background: 'lightgray', borderRadius: '10px'} : {}}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <FaceIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={name ? name : 'incognito'}
-              secondary={playerLS.name === name ? '^^^ Your name ^^^': ''}
+        {
+          !open
+          && playerLS.name
+          && data
+          && data.activatedGameByCode
+          && data.activatedGameByCode.players
+          && (
+            <StartTestPage
+              data={data}
+              urlCODE={urlCODE}
+              playerLS={playerLS}
+              isAdmin={isAdmin}
+              newPlayer={newPlayer}
             />
-          </ListItem>
-        ))}
+          )
+        }
       </Container>
     </>
   );
