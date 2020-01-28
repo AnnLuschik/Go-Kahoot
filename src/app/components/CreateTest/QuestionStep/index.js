@@ -47,11 +47,11 @@ const QuestionStep = ({ testUUID, handleNext }) => {
 
   const handleAddAnswer = () => {
     changeAnswers([
+      ...answers,
       {
         text: '',
         sequential: 0,
       },
-      ...answers,
     ]);
   };
 

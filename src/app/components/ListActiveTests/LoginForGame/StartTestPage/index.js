@@ -32,14 +32,14 @@ const StartTestPage = ({
     }
   });
   const [players, addPlayer] = useState(
-    newPlayer
-      ? [...dataPlayers, newPlayer]
+    newPlayer && !isAdmin
+      ? [newPlayer, ...dataPlayers]
       : [...dataPlayers]
   );
 
   useEffect(() => {
     if (!subLoading && subData) {
-      addPlayer([...players, subData.onJoiningPlayerToGame]);
+      addPlayer([subData.onJoiningPlayerToGame, ...players]);
     }
   }, [subLoading, subData]);
 
@@ -51,6 +51,9 @@ const StartTestPage = ({
         </CustomTypography>
         <TextTypography>
           Please wait until the Administrator (Test Creator) launches the game.
+        </TextTypography>
+        <TextTypography>
+          Number of people: {players.length}
         </TextTypography>
         <Button
           variant="contained"

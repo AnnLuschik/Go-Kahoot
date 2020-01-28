@@ -41,7 +41,7 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
     ]);
   };
 
-  const saveQuestion = () => {
+  const saveQuestion = (e, index = undefined) => {
     const resultAnswers = answers.map(({ sequential, text, ID, imgURL }) => {
       return {
         ID,
@@ -56,7 +56,7 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
         input: [{
           UUID: question.UUID,
           text,
-          rightAnswer: rightAnswer,
+          rightAnswer: typeof index === 'number' ? index : rightAnswer,
           answers: [...resultAnswers]
         }],
       }
@@ -68,7 +68,7 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
 
   const handleChangeCheckbox = (index) => () => {
     changeRightAnswer(index);
-    saveQuestion();
+    saveQuestion(index, index);
   };
 
   if (updating) {
