@@ -20,7 +20,7 @@ import LoginForGame from './components/ListActiveTests/LoginForGame';
 const httpLink = new HttpLink({ uri: 'https://api-gokahoot.herokuapp.com/query' });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://api-gokahoot.herokuapp.com/query',
+  uri: 'wss://api-gokahoot.herokuapp.com/query',
   options: {
     reconnect: true,
   }
