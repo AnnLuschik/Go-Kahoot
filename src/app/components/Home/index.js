@@ -59,7 +59,7 @@ const Home = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap >
-            Kahoot
+            Go-Kahoot
           </Typography>
         </Toolbar>
       </AppBar>
