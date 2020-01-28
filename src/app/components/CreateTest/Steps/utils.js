@@ -6,13 +6,13 @@ import QuestionStep from '../QuestionStep';
 import ValidateQuestionStep from '../ValidateQuestionStep';
 
 export const getStepContent = (
-  stepIndex, ID, setID, handleBack, handleNext, handleReset,
+  stepIndex, ID, setID, UUID, setUUID, handleBack, handleNext, handleReset,
 ) => {
   switch (stepIndex) {
     case 0:
-      return <TestStep setID={setID} handleNext={handleNext} />;
+      return <TestStep setID={setID} setUUID={setUUID} handleNext={handleNext} />;
     case 1:
-      return <QuestionStep testID={ID} handleNext={handleNext} />;
+      return <QuestionStep testID={ID} testUUID={UUID} handleNext={handleNext} />;
     case 2:
       return <ValidateQuestionStep testID={ID} handleBack={handleBack} handleNext={handleNext}/>;
     case 3:

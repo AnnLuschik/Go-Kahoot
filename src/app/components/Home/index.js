@@ -7,6 +7,7 @@ import {
   ListItemText, IconButton, ListItemIcon,
 } from '@material-ui/core';
 import {
+  Shop as ShopIcon,
   Home as HomeIcon,
   Menu as MenuIcon,
   Info as InfoIcon,
@@ -110,7 +111,15 @@ const Home = ({ children }) => {
               <ListItemIcon>
                 <FindInPageIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Edit Test" />
+              <ListItemText primary="List of Tests" />
+            </ListItem>
+          </Link>
+          <Link to='/activetests' >
+            <ListItem button >
+              <ListItemIcon>
+                <ShopIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="List of Active Tests" />
             </ListItem>
           </Link>
         </List>

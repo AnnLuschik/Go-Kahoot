@@ -2,13 +2,13 @@ import gql from "graphql-tag";
 
 export const CREATE_NEW_QUESTION = gql`
   mutation createNewQuestion(
-    $testID: Int!
+    $testUUID: String!
     $text: String!
     $rightAnswer: Int!
     $answers: [InputAnswer!]!
   ) {
     createNewQuestion(input: {
-      testID: $testID
+      testUUID: $testUUID
       text: $text
       rightAnswer: $rightAnswer
       answers: $answers

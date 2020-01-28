@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import {
-  Button as MUIButton, Typography as MUITypography,
-} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {
+  Button as MUIButton,
+  Typography as MUITypography,
+} from '@material-ui/core';
 
 export const Container = styled.div`
   display: flex;

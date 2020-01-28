@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
+import { toast } from "react-toastify";
 import { IconButton } from '@material-ui/core';
+import { useMutation } from '@apollo/react-hooks';
+import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 
 import UpdateAnswer from './EditAnswer';
 
 import { UPDATE_QUESTIONS_BY_UUID } from './graphql';
 
+import { CustomTypography } from "../styles";
 import {
   Checkbox, TextField, Container, ContainerQuestions, ContainerAnswers,
 } from './styles';
-import { CustomTypography } from "../styles";
-import {toast} from "react-toastify";
 
 const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
   const [ rightAnswer, changeRightAnswer ] = useState(question.rightAnswer);

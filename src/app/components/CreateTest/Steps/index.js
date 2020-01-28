@@ -13,6 +13,7 @@ const Steps = () => {
   const classes = useStyles();
 
   const [ID, setID] = useState(0);
+  const [UUID, setUUID] = useState('');
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -48,7 +49,7 @@ const Steps = () => {
           </div>
         ) : (
           <div>
-            {getStepContent(activeStep, ID, setID, handleBack, handleNext, handleReset)}
+            {getStepContent(activeStep, ID, setID, UUID, setUUID, handleBack, handleNext, handleReset)}
           </div>
         )}
       </div>

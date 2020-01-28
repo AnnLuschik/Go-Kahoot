@@ -1,6 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   LinearProgress, List, ListItem, ListItemAvatar,
@@ -8,29 +9,45 @@ import {
 } from '@material-ui/core';
 import {
   Delete as DeleteIcon,
-  Visibility as VisibilityIcon,
   PermMedia as PermMediaIcon,
+  Visibility as VisibilityIcon,
+  PlayCircleFilledWhite as PlayCircleFilledWhiteIcon,
 } from '@material-ui/icons';
 
-import { GET_ALL_TESTS, DELETE_TEST } from './graphql';
+import { GET_ALL_TESTS, DELETE_TEST, ACTIVATE_GAME } from './graphql';
 
 import {
-  Container, CustomTypography, Button, ContainerButton,
+  Container, CustomTypography, Button, ContainerButton, ButtonIcon,
 } from './styles';
 
 const AllTests = () => {
+  const history = useHistory();
   const { loading, error, data, refetch } = useQuery(GET_ALL_TESTS);
   const [ deleteTest, { loading: deleting } ] = useMutation(DELETE_TEST);
+  const [ activateGame, { loading: activating } ] = useMutation(ACTIVATE_GAME);
   refetch();
+
+  const handleActivateGame = (UUID) => () => {
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('player');
+
+    activateGame({
+      variables: { testUUID: UUID },
+    }).then( (data) => {
+      toast('Activating Test Successful');
+      localStorage.setItem('isAdmin', true);
+      history.push(`/activetests/${data.data.activateGame.CODE}`, { isAdmin: true });
+    });
+  };
 
   const handleDelete = (id) => () => {
     if (deleting) return;
 
     deleteTest({
-      variables: {id: [id]},
+      variables: { id: [id] },
     }).then( () => {
       toast('Deleting Test Successful');
-      refetch ();
+      refetch();
     });
   };
 
@@ -38,7 +55,7 @@ const AllTests = () => {
 
   return (
     <>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress variant={(loading || activating) ? "indeterminate" : "determinate"} />
       <Container>
         <CustomTypography  variant="h4" gutterBottom >
           List of tests
@@ -65,7 +82,9 @@ const AllTests = () => {
               </ContainerButton>
             </>
           )}
-          {data && data.tests.map(({ID, name, UUID}, index) => (
+          {data
+          && data.tests
+          && data.tests.map(({ID, name, UUID}, index) => (
             <ListItem key={name + ID}>
               <ListItemAvatar>
                 <Avatar>
@@ -74,9 +93,15 @@ const AllTests = () => {
               </ListItemAvatar>
               <ListItemText
                 primary={name ? name : 'incognito'}
-                secondary={UUID}
               />
               <ListItemSecondaryAction>
+                <ButtonIcon
+                  edge="end"
+                  aria-label="delete"
+                  onClick={handleActivateGame(UUID)}
+                >
+                  <PlayCircleFilledWhiteIcon />
+                </ButtonIcon>
                 <Link to={`/tests/${UUID}`}>
                   <IconButton edge="start" aria-label="show" >
                     <VisibilityIcon />

@@ -1,10 +1,10 @@
 import React from 'react';
 import { LinearProgress } from "@material-ui/core";
 
+import { Link } from "../../Home/styles";
 import {
   Container, Button, Typography, ContainerButton,
 } from './styles';
-import { Link } from "../../Home/styles";
 
 const FinishStep = ({ handleReset }) => (
   <Container>

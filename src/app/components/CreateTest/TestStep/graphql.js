@@ -5,7 +5,6 @@ export const CREATE_NEW_TEST = gql`
     createNewTest(input: { name: $name }) {
       ID
       UUID
-      code
       name
     }
   }

@@ -3,10 +3,10 @@ import {
   Card, CardActions, CardContent, Button, Typography,
 } from '@material-ui/core';
 
+import { Link } from "../styles";
 import useStyles, { Container, CustomTypography } from './styles';
-import {Link} from "../styles";
 
-export default function SimpleCard() {
+const HomePage = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -99,4 +99,6 @@ export default function SimpleCard() {
       </Container>
     </>
   );
-}
+};
+
+export default HomePage;

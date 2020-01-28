@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+  Fab as MUIFab,
   Button as MUIButton,
   IconButton as MUIIconButton,
   Typography as MUITypography,
@@ -27,4 +28,14 @@ export const ContainerButton = styled.div`
 
 export const ButtonIcon = styled(MUIIconButton)`
   margin-right: 13px;
+`;
+
+export const CustomFab = styled(MUIFab)`
+  margin-left: 20px;
+  transition-duration: 1s;
+  transition-property: transform;
+  &:active {
+    transform: rotate(360deg);
+    transition:  0s;
+  }
 `;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
+import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 import { IconButton, LinearProgress } from '@material-ui/core';
 
 import UpdateQuestion from './EditQuestion';
@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 const UpdateTest = () => {
-  const { location: {pathname } } = useHistory();
+  const { location: { pathname } } = useHistory();
   const urlArray = pathname.split('/');
   const urlUUID = urlArray[urlArray.length - 1];
 

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import {
-  Button as MUIButton, TextField as MUITextField, Checkbox as MUICheckbox, Typography as MUITypography,
+  Button as MUIButton,
+  Checkbox as MUICheckbox,
+  TextField as MUITextField,
+  Typography as MUITypography,
 } from '@material-ui/core';
 
 export const Button = styled(MUIButton)`

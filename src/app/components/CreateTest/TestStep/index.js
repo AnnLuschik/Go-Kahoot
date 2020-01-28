@@ -9,11 +9,12 @@ import {
   Button, TextField, Typography, Container,
 } from './styles';
 
-const TestStep = ({ setID, handleNext }) => {
+const TestStep = ({ setID, handleNext, setUUID }) => {
   const [ createNewTest, { loading, error } ] = useMutation(CREATE_NEW_TEST);
 
-  const showToast = ({ data : { createNewTest: { name, ID } } }) => {
+  const showToast = ({ data, data : { createNewTest: { name, ID, UUID } } }) => {
     toast(`Create ${name} Successful`);
+    setUUID(UUID);
     setID(ID);
     handleNext();
   };

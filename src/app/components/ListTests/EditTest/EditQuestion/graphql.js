@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const UPDATE_QUESTIONS_BY_UUID = gql`
   mutation updateQuestionsByUUIDs (

@@ -6,7 +6,6 @@ export const GET_TEST_BY_UUID = (urlUUID) => gql`
       ID
       UUID
       name
-      code
       questions {
         ID
         UUID

@@ -11,10 +11,10 @@ import {
   ContainerAnswers, Container, Typography, ButtonAnswer,
 } from './styles';
 
-const QuestionStep = ({ testID, handleNext }) => {
+const QuestionStep = ({ testUUID, handleNext }) => {
   const [ question, changeQuestion ] = useState({
     text: '',
-    testID: testID,
+    testUUID: testUUID,
     rightAnswer: 0,
   });
   const [ answers, changeAnswers ] = useState([]);
@@ -110,13 +110,13 @@ const QuestionStep = ({ testID, handleNext }) => {
           Add Answer
         </ButtonAnswer>
         <ContainerAnswers>
-          {answers.map((elem, index) => (
+          {answers.map(({ text }, index) => (
               <ContainerAnswer key={index} >
                 <TextFieldAnswers
                   type='text'
                   label="Answer"
                   variant="outlined"
-                  value={elem.text}
+                  value={text}
                   onChange={handleChangeAnswerInput(index)}
                 />
                 <Checkbox

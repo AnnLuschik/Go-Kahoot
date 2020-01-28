@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {
-  Button as MUIButton, Typography as MUITypography,
+  Button as MUIButton,
+  Typography as MUITypography,
 } from '@material-ui/core';
 
 export const Container = styled.div`

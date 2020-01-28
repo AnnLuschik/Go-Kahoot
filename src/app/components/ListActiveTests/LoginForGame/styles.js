@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {
   Button as MUIButton,
-  IconButton as MUIIconButton,
   Typography as MUITypography,
 } from '@material-ui/core';
 
@@ -16,15 +15,12 @@ export const CustomTypography = styled(MUITypography)`
 `;
 
 export const Button = styled(MUIButton)`
+  display: block;
   height: 54px;
-  margin: 0 10px;
+  width: 100px;
+  margin: 0 auto 20px;
 `;
 
-export const ContainerButton = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-export const ButtonIcon = styled(MUIIconButton)`
-  margin-right: 13px;
+export const TextTypography = styled.div`
+  margin-bottom: 25px;
 `;

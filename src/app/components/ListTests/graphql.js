@@ -1,11 +1,10 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const GET_ALL_TESTS = gql`
   query {
     tests {
       ID
       UUID
-      code
       name
       questions {
         ID
@@ -25,6 +24,39 @@ export const GET_ALL_TESTS = gql`
 
 export const DELETE_TEST = gql`
   mutation deleteTestByID($id: [Int!]!) {
-    deleteTestByID(id: $id)
+    deleteTestByID(id: $id) {
+      success
+    }
+  }
+`;
+
+export const ACTIVATE_GAME = gql`
+  mutation activateGame($testUUID: String!) {
+    activateGame(testUUID: $testUUID) {
+      CODE
+      players {
+        UUID
+        name
+      }
+      test {
+        ID
+        UUID
+        name
+        questions {
+          ID
+          UUID
+          testID
+          text
+          imgURL
+          rightAnswer
+          answers {
+            ID
+            text
+            sequential
+            imgURL
+          }
+        }
+      }
+    }
   }
 `;
