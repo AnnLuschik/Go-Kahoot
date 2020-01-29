@@ -22,17 +22,25 @@ const LoginForGame = () => {
   const urlArray = pathname.split('/');
   const urlCODE = urlArray[urlArray.length - 1];
 
-  const playerLS = JSON.parse(localStorage.getItem('player')) || {};
-  const isAdminLS = JSON.parse(localStorage.getItem('isAdmin')) || false;
-  const validate = (urlCODE === playerLS.CODE) && isAdminLS && playerLS.isAdmin;
-
-  const [newPlayer, setNewPlayer] = useState(null);
-  const [name, setName] = useState(playerLS.name || '');
-  const [open, setOpen] = useState(!playerLS.name && true);
-  const [isAdmin, setPlayer] = useState(validate);
   const {loading, data, refetch} = useQuery(ACTIVATED_GAME_BY_CODE(urlCODE));
   const [joinPlayer] = useMutation(JOIN_PLAYER_TO_GAME);
 
+  const playersUUIDs = data
+    && data.activatedGameByCode
+    && data.activatedGameByCode.players
+    && data.activatedGameByCode.players.map(({ UUID }) => UUID)
+    || [];
+  const playersLS = playersUUIDs.map((str) => {
+    return JSON.parse(localStorage.getItem(`player:${str}`));
+  }).filter(player => (player && player.CODE) === urlCODE)[0];
+  const isAdminLS = JSON.parse(localStorage.getItem(`isAdmin:${urlCODE}`)) || false;
+  const validate = isAdminLS;
+
+  const [name, setName] = useState(playersLS && playersLS.name || '');
+  const [open, setOpen] = useState(true);
+  const [isAdmin, setPlayer] = useState(playersLS && playersLS.isAdmin || false);
+
+  useEffect(() => setOpen(!playersLS), [playersLS]);
   useEffect(() => setPlayer(validate), [isAdmin, validate]);
 
   const handleNext = () => {
@@ -44,15 +52,13 @@ const LoginForGame = () => {
     }).then( (data) => {
       const player = {
         UUID: data.data.joinPlayerToGame.UUID,
-        name: name,
+        name: data.data.joinPlayerToGame.name,
         isAdmin: isAdminLS,
         CODE: data.data.joinPlayerToGame.game.CODE,
       };
 
-      setNewPlayer(player);
-      localStorage.setItem('player', JSON.stringify(player));
-      toast(`You entered the game by name ${name}`);
-      history.replace({ ...history.location, state: { isAdmin: false } });
+      localStorage.setItem(`player:${data.data.joinPlayerToGame.UUID}`, JSON.stringify(player));
+      toast(`You entered the game by name '${name}'`);
       refetch();
     });
 
@@ -121,7 +127,7 @@ const LoginForGame = () => {
         </Dialog>
         {
           !open
-          && playerLS.name
+          && playersLS
           && data
           && data.activatedGameByCode
           && data.activatedGameByCode.players
@@ -129,9 +135,8 @@ const LoginForGame = () => {
             <StartTestPage
               data={data}
               urlCODE={urlCODE}
-              playerLS={playerLS}
+              playerLS={playersLS}
               isAdmin={isAdmin}
-              newPlayer={newPlayer}
             />
           )
         }

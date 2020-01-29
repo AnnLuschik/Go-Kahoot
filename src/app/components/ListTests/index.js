@@ -28,15 +28,12 @@ const AllTests = () => {
   refetch();
 
   const handleActivateGame = (UUID) => () => {
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('player');
-
     activateGame({
       variables: { testUUID: UUID },
     }).then( (data) => {
       toast('Activating Test Successful');
-      localStorage.setItem('isAdmin', true);
-      history.push(`/activetests/${data.data.activateGame.CODE}`, { isAdmin: true });
+      localStorage.setItem(`isAdmin:${data.data.activateGame.CODE}`, 'true');
+      history.push(`/activetests/${data.data.activateGame.CODE}`);
     });
   };
 
@@ -47,6 +44,7 @@ const AllTests = () => {
       variables: { id: [id] },
     }).then( () => {
       toast('Deleting Test Successful');
+      localStorage.removeItem(`isAdmin:${data.data.activateGame.CODE}`);
       refetch();
     });
   };
