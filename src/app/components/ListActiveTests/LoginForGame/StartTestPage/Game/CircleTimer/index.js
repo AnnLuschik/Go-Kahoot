@@ -1,31 +1,24 @@
 import React from 'react';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
-import { Timer, Text, Value } from './styles';
+import { Container } from './styles';
+import "react-circular-progressbar/dist/styles.css";
 
-const renderTime = value => {
-  if (value === 0) {
-    return <Timer>Too late...</Timer>;
-  }
+const CircleTimer = ({startTimeSec, currentTimeSec}) => {
+  const percentLoading = startTimeSec/currentTimeSec;
 
   return (
-    <Timer>
-      <Text>Remaining</Text>
-      <Value>{value}</Value>
-      <Text>seconds</Text>
-    </Timer>
+    <Container>
+      <CircularProgressbar
+        value={currentTimeSec * 100/startTimeSec}
+        text={`${currentTimeSec}s`}
+        styles={buildStyles({
+          textColor: percentLoading > 3 && "red",
+          pathColor: percentLoading > 3 && "red",
+        })}
+      />
+    </Container>
   );
 };
-
-const CircleTimer = ({ time }) => (
-  <CountdownCircleTimer
-    isPlaying
-    durationSeconds={time}
-    size={140}
-    colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
-    renderTime={renderTime}
-    onComplete={() => [true, 0]}
-  />
-);
 
 export default CircleTimer;

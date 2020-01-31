@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {useMutation, useQuery, useSubscription} from '@apollo/react-hooks';
+import { useMutation, useQuery, useSubscription } from '@apollo/react-hooks';
 import { Backdrop, CircularProgress, LinearProgress } from '@material-ui/core';
 
 import CircleTimer from './CircleTimer';
@@ -25,7 +25,8 @@ const StartTestPage = () => {
     currentQuestionUUID: '',
     gameCode: '',
     gameStatusEnum: '',
-    timer: 0,
+    startTimeSec: 0,
+    currentTimeSec: 0,
   });
   const [isAnswered, setAnswer] = useState(null);
   const [isRightAnswer, setRightAnswer] = useState('');
@@ -80,7 +81,10 @@ const StartTestPage = () => {
           {questionData && (
             <>
               <ContainerTimer>
-                <CircleTimer time={5} />
+                <CircleTimer
+                  startTimeSec={data.startTimeSec}
+                  currentTimeSec={data.currentTimeSec}
+                />
               </ContainerTimer>
               <WrapperComponent>
                   <CustomTypography  variant="h5" gutterBottom >

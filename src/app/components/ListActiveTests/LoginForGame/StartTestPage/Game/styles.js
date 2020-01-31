@@ -7,11 +7,10 @@ import {
 export const CustomTypography = styled(MUITypography)`
   margin: 45px 0;
   font-weight: bold;
-  padding: 30px;
+  padding: 40px;
+  border-radius: 5px;
   text-align: center;
-  background: #e8e8e8;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px 2px rgba(128,128,128,.5), inset 2px 2px 3px -1px rgba(128,128,128,.3);
+  box-shadow: 0px 0px 5px 0px rgba(128,128,128,.5);
   font-family: 'Comfortaa', cursive !important;
 `;
 
@@ -25,8 +24,8 @@ export const ButtonAnswer = styled(MUIButton)`
   margin-bottom: 10px;
   width: 49%;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 1px 1px 6px 2px rgba(128,128,128,.5);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 1px rgba(128,128,128,.3);
   text-transform: none;
   border: 1px solid #c2c2c2;
   justify-content: flex-start;
@@ -54,7 +53,7 @@ export const ContainerAnswers = styled.div`
 
 export const ContainerTimer = styled.div`
   position: absolute;
-  margin: 10px;
+  margin: 10px 10px 10px 30px;
 `;
 
 export const WrapperComponent = styled.div`

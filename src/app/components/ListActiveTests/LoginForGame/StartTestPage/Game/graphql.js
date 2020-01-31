@@ -9,7 +9,8 @@ export const ONPLAYING_GAME = gql`
       gameCode: $gameCode
       playerUUID: $playerUUID
     ) {
-      timer
+      startTimeSec
+      currentTimeSec
       gameCode
       currentQuestionUUID
       gameStatusEnum
