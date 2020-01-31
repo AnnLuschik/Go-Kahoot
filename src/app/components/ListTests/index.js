@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import TextTruncate from "react-text-truncate";
+import TextTruncate from 'react-text-truncate';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   LinearProgress, List, ListItem, ListItemAvatar,
@@ -18,7 +18,7 @@ import {
 
 import { GET_ALL_TESTS, DELETE_TEST, ACTIVATE_GAME } from './graphql';
 
-import { CustomFab } from "../ListActiveTests/styles";
+import { CustomFab } from '../ListActiveTests/styles';
 import {
   Container, CustomTypography, Button, ContainerButton, ButtonIcon, ListItemText,
 } from './styles';

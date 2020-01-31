@@ -10,8 +10,8 @@ import { ONPLAYING_GAME, QUESTION_BY_UUID, ANSWER_QUESTION_DY_UUID } from './gra
 import { ALPHABET } from './constants';
 
 import {
-  CustomTypography, ButtonAnswer,
-  ContainerAnswers, ContainerTimer, Wrapper, WrapperComponent,
+  CustomTypography, ButtonAnswer, ContainerAnswers,
+  ContainerTimer, Wrapper, WrapperComponent,
 } from './styles';
 
 const StartTestPage = () => {

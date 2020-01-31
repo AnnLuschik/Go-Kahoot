@@ -1,5 +1,5 @@
 import React from 'react';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import TextTruncate from 'react-text-truncate';
 import { Link, useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';

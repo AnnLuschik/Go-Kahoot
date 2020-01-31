@@ -13,7 +13,7 @@ import { desc, stableSort, getSorting, createData } from './utils';
 import { HEAD_CELLS } from './constants';
 
 import useStyles from './styles';
-import {Wrapper} from "../styles";
+import { Wrapper } from '../styles';
 
 
 const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {

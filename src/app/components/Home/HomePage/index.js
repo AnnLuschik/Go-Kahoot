@@ -3,7 +3,7 @@ import {
   Card, CardActions, CardContent, Button, Typography,
 } from '@material-ui/core';
 
-import { Link } from "../styles";
+import { Link } from '../styles';
 import useStyles, { Container, CustomTypography } from './styles';
 
 const HomePage = () => {

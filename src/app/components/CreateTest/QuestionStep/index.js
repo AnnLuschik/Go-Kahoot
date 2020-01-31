@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/react-hooks';
 import { Delete as DeleteIcon } from '@material-ui/icons';
-import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
+import { IconButton, LinearProgress, Tooltip } from '@material-ui/core';
 
 import { CREATE_NEW_QUESTION } from './graphql';
 

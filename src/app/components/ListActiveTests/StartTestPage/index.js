@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import TextTruncate from 'react-text-truncate';
 import { useMutation, useSubscription } from '@apollo/react-hooks';
 import {
@@ -10,14 +10,14 @@ import {
   Cancel as CancelIcon,
 } from '@material-ui/icons';
 
-import { ONWAIT_FOR_JOINING_PLAYER_TO_GAME } from '../graphql';
+import { ONWAIT_FOR_JOINING_PLAYER_TO_GAME } from '../LoginForGame/graphql';
 import {
   DELETE_PLAYER_FROM_GAME, ONDELETE_PLAYER_FROM_GAME,
   ONWAIT_FOR_STARTING_GAME, START_GAME_BY_CODE,
 } from './graphql';
 
 import {
-  CustomTypography, Container, Button, TextTypography, ListItem, ContainerListItem, ContainerText,
+  CustomTypography, Container, Button, TextTypography, ListItem, ContainerListItem,
 } from './styles';
 
 const StartTestPage = ({

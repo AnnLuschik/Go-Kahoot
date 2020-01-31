@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { useMutation } from '@apollo/react-hooks';
 import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 
-import UpdateAnswer from './EditAnswer';
+import UpdateAnswer from '../EditAnswer';
 
 import { UPDATE_QUESTIONS_BY_UUID } from './graphql';
 
-import { CustomTypography } from '../styles';
+import { CustomTypography } from '../EditTest/styles';
 import {
   Checkbox, TextField, Container, ContainerQuestions, ContainerAnswers,
 } from './styles';

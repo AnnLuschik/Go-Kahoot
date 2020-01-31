@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 import { IconButton, LinearProgress, Tooltip } from '@material-ui/core';
 
-import UpdateQuestion from './EditQuestion';
+import UpdateQuestion from '../EditQuestion';
 
 import { GET_TEST_BY_UUID, UPDATE_TEST_BY_UUID } from './graphql';
 

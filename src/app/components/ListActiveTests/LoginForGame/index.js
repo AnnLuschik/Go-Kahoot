@@ -10,7 +10,7 @@ import {
   AccountCircle as AccountCircleIcon,
 } from '@material-ui/icons';
 
-import StartTestPage from './StartTestPage';
+import StartTestPage from '../StartTestPage';
 
 import { ACTIVATED_GAME_BY_CODE, JOIN_PLAYER_TO_GAME } from './graphql';
 

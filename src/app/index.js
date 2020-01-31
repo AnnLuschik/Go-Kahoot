@@ -16,8 +16,8 @@ import HomePage from './components/Home/HomePage';
 import EditTest from './components/ListTests/EditTest';
 import ListActiveTests from './components/ListActiveTests';
 import LoginForGame from './components/ListActiveTests/LoginForGame';
-import StartTestPage from './components/ListActiveTests/LoginForGame/StartTestPage/Game';
-import EnhancedTable from './components/ListActiveTests/LoginForGame/StartTestPage/Game/FinishTable';
+import StartTestPage from './components/ListActiveTests/Game';
+import EnhancedTable from './components/ListActiveTests/Game/FinishTable';
 
 import { GlobalStyle } from './styles';
 
