@@ -10,7 +10,7 @@ import { ONPLAYING_GAME, QUESTION_BY_UUID, ANSWER_QUESTION_DY_UUID } from './gra
 import { ALPHABET } from './constants';
 
 import {
-  CustomTypography, Container, ButtonAnswer,
+  CustomTypography, ButtonAnswer,
   ContainerAnswers, ContainerTimer, Wrapper, WrapperComponent,
 } from './styles';
 
@@ -42,18 +42,22 @@ const StartTestPage = () => {
 
   const [answeredQuestion] = useMutation(ANSWER_QUESTION_DY_UUID);
 
-  const handleAnsweredQuestion = (index) => (e) => {
+  const handleAnsweredQuestion = (index, ID) => (e) => {
     answeredQuestion({
       variables: {
         playerUUID: urlUUIDPlayer,
         questionUUID: questionData.questionByUUID.UUID,
-        rightAnswer: index,
+        answerID: ID,
       },
     }).then((data) => {
       data.data && setAnswer(index);
       setRightAnswer(questionData.questionByUUID.rightAnswer === index ? 'Yes' : 'No');
       console.log(questionData.questionByUUID.rightAnswer, index);
     });
+  };
+
+  const handleRedirectToFinishPage = () => {
+    history.push(`/activetests/${urlCode}/finishtable`);
   };
 
   useEffect(() => {
@@ -75,44 +79,45 @@ const StartTestPage = () => {
   );
 
   return (
-    <Wrapper>
-      {data.gameStatusEnum !== 'FINISHED' ? (
-        <>
-          {questionData && (
-            <>
-              <ContainerTimer>
-                <CircleTimer
-                  startTimeSec={data.startTimeSec}
-                  currentTimeSec={data.currentTimeSec}
-                />
-              </ContainerTimer>
-              <WrapperComponent>
-                  <CustomTypography  variant="h5" gutterBottom >
-                    {questionData && questionData.questionByUUID.text}
-                  </CustomTypography>
-                  <ContainerAnswers>
-                    {questionData && questionData.questionByUUID.answers.map((answer, index) => (
-                      <ButtonAnswer
-                        variant="outlined"
-                        onClick={handleAnsweredQuestion(index)}
-                        disabled={!(isAnswered === null)}
-                        isRed={isRightAnswer === 'No' && isAnswered === index}
-                        isGreen={isRightAnswer === 'Yes' && isAnswered === index}
-                      >
-                        {`${ALPHABET[index]}) ${answer.text}`}
-                      </ButtonAnswer>
-                    ))}
-                  </ContainerAnswers>
-              </WrapperComponent>
-            </>
-          )}
-        </>
-      ) : (
-        <p>
-          Results: {data.gameStatusEnum}
-        </p>
-      )}
-    </Wrapper>
+    <>
+      <LinearProgress variant={loading ? 'indeterminate': 'determinate'} />
+      <Wrapper>
+        {data.gameStatusEnum !== 'FINISHED' ? (
+          <>
+            {questionData && (
+              <>
+                <ContainerTimer>
+                  <CircleTimer
+                    startTimeSec={data.startTimeSec}
+                    currentTimeSec={data.currentTimeSec}
+                  />
+                </ContainerTimer>
+                <WrapperComponent>
+                    <CustomTypography  variant="h5" gutterBottom >
+                      {questionData && questionData.questionByUUID.text}
+                    </CustomTypography>
+                    <ContainerAnswers>
+                      {questionData && questionData.questionByUUID.answers.map((answer, index) => (
+                        <ButtonAnswer
+                          variant="outlined"
+                          onClick={handleAnsweredQuestion(index, answer.ID)}
+                          disabled={!(isAnswered === null)}
+                          isred={isRightAnswer === 'No' && isAnswered === index}
+                          isgreen={isRightAnswer === 'Yes' && isAnswered === index}
+                        >
+                          {`${ALPHABET[index]}) ${answer.text}`}
+                        </ButtonAnswer>
+                      ))}
+                    </ContainerAnswers>
+                </WrapperComponent>
+              </>
+            )}
+          </>
+        ) : (
+          handleRedirectToFinishPage()
+        )}
+      </Wrapper>
+    </>
   );
 };
 

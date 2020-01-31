@@ -35,9 +35,9 @@ export const ButtonAnswer = styled(MUIButton)`
     background: #d1d1d1;
   }
 
-  ${({ isRed, isGreen }) =>
-    isGreen && 'background: #f2ffeb;'
-    || isRed && 'background: #fff0eb;'
+  ${({ isred, isgreen }) =>
+    isgreen && 'background: #f2ffeb;'
+    || isred && 'background: #fff0eb;'
     || 'background: #f0f0f0;'
   }
 `;

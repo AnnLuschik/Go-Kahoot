@@ -41,12 +41,12 @@ export const ANSWER_QUESTION_DY_UUID = gql`
   mutation answerQuestionByUUID(
     $playerUUID: String!
     $questionUUID: String!
-    $rightAnswer: Int!
+    $answerID: Int!
   ) {
     answerQuestionByUUID(
       playerUUID: $playerUUID
       questionUUID: $questionUUID
-      rightAnswer: $rightAnswer
+      answerID: $answerID
     )
   }
 `;
