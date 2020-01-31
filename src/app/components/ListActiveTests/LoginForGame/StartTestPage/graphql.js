@@ -14,6 +14,41 @@ export const DELETE_PLAYER_FROM_GAME = gql`
   }
 `;
 
+export const START_GAME_BY_CODE = gql`
+  mutation startGameByCode(
+    $code: String!
+  ) {
+    startGameByCode(
+      code: $code
+    ) {
+      test {
+        ID
+        UUID
+        name
+        questions {
+          ID
+          UUID
+          testID
+          text
+          imgURL
+          rightAnswer
+          answers {
+            ID
+            text
+            sequential
+            imgURL
+          }
+        }
+      }
+      CODE
+      players {
+        name
+        UUID
+      }
+    }
+  }
+`;
+
 export const ONDELETE_PLAYER_FROM_GAME = gql`
   subscription onDeletePlayerFromGame(
     $gameCode: String!
@@ -26,6 +61,20 @@ export const ONDELETE_PLAYER_FROM_GAME = gql`
       UUID
       gameCode
       name
+    }
+  }
+`;
+
+export const ONWAIT_FOR_STARTING_GAME = gql`
+  subscription onWaitForStartingGame(
+    $gameCode: String!
+    $playerUUID: String!
+  ) {
+    onWaitForStartingGame(
+      gameCode: $gameCode
+      playerUUID: $playerUUID
+    ) {
+      gameCode
     }
   }
 `;

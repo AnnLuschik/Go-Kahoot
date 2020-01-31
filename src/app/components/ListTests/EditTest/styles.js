@@ -8,17 +8,17 @@ import {
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 700px;
-  margin: 10px auto;
+  max-width: 900px;
+  margin: 5px auto;
 `;
 
 export const CustomTypography = styled(MUITypography)`
-  margin: 25px 0;
+  margin: 15px 0;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 `;
 
 export const Button = styled(MUIButton)`
-  height: 54px;
   margin: 0 10px;
 `;
 
@@ -31,6 +31,7 @@ export const TestTextField = styled(MUITextField)`
 export const ContainerQuestions = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 700px;
-  margin: 10px auto;
+  max-width: 900px;
+  width: 100%;
+  margin: 5px auto;
 `;

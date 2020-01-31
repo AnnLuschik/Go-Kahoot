@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { useMutation } from '@apollo/react-hooks';
 import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 
@@ -8,7 +8,7 @@ import UpdateAnswer from './EditAnswer';
 
 import { UPDATE_QUESTIONS_BY_UUID } from './graphql';
 
-import { CustomTypography } from "../styles";
+import { CustomTypography } from '../styles';
 import {
   Checkbox, TextField, Container, ContainerQuestions, ContainerAnswers,
 } from './styles';
@@ -90,21 +90,25 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
             onChange={handleChangeInput}
           />
           {isDisabledField ? (
-            <IconButton
-              edge="end"
-              aria-label="edit"
-              onClick={handleEditQuestion}
-            >
-              <EditIcon />
-            </IconButton>
+            <Tooltip title="Edit question text">
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                onClick={handleEditQuestion}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
           ) : (
-            <IconButton
-              edge="end"
-              aria-label="save"
-              onClick={saveQuestion}
-            >
-              <SaveIcon />
-            </IconButton>
+            <Tooltip title="Save question text">
+              <IconButton
+                edge="end"
+                aria-label="save"
+                onClick={saveQuestion}
+              >
+                <SaveIcon />
+              </IconButton>
+            </Tooltip>
           )}
         </ContainerQuestions>
         <CustomTypography variant="h6">
@@ -123,12 +127,14 @@ const UpdateQuestion = ({ question, UUID, setUpdatingQuestions }) => {
               handleEditAnswers={handleEditAnswers}
               saveQuestion={saveQuestion}
             />
-            <Checkbox
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              checked={index === rightAnswer}
-              onChange={handleChangeCheckbox(index)}
-            />
+            <Tooltip title="Choose the correct answer">
+              <Checkbox
+                color="primary"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                checked={index === rightAnswer}
+                onChange={handleChangeCheckbox(index)}
+              />
+            </Tooltip>
           </ContainerAnswers>
         ))}
       </div>

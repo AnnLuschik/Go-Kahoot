@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
 
 import { TextField } from './styles';
@@ -26,21 +26,25 @@ const UpdateAnswer = ({ handleEditAnswers, text, saveQuestion, id }) => {
         onChange={handleEditAnswers(id)}
       />
       {isDisabledField ? (
-        <IconButton
-          edge="end"
-          aria-label="edit"
-          onClick={handleEditQuestion}
-        >
-          <EditIcon />
-        </IconButton>
+        <Tooltip title="Edit answer text">
+          <IconButton
+            edge="end"
+            aria-label="edit"
+            onClick={handleEditQuestion}
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
       ) : (
-        <IconButton
-          edge="end"
-          aria-label="save"
-          onClick={handleSave}
-        >
-          <SaveIcon />
-        </IconButton>
+        <Tooltip title="Save answer text">
+          <IconButton
+            edge="end"
+            aria-label="save"
+            onClick={handleSave}
+          >
+            <SaveIcon />
+          </IconButton>
+        </Tooltip>
       )}
     </div>
   );

@@ -16,6 +16,9 @@ import HomePage from './components/Home/HomePage';
 import EditTest from './components/ListTests/EditTest';
 import ListActiveTests from './components/ListActiveTests';
 import LoginForGame from './components/ListActiveTests/LoginForGame';
+import StartTestPage from './components/ListActiveTests/LoginForGame/StartTestPage/Game';
+
+import { GlobalStyle } from './styles';
 
 const httpLink = new HttpLink({ uri: 'https://api-gokahoot.herokuapp.com/query' });
 
@@ -54,7 +57,9 @@ const App = () => (
               <Route exact path='/tests/:UUID' component={ EditTest } />
               <Route exact path='/activetests' component={ ListActiveTests } />
               <Route exact path='/activetests/:CODE' component={ LoginForGame } />
+              <Route exact path='/activetests/:CODE/game/:UUID' component={ StartTestPage } />
             </Switch>
+            <GlobalStyle />
           </Home>
         </BrowserRouter>
     </ApolloProvider>

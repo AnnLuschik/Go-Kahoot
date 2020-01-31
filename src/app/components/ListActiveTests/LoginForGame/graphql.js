@@ -72,12 +72,12 @@ export const JOIN_PLAYER_TO_GAME = gql`
   }
 `;
 
-export const ONJOINING_PLAYER_TO_GAME = gql`
-  subscription onJoiningPlayerToGame(
+export const ONWAIT_FOR_JOINING_PLAYER_TO_GAME = gql`
+  subscription onWaitForJoiningPlayerToGame(
     $gameCode: String!
     $playerUUID: String!
   ) {
-    onJoiningPlayerToGame(
+    onWaitForJoiningPlayerToGame(
       gameCode: $gameCode
       playerUUID: $playerUUID
     ) {

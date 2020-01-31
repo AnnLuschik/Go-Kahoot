@@ -4,13 +4,12 @@ import {
 } from '@material-ui/core';
 
 export const Container = styled.div`
-  max-width: 700px;
+  max-width: 1400px;
+  width: 100%;
   margin: auto;
 `;
 
 export const Button = styled(MUIButton)`
   display: block;
-  height: 54px;
-  width: 100px;
   margin: 0 auto 20px;
 `;

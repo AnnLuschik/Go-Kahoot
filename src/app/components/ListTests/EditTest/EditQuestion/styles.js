@@ -13,19 +13,19 @@ export const TextField = styled(MUITextField)`
 
 export const Container = styled.div`
   width: 100%;
-  margin-bottom: 30px;
-  padding: 15px 0 0 20px;
+  margin-bottom: 20px;
+  padding: 10px 0 0 10px;
   border: 1px solid gray;
   border-radius: 5px;
 `;
 
 export const ContainerQuestions = styled.div`
-  margin: 10px 0 30px;
+  margin: 5px 0;
 `;
 
 export const ContainerAnswers = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0 20px;
+  margin: 5px 0 15px;
   width: 85%;
 `;

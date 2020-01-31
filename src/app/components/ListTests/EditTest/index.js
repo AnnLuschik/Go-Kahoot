@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
-import { IconButton, LinearProgress } from '@material-ui/core';
+import { IconButton, LinearProgress, Tooltip } from '@material-ui/core';
 
 import UpdateQuestion from './EditQuestion';
 
@@ -70,21 +70,29 @@ const UpdateTest = () => {
           onChange={handleChangeInput}
         />
         {isDisabledField ? (
-          <IconButton
-            edge="end"
-            aria-label="edit"
-            onClick={handleEditTest}
-          >
-            <EditIcon />
-          </IconButton>
+          <div>
+            <Tooltip title="Edit test name">
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                onClick={handleEditTest}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
         ) : (
-          <IconButton
-            edge="end"
-            aria-label="save"
-            onClick={saveTest}
-          >
-            <SaveIcon />
-          </IconButton>
+          <div>
+            <Tooltip title="Save test name">
+              <IconButton
+                edge="end"
+                aria-label="save"
+                onClick={saveTest}
+              >
+                <SaveIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
         )}
       </Container>
       <CustomTypography variant="h5">

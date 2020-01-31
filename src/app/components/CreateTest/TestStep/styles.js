@@ -11,8 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled(MUIButton)`
-  width: 100px;
-  height: 54px;
+  padding: 0 20px;
   margin-left: 20px;
 `;
 
@@ -21,6 +20,7 @@ export const TextField = styled(MUITextField)`
 `;
 
 export const Typography = styled(MUITypography)`
-  margin: 40px 0;
+  margin: 15px 0;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 `;

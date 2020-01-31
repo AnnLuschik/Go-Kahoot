@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/react-hooks';
 import { Delete as DeleteIcon } from '@material-ui/icons';
-import { IconButton, LinearProgress } from "@material-ui/core";
+import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 
 import { CREATE_NEW_QUESTION } from './graphql';
 
@@ -98,9 +98,6 @@ const QuestionStep = ({ testUUID, handleNext }) => {
             Next
           </Button>
         </Container>
-        <Typography variant="h4" gutterBottom>
-          Create Answers
-        </Typography>
         <ButtonAnswer
           variant="contained"
           color="primary"
@@ -119,20 +116,24 @@ const QuestionStep = ({ testUUID, handleNext }) => {
                   value={text}
                   onChange={handleChangeAnswerInput(index)}
                 />
-                <Checkbox
-                  color="primary"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  checked={index === question.rightAnswer}
-                  onChange={handleChangeCheckbox(index)}
-                />
-                <IconButton
-                  aria-label="delete"
-                  onClick={handleDeleteAnswer(index)}
-                >
-                  <DeleteIcon
-                    fontSize="large"
+                <Tooltip title="Choose the correct answer">
+                  <Checkbox
+                    color="primary"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    checked={index === question.rightAnswer}
+                    onChange={handleChangeCheckbox(index)}
                   />
-                </IconButton>
+                </Tooltip>
+                <Tooltip title="Delete answer">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={handleDeleteAnswer(index)}
+                  >
+                    <DeleteIcon
+                      fontSize="large"
+                    />
+                  </IconButton>
+                </Tooltip>
               </ContainerAnswer>
             )
           )}

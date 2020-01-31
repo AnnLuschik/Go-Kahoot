@@ -22,7 +22,7 @@ const LoginForGame = () => {
   const urlArray = pathname.split('/');
   const urlCODE = urlArray[urlArray.length - 1];
 
-  const {loading, data, refetch} = useQuery(ACTIVATED_GAME_BY_CODE(urlCODE));
+  const {loading, error, data, refetch} = useQuery(ACTIVATED_GAME_BY_CODE(urlCODE));
   const [joinPlayer] = useMutation(JOIN_PLAYER_TO_GAME);
 
   const playersUUIDs = data
@@ -72,6 +72,9 @@ const LoginForGame = () => {
   const handleReturn = () => {
     history.goBack();
   };
+
+  if (loading) return <LinearProgress />;
+  if (error) return <p>Error :(</p>;
 
   return (
     <>

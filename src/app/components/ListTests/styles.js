@@ -3,6 +3,7 @@ import {
   Button as MUIButton,
   IconButton as MUIIconButton,
   Typography as MUITypography,
+  ListItemText as MUIListItemText,
 } from '@material-ui/core';
 
 export const Container = styled.div`
@@ -11,12 +12,12 @@ export const Container = styled.div`
 `;
 
 export const CustomTypography = styled(MUITypography)`
-  margin: 40px 0;
+  margin: 15px 0;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 `;
 
 export const Button = styled(MUIButton)`
-  height: 54px;
   margin: 0 10px;
 `;
 
@@ -27,4 +28,8 @@ export const ContainerButton = styled.div`
 
 export const ButtonIcon = styled(MUIIconButton)`
   margin-right: 13px;
+`;
+
+export const ListItemText = styled(MUIListItemText)`
+  padding-right: 120px;
 `;

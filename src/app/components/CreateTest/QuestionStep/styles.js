@@ -7,16 +7,13 @@ import {
 } from '@material-ui/core';
 
 export const Button = styled(MUIButton)`
-  width: 100px;
-  height: 54px;
+  padding: 0 20px;
   margin-left: 20px;
 `;
 
 export const ButtonAnswer = styled(MUIButton)`
   display: block;
-  width: 160px;
-  height: 54px;
-  margin: 0 auto 20px;
+  margin: 20px auto 20px;
 `;
 
 export const TextField = styled(MUITextField)`
@@ -39,7 +36,7 @@ export const ContainerAnswer = styled.div`
 `;
 
 export const ContainerAnswers = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 `;
 
 export const Container = styled.div`
@@ -48,6 +45,7 @@ export const Container = styled.div`
 `;
 
 export const Typography = styled(MUITypography)`
-  margin: 40px 0;
+  margin: 15px 0;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 `;

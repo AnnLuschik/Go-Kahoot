@@ -2,12 +2,14 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import TextTruncate from "react-text-truncate";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   LinearProgress, List, ListItem, ListItemAvatar,
-  ListItemSecondaryAction, ListItemText, Avatar, IconButton,
+  ListItemSecondaryAction, Avatar, IconButton, Tooltip,
 } from '@material-ui/core';
 import {
+  Cached as CachedIcon,
   Delete as DeleteIcon,
   PermMedia as PermMediaIcon,
   Visibility as VisibilityIcon,
@@ -16,8 +18,9 @@ import {
 
 import { GET_ALL_TESTS, DELETE_TEST, ACTIVATE_GAME } from './graphql';
 
+import { CustomFab } from "../ListActiveTests/styles";
 import {
-  Container, CustomTypography, Button, ContainerButton, ButtonIcon,
+  Container, CustomTypography, Button, ContainerButton, ButtonIcon, ListItemText,
 } from './styles';
 
 const AllTests = () => {
@@ -25,7 +28,6 @@ const AllTests = () => {
   const { loading, error, data, refetch } = useQuery(GET_ALL_TESTS);
   const [ deleteTest, { loading: deleting } ] = useMutation(DELETE_TEST);
   const [ activateGame, { loading: activating } ] = useMutation(ACTIVATE_GAME);
-  refetch();
 
   const handleActivateGame = (UUID) => () => {
     activateGame({
@@ -44,11 +46,11 @@ const AllTests = () => {
       variables: { id: [id] },
     }).then( () => {
       toast('Deleting Test Successful');
-      localStorage.removeItem(`isAdmin:${data.data.activateGame.CODE}`);
       refetch();
     });
   };
 
+  if (loading) return <LinearProgress />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -57,6 +59,16 @@ const AllTests = () => {
       <Container>
         <CustomTypography  variant="h4" gutterBottom >
           List of tests
+          <Tooltip title="Reload tests">
+            <CustomFab
+              onClick={() => refetch()}
+              size="medium"
+              color="primary"
+              aria-label="reload"
+            >
+              <CachedIcon />
+            </CustomFab>
+          </Tooltip>
         </CustomTypography>
         <List>
           {data
@@ -90,28 +102,41 @@ const AllTests = () => {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={name ? name : 'incognito'}
+                primary={
+                  <TextTruncate
+                    line={1}
+                    element="div"
+                    truncateText="…"
+                    text={name ? name : 'incognito'}
+                  />
+                }
               />
               <ListItemSecondaryAction>
-                <ButtonIcon
-                  edge="end"
-                  aria-label="delete"
-                  onClick={handleActivateGame(UUID)}
-                >
-                  <PlayCircleFilledWhiteIcon />
-                </ButtonIcon>
+                <Tooltip title="Activate test">
+                  <ButtonIcon
+                    edge="end"
+                    aria-label="activate"
+                    onClick={handleActivateGame(UUID)}
+                  >
+                    <PlayCircleFilledWhiteIcon />
+                  </ButtonIcon>
+                </Tooltip>
                 <Link to={`/tests/${UUID}`}>
-                  <IconButton edge="start" aria-label="show" >
-                    <VisibilityIcon />
-                  </IconButton>
+                  <Tooltip title="Edit test">
+                    <IconButton edge="start" aria-label="show" >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={handleDelete(ID)}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                <Tooltip title="Delete Test">
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={handleDelete(ID)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
               </ListItemSecondaryAction>
             </ListItem>
           ))}

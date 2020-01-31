@@ -15,11 +15,11 @@ export const ContainerButton = styled.div`
 `;
 
 export const Button = styled(MUIButton)`
-  height: 54px;
   margin: 0 10px;
 `;
 
 export const Typography = styled(MUITypography)`
-  margin: 40px 0;
+  margin: 15px 0;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 `;

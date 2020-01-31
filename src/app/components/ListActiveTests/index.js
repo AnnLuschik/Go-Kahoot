@@ -1,10 +1,11 @@
 import React from 'react';
 import { toast } from "react-toastify";
+import TextTruncate from 'react-text-truncate';
 import { Link, useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import {
   LinearProgress, List, ListItem, ListItemAvatar,
-  ListItemSecondaryAction, ListItemText, Avatar, IconButton,
+  ListItemSecondaryAction, Avatar, IconButton, Tooltip,
 } from '@material-ui/core';
 import {
   Cancel as CancelIcon,
@@ -16,7 +17,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 import { ACTIVATED_GAMES, DEACTIVATE_TEST } from './graphql';
 
 import {
-  Container, CustomTypography, Button, ContainerButton, ButtonIcon, CustomFab,
+  Container, CustomTypography, Button, ContainerButton, ButtonIcon, CustomFab, ListItemText,
 } from './styles';
 
 const ActiveTests = () => {
@@ -39,6 +40,7 @@ const ActiveTests = () => {
     history.push(`/activetests/${CODE}`);
   };
 
+  if (loading) return <LinearProgress />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -47,14 +49,16 @@ const ActiveTests = () => {
       <Container>
         <CustomTypography  variant="h4" gutterBottom >
           List of Active Tests
-          <CustomFab
-            onClick={() => refetch()}
-            size="medium"
-            color="primary"
-            aria-label="reload"
-          >
-            <CachedIcon />
-          </CustomFab>
+          <Tooltip title="Reload active tests">
+            <CustomFab
+              onClick={() => refetch()}
+              size="medium"
+              color="primary"
+              aria-label="reload"
+            >
+              <CachedIcon />
+            </CustomFab>
+          </Tooltip>
         </CustomTypography>
         <List>
           {data
@@ -88,23 +92,34 @@ const ActiveTests = () => {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={name ? name : 'incognito'}
+                primary={
+                  <TextTruncate
+                    line={1}
+                    element="div"
+                    truncateText="…"
+                    text={name ? name : 'incognito'}
+                  />
+                }
               />
               <ListItemSecondaryAction>
-                <ButtonIcon
-                  edge="end"
-                  aria-label="join"
-                  onClick={handleJoinGame(CODE)}
-                >
-                  <FlightTakeoffIcon />
-                </ButtonIcon>
-                <IconButton
-                  edge="end"
-                  aria-label="deactivate"
-                  onClick={handleDeactivate(CODE)}
-                >
-                  <CancelIcon />
-                </IconButton>
+                <Tooltip title="Join toward active test">
+                  <ButtonIcon
+                    edge="end"
+                    aria-label="join"
+                    onClick={handleJoinGame(CODE)}
+                  >
+                    <FlightTakeoffIcon />
+                  </ButtonIcon>
+                </Tooltip>
+                <Tooltip title="Deactivate test">
+                  <IconButton
+                    edge="end"
+                    aria-label="deactivate"
+                    onClick={handleDeactivate(CODE)}
+                  >
+                    <CancelIcon />
+                  </IconButton>
+                </Tooltip>
               </ListItemSecondaryAction>
             </ListItem>
           ))}

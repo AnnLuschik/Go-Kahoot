@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { useTheme } from '@material-ui/core/styles';
 import {
   List, Drawer, AppBar, Divider, Toolbar, ListItem, Typography,
-  ListItemText, IconButton, ListItemIcon,
+  ListItemText, IconButton, ListItemIcon, Tooltip,
 } from '@material-ui/core';
 import {
   Shop as ShopIcon,
@@ -46,18 +46,20 @@ const Home = ({ children }) => {
         )}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(
-              classes.menuButton,
-              { [classes.hide]: open },
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Tooltip title="Show menu">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(
+                classes.menuButton,
+                { [classes.hide]: open },
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Tooltip>
           <Typography variant="h6" noWrap >
             Go-Kahoot
           </Typography>
@@ -79,15 +81,17 @@ const Home = ({ children }) => {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {
-              theme.direction === 'rtl'
-                ? <ChevronRightIcon />
-                : <ChevronLeftIcon />
-            }
-          </IconButton>
-        </div>
+        <Tooltip title="Hide menu">
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {
+                theme.direction === 'rtl'
+                  ? <ChevronRightIcon />
+                  : <ChevronLeftIcon />
+              }
+            </IconButton>
+          </div>
+        </Tooltip>
         <Divider />
         <List>
           <Link to='/' >
