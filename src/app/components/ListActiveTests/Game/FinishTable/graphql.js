@@ -1,6 +1,6 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
-export const REPORT_GAME_BY_CODE = (CODE) => gql`
+export const REPORT_GAME_BY_CODE = CODE => gql`
   query reportGameByCode {
     reportGameByCode(code: "${CODE}"){
       code

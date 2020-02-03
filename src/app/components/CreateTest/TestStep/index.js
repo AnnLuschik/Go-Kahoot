@@ -1,18 +1,39 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import { useMutation } from '@apollo/react-hooks';
-import { LinearProgress } from '@material-ui/core';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { useMutation } from "@apollo/react-hooks";
+import { LinearProgress } from "@material-ui/core";
 
-import { CREATE_NEW_TEST } from './graphql';
+import { CREATE_NEW_TEST } from "./graphql";
 
-import {
-  Button, TextField, Typography, Container,
-} from './styles';
+import { Button, TextField, Typography, Container } from "./styles";
 
 const TestStep = ({ setID, handleNext, setUUID }) => {
-  const [ createNewTest, { loading, error } ] = useMutation(CREATE_NEW_TEST);
+  const [name, setName] = useState("");
+  const [errorInput, setErrorInput] = useState(false);
+  const [createNewTest, { loading, error }] = useMutation(CREATE_NEW_TEST);
 
-  const showToast = ({ data, data : { createNewTest: { name, ID, UUID } } }) => {
+  const handleChangeInput = ({ target: { value } }) => {
+    setErrorInput(false);
+    setName(value);
+  };
+
+  const handleSubmitForm = e => {
+    e.preventDefault();
+
+    if (name.length > 3) {
+      createNewTest({ variables: { name } }).then(data => showToast(data));
+
+      return;
+    }
+
+    setErrorInput(true);
+  };
+
+  const showToast = ({
+    data: {
+      createNewTest: { name, ID, UUID }
+    }
+  }) => {
     toast(`Create ${name} Successful`);
     setUUID(UUID);
     setID(ID);
@@ -21,32 +42,29 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
 
   if (error) return <p>Error :(</p>;
 
-  let name;
-
   return (
-    <form onSubmit={e => {
-      e.preventDefault();
-      createNewTest({ variables: {
-        name: name.value,
-      }}).then(
-        (data) => showToast(data)
-      );
-    }}>
-      <LinearProgress variant={loading ? 'indeterminate': 'determinate'} />
+    <form onSubmit={handleSubmitForm}>
+      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
       <Typography variant="h4" gutterBottom>
         Create Test
       </Typography>
       <Container>
         <TextField
-          type='text'
+          type="text"
           variant="outlined"
           label="Enter Name of Test"
-          inputRef={ node => name = node }
+          value={name}
+          onChange={handleChangeInput}
+          error={errorInput}
+          helperText={
+            errorInput && "Sorry text is too short, at least 4 characters"
+          }
         />
         <Button
-          type='submit'
+          type="submit"
           color="primary"
           variant="contained"
+          disabled={errorInput}
         >
           Next
         </Button>

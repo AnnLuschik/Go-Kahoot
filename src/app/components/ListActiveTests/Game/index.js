@@ -1,58 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useMutation, useQuery, useSubscription } from '@apollo/react-hooks';
-import { Backdrop, CircularProgress, LinearProgress } from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useMutation, useQuery, useSubscription } from "@apollo/react-hooks";
+import { Backdrop, CircularProgress, LinearProgress } from "@material-ui/core";
 
-import CircleTimer from './CircleTimer';
-
-import { ONPLAYING_GAME, QUESTION_BY_UUID, ANSWER_QUESTION_DY_UUID } from './graphql';
-
-import { ALPHABET } from './constants';
+import CircleTimer from "./CircleTimer";
 
 import {
-  CustomTypography, ButtonAnswer, ContainerAnswers,
-  ContainerTimer, Wrapper, WrapperComponent,
-} from './styles';
+  ON_PLAYING_GAME,
+  QUESTION_BY_UUID,
+  ANSWER_QUESTION_DY_UUID
+} from "./graphql";
+
+import { ALPHABET } from "./constants";
+
+import {
+  CustomTypography,
+  ButtonAnswer,
+  ContainerAnswers,
+  ContainerTimer,
+  Wrapper,
+  WrapperComponent
+} from "./styles";
 
 const StartTestPage = () => {
   const history = useHistory();
-  const { location: { pathname } } = history;
-  const urlArray = pathname.split('/');
+  const {
+    location: { pathname }
+  } = history;
+  const urlArray = pathname.split("/");
   const urlUUIDPlayer = urlArray[urlArray.length - 1];
   const urlCode = urlArray[urlArray.length - 3];
 
   const [data, setNewData] = useState({
-    currentQuestionUUID: '',
-    gameCode: '',
-    gameStatusEnum: '',
+    currentQuestionUUID: "",
+    gameCode: "",
+    gameStatusEnum: "",
     startTimeSec: 0,
-    currentTimeSec: 0,
+    currentTimeSec: 0
   });
-  const [isAnswered, setAnswer] = useState(null);
-  const [isRightAnswer, setRightAnswer] = useState('');
+  const [isAnswered, setIsAnswer] = useState(null);
+  const [isRightAnswer, setIsRightAnswer] = useState("");
 
-  const { loading, error, data: questionData } = useQuery(QUESTION_BY_UUID(data.currentQuestionUUID));
-
-  const { data: playingData, loading: playingLoading } = useSubscription(ONPLAYING_GAME, {
-    variables: {
-      gameCode: urlCode,
-      playerUUID: urlUUIDPlayer,
-    }
-  });
-
+  const { loading, error, data: questionData } = useQuery(
+    QUESTION_BY_UUID(data.currentQuestionUUID)
+  );
   const [answeredQuestion] = useMutation(ANSWER_QUESTION_DY_UUID);
+  const { data: playingData, loading: playingLoading } = useSubscription(
+    ON_PLAYING_GAME,
+    {
+      variables: { gameCode: urlCode, playerUUID: urlUUIDPlayer }
+    }
+  );
 
-  const handleAnsweredQuestion = (index, ID) => (e) => {
+  const handleAnsweredQuestion = (index, ID) => () => {
     answeredQuestion({
       variables: {
         playerUUID: urlUUIDPlayer,
         questionUUID: questionData.questionByUUID.UUID,
-        answerID: ID,
-      },
-    }).then((data) => {
-      data.data && setAnswer(index);
-      setRightAnswer(questionData.questionByUUID.rightAnswer === index ? 'Yes' : 'No');
-      console.log(questionData.questionByUUID.rightAnswer, index);
+        answerID: ID
+      }
+    }).then(data => {
+      data.data && setIsAnswer(index);
+      setIsRightAnswer(
+        questionData.questionByUUID.rightAnswer === index ? "Yes" : "No"
+      );
     });
   };
 
@@ -64,25 +75,27 @@ const StartTestPage = () => {
     if (!playingLoading && playingData) {
       const { onPlayingGame } = playingData;
       setNewData(onPlayingGame);
+
       if (data.currentQuestionUUID !== onPlayingGame.currentQuestionUUID) {
-        setAnswer(null);
-        setRightAnswer('');
+        setIsAnswer(null);
+        setIsRightAnswer("");
       }
     }
-  }, [playingData, playingLoading]);
+  }, [playingData, playingLoading, data]);
 
   if (loading) return <LinearProgress />;
-  if (error) return (
-    <Backdrop open={true}>
-      <CircularProgress />
-    </Backdrop>
-  );
+  if (error)
+    return (
+      <Backdrop open={true}>
+        <CircularProgress />
+      </Backdrop>
+    );
 
   return (
     <>
-      <LinearProgress variant={loading ? 'indeterminate': 'determinate'} />
+      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
       <Wrapper>
-        {data.gameStatusEnum !== 'FINISHED' ? (
+        {data.gameStatusEnum !== "FINISHED" ? (
           <>
             {questionData && (
               <>
@@ -93,22 +106,32 @@ const StartTestPage = () => {
                   />
                 </ContainerTimer>
                 <WrapperComponent>
-                    <CustomTypography  variant="h5" gutterBottom >
-                      {questionData && questionData.questionByUUID.text}
-                    </CustomTypography>
-                    <ContainerAnswers>
-                      {questionData && questionData.questionByUUID.answers.map((answer, index) => (
-                        <ButtonAnswer
-                          variant="outlined"
-                          onClick={handleAnsweredQuestion(index, answer.ID)}
-                          disabled={!(isAnswered === null)}
-                          isred={isRightAnswer === 'No' && isAnswered === index}
-                          isgreen={isRightAnswer === 'Yes' && isAnswered === index}
-                        >
-                          {`${ALPHABET[index]}) ${answer.text}`}
-                        </ButtonAnswer>
-                      ))}
-                    </ContainerAnswers>
+                  <CustomTypography variant="h5" gutterBottom>
+                    {questionData && questionData.questionByUUID.text}
+                  </CustomTypography>
+                  <ContainerAnswers>
+                    {questionData &&
+                      questionData.questionByUUID.answers.map(
+                        ({ ID, text }, index) => {
+                          const isRed =
+                            isRightAnswer === "No" && isAnswered === index;
+                          const isGreen =
+                            isRightAnswer === "Yes" && isAnswered === index;
+
+                          return (
+                            <ButtonAnswer
+                              variant="outlined"
+                              isred={isRed}
+                              isgreen={isGreen}
+                              disabled={!(isAnswered === null)}
+                              onClick={handleAnsweredQuestion(index, ID)}
+                            >
+                              {`${ALPHABET[index]}) ${text}`}
+                            </ButtonAnswer>
+                          );
+                        }
+                      )}
+                  </ContainerAnswers>
                 </WrapperComponent>
               </>
             )}

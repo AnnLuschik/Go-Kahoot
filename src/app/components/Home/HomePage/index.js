@@ -1,10 +1,14 @@
-import React from 'react';
+import React from "react";
 import {
-  Card, CardActions, CardContent, Button, Typography,
-} from '@material-ui/core';
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography
+} from "@material-ui/core";
 
-import { Link } from '../styles';
-import useStyles, { Container, CustomTypography } from './styles';
+import { Link } from "../styles";
+import useStyles, { Container, CustomTypography } from "./styles";
 
 const HomePage = () => {
   const classes = useStyles();
@@ -12,7 +16,7 @@ const HomePage = () => {
 
   return (
     <>
-      <CustomTypography variant="h4" gutterBottom >
+      <CustomTypography variant="h4" gutterBottom>
         Using this application you can:
       </CustomTypography>
       <Container>
@@ -81,18 +85,15 @@ const HomePage = () => {
         </Card>
       </Container>
       <CustomTypography variant="h5" gutterBottom>
-        After that, you and your friends can take these speed tests to find out who is the smartest.
+        After that, you and your friends can take these speed tests to find out
+        who is the smartest.
       </CustomTypography>
       <CustomTypography variant="h4" gutterBottom>
         Want to try? Click on 'Start'!
       </CustomTypography>
       <Container>
-        <Link to='/create' >
-          <Button
-            color="primary"
-            variant="contained"
-            size="large"
-          >
+        <Link to="/create">
+          <Button size="large" color="primary" variant="contained">
             Start
           </Button>
         </Link>

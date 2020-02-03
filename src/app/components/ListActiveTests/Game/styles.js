@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   Button as MUIButton,
-  Typography as MUITypography,
-} from '@material-ui/core';
+  Typography as MUITypography
+} from "@material-ui/core";
 
 export const CustomTypography = styled(MUITypography)`
   margin: 45px 0;
@@ -10,8 +10,8 @@ export const CustomTypography = styled(MUITypography)`
   padding: 40px;
   border-radius: 5px;
   text-align: center;
-  box-shadow: 0px 0px 5px 0px rgba(128,128,128,.5);
-  font-family: 'Comfortaa', cursive !important;
+  box-shadow: 0px 0px 5px 0px rgba(128, 128, 128, 0.5);
+  font-family: "Libre Baskerville", serif !important;
 `;
 
 export const Button = styled(MUIButton)`
@@ -25,21 +25,20 @@ export const ButtonAnswer = styled(MUIButton)`
   width: 49%;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0px 0px 2px 1px rgba(128,128,128,.3);
+  box-shadow: 0px 0px 2px 1px rgba(128, 128, 128, 0.3);
   text-transform: none;
   border: 1px solid #c2c2c2;
   justify-content: flex-start;
-  font-family: 'Comfortaa', cursive !important;
+  font-family: "Libre Baskerville", serif !important;
 
   &:hover {
     background: #d1d1d1;
   }
 
   ${({ isred, isgreen }) =>
-    isgreen && 'background: #f2ffeb;'
-    || isred && 'background: #fff0eb;'
-    || 'background: #f0f0f0;'
-  }
+    (isgreen && "background: #f2ffeb;") ||
+    (isred && "background: #fff0eb;") ||
+    "background: #f0f0f0;"}
 `;
 
 export const ContainerAnswers = styled.div`

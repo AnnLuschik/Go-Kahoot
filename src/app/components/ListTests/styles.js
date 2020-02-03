@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   Button as MUIButton,
   IconButton as MUIIconButton,
   Typography as MUITypography,
-  ListItemText as MUIListItemText,
-} from '@material-ui/core';
+  ListItemText as MUIListItemText
+} from "@material-ui/core";
 
 export const Container = styled.div`
   max-width: 700px;
@@ -14,7 +14,7 @@ export const Container = styled.div`
 export const CustomTypography = styled(MUITypography)`
   margin: 15px 0;
   text-align: center;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Libre Baskerville", serif;
 `;
 
 export const Button = styled(MUIButton)`

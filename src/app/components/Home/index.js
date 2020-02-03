@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import { ToastContainer } from 'react-toastify';
-import { useTheme } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import clsx from "clsx";
+import { ToastContainer } from "react-toastify";
+import { useTheme } from "@material-ui/core/styles";
 import {
-  List, Drawer, AppBar, Divider, Toolbar, ListItem, Typography,
-  ListItemText, IconButton, ListItemIcon, Tooltip,
-} from '@material-ui/core';
+  List,
+  Drawer,
+  AppBar,
+  Divider,
+  Toolbar,
+  ListItem,
+  Typography,
+  ListItemText,
+  IconButton,
+  ListItemIcon,
+  Tooltip
+} from "@material-ui/core";
 import {
   Shop as ShopIcon,
   Home as HomeIcon,
@@ -15,17 +24,17 @@ import {
   Assignment as AssignmentIcon,
   FindInPage as FindInPageIcon,
   ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
-} from '@material-ui/icons';
+  ChevronRight as ChevronRightIcon
+} from "@material-ui/icons";
 
-import useStyles, { Link } from './styles';
-import 'react-toastify/dist/ReactToastify.css';
+import useStyles, { Link } from "./styles";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = ({ children }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [ open, setOpen ] = useState(false);
+  const [isOpened, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -40,86 +49,77 @@ const Home = ({ children }) => {
       <ToastContainer />
       <AppBar
         position="fixed"
-        className={clsx(
-          classes.appBar,
-          { [classes.appBarShift]: open },
-        )}
+        className={clsx(classes.appBar, { [classes.appBarShift]: isOpened })}
       >
         <Toolbar>
           <Tooltip title="Show menu">
             <IconButton
+              edge="start"
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(
-                classes.menuButton,
-                { [classes.hide]: open },
-              )}
+              className={clsx(classes.menuButton, { [classes.hide]: isOpened })}
             >
               <MenuIcon />
             </IconButton>
           </Tooltip>
-          <Typography variant="h6" noWrap >
+          <Typography variant="h6" noWrap>
             Go-Kahoot
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
         variant="permanent"
-        className={clsx(
-          classes.drawer,
-          {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          },
-        )}
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: isOpened,
+          [classes.drawerClose]: !isOpened
+        })}
         classes={{
           paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
+            [classes.drawerOpen]: isOpened,
+            [classes.drawerClose]: !isOpened
+          })
         }}
       >
         <Tooltip title="Hide menu">
           <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
-              {
-                theme.direction === 'rtl'
-                  ? <ChevronRightIcon />
-                  : <ChevronLeftIcon />
-              }
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
         </Tooltip>
         <Divider />
         <List>
-          <Link to='/' >
-            <ListItem button >
+          <Link to="/">
+            <ListItem button>
               <ListItemIcon>
                 <HomeIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="Home Page" />
             </ListItem>
           </Link>
-          <Link to='/create' >
-            <ListItem button >
+          <Link to="/create">
+            <ListItem button>
               <ListItemIcon>
                 <NoteAddIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="Create Test" />
             </ListItem>
           </Link>
-          <Link to='/tests' >
-            <ListItem button >
+          <Link to="/tests">
+            <ListItem button>
               <ListItemIcon>
                 <FindInPageIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="List of Tests" />
             </ListItem>
           </Link>
-          <Link to='/activetests' >
-            <ListItem button >
+          <Link to="/activetests">
+            <ListItem button>
               <ListItemIcon>
                 <ShopIcon fontSize="large" />
               </ListItemIcon>
@@ -129,23 +129,21 @@ const Home = ({ children }) => {
         </List>
         <Divider />
         <List>
-          {['Documentation', 'About'].map((text, index) => (
+          {["Documentation", "About"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {
-                  index % 2 === 0
-                    ? <AssignmentIcon fontSize="large" />
-                    : <InfoIcon fontSize="large" />
-                }
+                {index % 2 === 0 ? (
+                  <AssignmentIcon fontSize="large" />
+                ) : (
+                  <InfoIcon fontSize="large" />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
       </Drawer>
-      <main className={classes.content}>
-        { children }
-      </main>
+      <main className={classes.content}>{children}</main>
     </div>
   );
 };

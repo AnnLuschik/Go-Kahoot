@@ -1,29 +1,19 @@
-import React from 'react';
-import { LinearProgress } from '@material-ui/core';
+import React from "react";
+import { LinearProgress } from "@material-ui/core";
 
-import {
-  Container, Button, Typography, ContainerButton,
-} from './styles';
+import { Container, Button, Typography, ContainerButton } from "./styles";
 
 const ValidateQuestionStep = ({ handleBack, handleNext }) => (
   <Container>
     <LinearProgress variant="determinate" />
-    <Typography  variant="h4" gutterBottom>
+    <Typography variant="h4" gutterBottom>
       You want to create new question for this test?
     </Typography>
     <ContainerButton>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={handleBack}
-      >
+      <Button color="primary" variant="contained" onClick={handleBack}>
         Yes
       </Button>
-      <Button
-        color="secondary"
-        variant="contained"
-        onClick={handleNext}
-      >
+      <Button color="secondary" variant="contained" onClick={handleNext}>
         No
       </Button>
     </ContainerButton>

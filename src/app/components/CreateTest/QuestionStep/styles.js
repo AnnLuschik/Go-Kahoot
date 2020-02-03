@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   Button as MUIButton,
   Checkbox as MUICheckbox,
   TextField as MUITextField,
-  Typography as MUITypography,
-} from '@material-ui/core';
+  Typography as MUITypography
+} from "@material-ui/core";
 
 export const Button = styled(MUIButton)`
   padding: 0 20px;
   margin-left: 20px;
+  height: 55.98px;
 `;
 
 export const ButtonAnswer = styled(MUIButton)`
@@ -47,5 +48,5 @@ export const Container = styled.div`
 export const Typography = styled(MUITypography)`
   margin: 15px 0;
   text-align: center;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Libre Baskerville", serif;
 `;

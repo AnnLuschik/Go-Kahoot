@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
-  Button as MUIButton, Typography as MUITypography,
-} from '@material-ui/core';
+  Button as MUIButton,
+  Typography as MUITypography
+} from "@material-ui/core";
 
 export const Container = styled.div`
   display: flex;
@@ -20,5 +21,5 @@ export const Button = styled(MUIButton)`
 export const Typography = styled(MUITypography)`
   margin: 15px 0;
   text-align: center;
-  font-family: 'Comfortaa', cursive !important;
+  font-family: "Libre Baskerville", serif !important;
 `;

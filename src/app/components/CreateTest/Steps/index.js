@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  Stepper, Step, StepLabel, Button, Typography,
-} from '@material-ui/core';
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography
+} from "@material-ui/core";
 
-import { getStepContent } from './utils';
+import { getStepContent } from "./utils";
 
-import { STEPS_NAMES } from './config';
+import { STEPS_NAMES } from "./config";
 
-import useStyles from './styles';
+import useStyles from "./styles";
 
 const Steps = () => {
   const classes = useStyles();
 
   const [ID, setID] = useState(0);
-  const [UUID, setUUID] = useState('');
+  const [UUID, setUUID] = useState("");
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -40,16 +44,21 @@ const Steps = () => {
       <div>
         {activeStep === STEPS_NAMES.length ? (
           <div>
-            <Typography className={classes.instructions}>
-              Finish
-            </Typography>
-            <Button onClick={handleReset}>
-              Reset
-            </Button>
+            <Typography className={classes.instructions}>Finish</Typography>
+            <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (
           <div>
-            {getStepContent(activeStep, ID, setID, UUID, setUUID, handleBack, handleNext, handleReset)}
+            {getStepContent(
+              activeStep,
+              ID,
+              setID,
+              UUID,
+              setUUID,
+              handleBack,
+              handleNext,
+              handleReset
+            )}
           </div>
         )}
       </div>

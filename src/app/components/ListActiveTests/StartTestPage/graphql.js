@@ -1,26 +1,16 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 export const DELETE_PLAYER_FROM_GAME = gql`
-  mutation deletePlayerFromGame(
-    $gameCode: String!
-    $playerUUID: String!
-  ) {
-    deletePlayerFromGame(
-      gameCode: $gameCode
-      playerUUID: $playerUUID
-    ) {
+  mutation deletePlayerFromGame($gameCode: String!, $playerUUID: String!) {
+    deletePlayerFromGame(gameCode: $gameCode, playerUUID: $playerUUID) {
       success
     }
   }
 `;
 
 export const START_GAME_BY_CODE = gql`
-  mutation startGameByCode(
-    $code: String!
-  ) {
-    startGameByCode(
-      code: $code
-    ) {
+  mutation startGameByCode($code: String!) {
+    startGameByCode(code: $code) {
       test {
         ID
         UUID
@@ -49,15 +39,12 @@ export const START_GAME_BY_CODE = gql`
   }
 `;
 
-export const ONDELETE_PLAYER_FROM_GAME = gql`
+export const ON_DELETE_PLAYER_FROM_GAME = gql`
   subscription onDeletePlayerFromGame(
     $gameCode: String!
     $playerUUID: String!
   ) {
-    onDeletePlayerFromGame(
-      gameCode: $gameCode
-      playerUUID: $playerUUID
-    ) {
+    onDeletePlayerFromGame(gameCode: $gameCode, playerUUID: $playerUUID) {
       UUID
       gameCode
       name
@@ -65,15 +52,9 @@ export const ONDELETE_PLAYER_FROM_GAME = gql`
   }
 `;
 
-export const ONWAIT_FOR_STARTING_GAME = gql`
-  subscription onWaitForStartingGame(
-    $gameCode: String!
-    $playerUUID: String!
-  ) {
-    onWaitForStartingGame(
-      gameCode: $gameCode
-      playerUUID: $playerUUID
-    ) {
+export const ON_WAIT_FOR_STARTING_GAME = gql`
+  subscription onWaitForStartingGame($gameCode: String!, $playerUUID: String!) {
+    onWaitForStartingGame(gameCode: $gameCode, playerUUID: $playerUUID) {
       gameCode
     }
   }

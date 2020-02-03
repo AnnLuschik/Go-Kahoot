@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TablePagination,
-  TableRow, TableSortLabel, Paper, FormControlLabel, Switch, LinearProgress,
-} from '@material-ui/core';
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Paper,
+  FormControlLabel,
+  Switch,
+  LinearProgress
+} from "@material-ui/core";
 
-import { REPORT_GAME_BY_CODE } from './graphql';
+import { REPORT_GAME_BY_CODE } from "./graphql";
 
-import { desc, stableSort, getSorting, createData } from './utils';
+import { stableSort, getSorting, createData } from "./utils";
 
-import { HEAD_CELLS } from './constants';
+import { HEAD_CELLS } from "./constants";
 
-import useStyles from './styles';
-import { Wrapper } from '../styles';
-
+import useStyles from "./styles";
+import { Wrapper } from "../styles";
 
 const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {
   const createSortHandler = property => event => onRequestSort(event, property);
@@ -25,19 +34,19 @@ const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {
         {HEAD_CELLS.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -50,51 +59,59 @@ const EnhancedTableHead = ({ classes, order, orderBy, onRequestSort }) => {
 
 const FinishTable = () => {
   const history = useHistory();
-  const { location: { pathname } } = history;
-  const urlArray = pathname.split('/');
+  const {
+    location: { pathname }
+  } = history;
+  const urlArray = pathname.split("/");
   const urlCode = urlArray[urlArray.length - 2];
 
   const classes = useStyles();
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
-  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const { loading, error, data: reportData } = useQuery(REPORT_GAME_BY_CODE(urlCode));
+  const [dense, setDense] = useState(false);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("calories");
+  const [selected, setSelected] = useState([]);
 
-  const dataArray = reportData
-    && reportData.reportGameByCode
-    && reportData.reportGameByCode.players
-    && reportData.reportGameByCode.players.map(({answers, player}) => {
-      let count = 0;
+  const { loading, error, data: reportData } = useQuery(
+    REPORT_GAME_BY_CODE(urlCode)
+  );
 
-      answers.forEach(({right}) => {
-        if (right) {
-          count = count + 1;
-        }
-      });
+  const dataArray =
+    (reportData &&
+      reportData.reportGameByCode &&
+      reportData.reportGameByCode.players &&
+      reportData.reportGameByCode.players.map(({ answers, player }) => {
+        let count = 0;
 
-      return {
-        name: player.name,
-        total: count,
-      };
-  }) || [];
+        answers.forEach(({ right }) => {
+          if (right) {
+            count = count + 1;
+          }
+        });
 
-  const rows = dataArray.map((player) => {
+        return {
+          name: player.name,
+          total: count
+        };
+      })) ||
+    [];
+
+  const rows = dataArray.map(player => {
     return createData(player.name, player.total);
   });
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = event => {
-    if (event.target.checked) {
+  const handleSelectAllClick = ({ target: { checked } }) => {
+    if (checked) {
       const newSelecteds = rows.map(n => n.name);
       setSelected(newSelecteds);
+
       return;
     }
     setSelected([]);
@@ -113,7 +130,7 @@ const FinishTable = () => {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -124,25 +141,26 @@ const FinishTable = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage = ({ target: { value } }) => {
+    setRowsPerPage(parseInt(value, 10));
     setPage(0);
   };
 
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
+  const handleChangeDense = ({ target: { checked } }) => {
+    setDense(checked);
   };
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   if (loading) return <LinearProgress />;
   if (error) return <p>Error :(</p>;
 
   return (
     <>
-      <LinearProgress variant={loading ? 'indeterminate': 'determinate'} />
+      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
       <Wrapper>
         <div className={classes.root}>
           <Paper className={classes.paper}>
@@ -150,17 +168,17 @@ const FinishTable = () => {
               <Table
                 className={classes.table}
                 aria-labelledby="tableTitle"
-                size={dense ? 'small' : 'medium'}
+                size={dense ? "small" : "medium"}
                 aria-label="enhanced table"
               >
                 <EnhancedTableHead
                   classes={classes}
-                  numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
+                  numSelected={selected.length}
+                  rowCount={rows.length}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
                 />
                 <TableBody>
                   {stableSort(rows, getSorting(order, orderBy))
@@ -179,7 +197,12 @@ const FinishTable = () => {
                           key={row.name}
                           selected={isItemSelected}
                         >
-                          <TableCell component="th" id={labelId} scope="row" padding="default">
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="default"
+                          >
                             {row.name}
                           </TableCell>
                           <TableCell align="right">{row.total}</TableCell>

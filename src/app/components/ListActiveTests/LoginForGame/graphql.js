@@ -1,6 +1,6 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
-export const ACTIVATED_GAME_BY_CODE = (CODE) => gql`
+export const ACTIVATED_GAME_BY_CODE = CODE => gql`
   query {
     activatedGameByCode(code: "${CODE}") {
       CODE
@@ -32,14 +32,8 @@ export const ACTIVATED_GAME_BY_CODE = (CODE) => gql`
 `;
 
 export const JOIN_PLAYER_TO_GAME = gql`
-  mutation joinPlayerToGame(
-    $gameCode: String!
-    $name: String!
-  ) {
-    joinPlayerToGame(input: {
-      gameCode: $gameCode
-      name: $name
-    }) {
+  mutation joinPlayerToGame($gameCode: String!, $name: String!) {
+    joinPlayerToGame(input: { gameCode: $gameCode, name: $name }) {
       UUID
       name
       game {
@@ -72,15 +66,12 @@ export const JOIN_PLAYER_TO_GAME = gql`
   }
 `;
 
-export const ONWAIT_FOR_JOINING_PLAYER_TO_GAME = gql`
+export const ON_WAIT_FOR_JOINING_PLAYER_TO_GAME = gql`
   subscription onWaitForJoiningPlayerToGame(
     $gameCode: String!
     $playerUUID: String!
   ) {
-    onWaitForJoiningPlayerToGame(
-      gameCode: $gameCode
-      playerUUID: $playerUUID
-    ) {
+    onWaitForJoiningPlayerToGame(gameCode: $gameCode, playerUUID: $playerUUID) {
       UUID
       gameCode
       name

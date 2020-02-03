@@ -1,14 +1,8 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
-export const ONPLAYING_GAME = gql`
-  subscription onPlayingGame(
-    $gameCode: String!
-    $playerUUID: String!
-  ) {
-    onPlayingGame(
-      gameCode: $gameCode
-      playerUUID: $playerUUID
-    ) {
+export const ON_PLAYING_GAME = gql`
+  subscription onPlayingGame($gameCode: String!, $playerUUID: String!) {
+    onPlayingGame(gameCode: $gameCode, playerUUID: $playerUUID) {
       startTimeSec
       currentTimeSec
       gameCode
@@ -18,7 +12,7 @@ export const ONPLAYING_GAME = gql`
   }
 `;
 
-export const QUESTION_BY_UUID = (urlUUID) => gql`
+export const QUESTION_BY_UUID = urlUUID => gql`
   query questionByUUID {
     questionByUUID(id: "${urlUUID}"){
       ID
