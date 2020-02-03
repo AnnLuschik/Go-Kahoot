@@ -1,6 +1,5 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -33,6 +32,7 @@ import {
   ButtonIcon,
   ListItemText
 } from "./styles";
+import { Link } from "../../styles";
 
 const ListTests = () => {
   const history = useHistory();
@@ -131,7 +131,10 @@ const ListTests = () => {
                       <PlayCircleFilledWhiteIcon />
                     </ButtonIcon>
                   </Tooltip>
-                  <Link to={`/tests/${UUID}`}>
+                  <Link
+                    to={`/tests/${UUID}`}
+                    style={{ textDecoration: "none" }}
+                  >
                     <Tooltip title="Edit test">
                       <IconButton edge="start" aria-label="show">
                         <VisibilityIcon />
