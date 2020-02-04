@@ -71,7 +71,7 @@ export const Message = styled.div`
   border-radius: ${({ isyou }) =>
     isyou ? "7px 0px 7px 7px" : "0px 7px 7px 7px"};
   margin: ${({ isyou }) => (isyou ? "5px 0px 5px auto;" : "5px auto 5px 0px;")};
-  max-width: 50%;
+  max-width: 70%;
   padding: 2px 8px 4px;
 `;
 

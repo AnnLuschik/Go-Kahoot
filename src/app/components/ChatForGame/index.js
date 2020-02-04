@@ -122,9 +122,9 @@ const Chat = ({ urlCode, playerUUID }) => {
         order: "DESC"
       }
     }).then(data => {
-      if (!data.loading && data.data) {
+      setTimeout(() => setIsLoadMore(false), 0);
+      if (!data.loading && data.data && data.data.chatMessagesOfGameByCode) {
         setChatData([...data.data.chatMessagesOfGameByCode, ...chatData]);
-        setIsLoadMore(false);
         setOffset(offset + 20);
       }
     });
