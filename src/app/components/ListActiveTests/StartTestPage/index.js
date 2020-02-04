@@ -26,6 +26,7 @@ import {
   ListItem,
   ContainerListItem
 } from "./styles";
+import Chat from "../../ChatForGame";
 
 const StartTestPage = ({
   data: {
@@ -70,7 +71,7 @@ const StartTestPage = ({
     if (!subLoading && subData) {
       addPlayer([subData.onWaitForJoiningPlayerToGame, ...players]);
     }
-  }, [subLoading, subData, players]);
+  }, [subLoading, subData]);
 
   useEffect(() => {
     if (!deleting && deletingSuccessData) {
@@ -164,6 +165,7 @@ const StartTestPage = ({
           })}
         </ContainerListItem>
       </Container>
+      <Chat urlCode={urlCODE} playerUUID={playerLS.UUID} />
     </>
   );
 };
