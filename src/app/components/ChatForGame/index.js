@@ -123,7 +123,11 @@ const Chat = ({ urlCode, playerUUID }) => {
       }
     }).then(data => {
       setTimeout(() => setIsLoadMore(false), 0);
-      if (!data.loading && data.data && data.data.chatMessagesOfGameByCode) {
+      if (
+        !data.loading &&
+        data.data &&
+        data.data.chatMessagesOfGameByCode.length
+      ) {
         setChatData([...data.data.chatMessagesOfGameByCode, ...chatData]);
         setOffset(offset + 20);
       }
