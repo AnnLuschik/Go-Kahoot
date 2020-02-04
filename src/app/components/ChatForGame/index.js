@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import moment from "moment";
-import { Picker, Emoji } from "emoji-mart";
+import { Picker } from "emoji-mart";
 import * as sortBy from "lodash.sortby";
 import * as uniqBy from "lodash.uniqby";
 import InfiniteScroll from "react-infinite-scroller";

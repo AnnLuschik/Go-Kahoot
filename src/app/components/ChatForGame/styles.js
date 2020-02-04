@@ -80,7 +80,8 @@ export const Name = styled.div`
   font-size: 14px;
   font-weight: bold;
   margin: 0px 5px 0px 0px;
-  white-space: pre;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 export const Text = styled.div`
@@ -88,7 +89,8 @@ export const Text = styled.div`
   font-size: 12px;
   font-weight: 300;
   margin: 0px 5px 0px 0px;
-  white-space: pre;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 export const Time = styled.div`
