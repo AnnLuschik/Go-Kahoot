@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery, useSubscription } from "@apollo/react-hooks";
 import { Backdrop, CircularProgress, LinearProgress } from "@material-ui/core";
@@ -13,16 +14,27 @@ import {
 
 import { ALPHABET } from "./constants";
 
-import {
-  CustomTypography,
+import useStyles, {
   ButtonAnswer,
   ContainerAnswers,
   ContainerTimer,
   Wrapper,
   WrapperComponent
 } from "./styles";
+import * as showdown from "showdown";
+import * as showdownHighlight from "showdown-highlight";
+
+const converter = new showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+  openLinksInNewWindow: true,
+  extensions: [showdownHighlight]
+});
 
 const StartTestPage = () => {
+  const classes = useStyles();
   const history = useHistory();
   const {
     location: { pathname }
@@ -93,10 +105,7 @@ const StartTestPage = () => {
 
   return (
     <>
-      <LinearProgress
-        variant={loading ? "indeterminate" : "determinate"}
-        value={100}
-      />
+      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
       <Wrapper>
         {data.gameStatusEnum !== "FINISHED" ? (
           <>
@@ -109,9 +118,13 @@ const StartTestPage = () => {
                   />
                 </ContainerTimer>
                 <WrapperComponent>
-                  <CustomTypography variant="h5" gutterBottom>
-                    {questionData && questionData.questionByUUID.text}
-                  </CustomTypography>
+                  <ReactMarkdown
+                    className={classes.markDownQuestion}
+                    source={converter.makeHtml(
+                      questionData && questionData.questionByUUID.text
+                    )}
+                    escapeHtml={false}
+                  />
                   <ContainerAnswers>
                     {questionData &&
                       questionData.questionByUUID.answers.map(
@@ -129,7 +142,15 @@ const StartTestPage = () => {
                               disabled={!(isAnswered === null)}
                               onClick={handleAnsweredQuestion(index, ID)}
                             >
-                              {`${ALPHABET[index]}) ${text}`}
+                              {ALPHABET[index]})&nbsp;
+                              <ReactMarkdown
+                                className={classes.markDownAnswer}
+                                source={converter.makeHtml(
+                                  questionData &&
+                                    questionData.questionByUUID.text
+                                )}
+                                escapeHtml={false}
+                              />
                             </ButtonAnswer>
                           );
                         }

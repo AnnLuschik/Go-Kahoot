@@ -16,6 +16,7 @@ import {
   ContainerQuestions,
   ContainerAnswers
 } from "./styles";
+import MarkDown from "../../MarkDown";
 
 const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
   const [isDisabledField, changeDisable] = useState(true);
@@ -29,7 +30,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
     { loading: updating, error: updateError }
   ] = useMutation(UPDATE_QUESTIONS_BY_UUID);
 
-  const handleChangeInput = ({ target: { value } }) => {
+  const handleChangeInput = value => {
     changeText(value);
     setIsErrorQuestion(false);
   };
@@ -38,7 +39,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
     changeDisable(false);
   };
 
-  const handleEditAnswers = ID => ({ target: { value: text } }) => {
+  const handleEditAnswers = ID => text => {
     const index = answers.findIndex(({ ID: answerID }) => answerID === ID);
 
     changeAnswers([
@@ -101,18 +102,15 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
       {updateError && <p>Error :(</p>}
       <div>
         <ContainerQuestions>
-          <TextField
-            variant="outlined"
-            label="Question Text"
-            value={text}
-            onChange={handleChangeInput}
-            disabled={isDisabledField}
-            error={isErrorQuestion}
-            helperText={
-              isErrorQuestion &&
-              "Sorry text is too short, at least 4 characters"
-            }
-          />
+          <div style={{ width: 700 }}>
+            <MarkDown
+              text={text}
+              handleChange={handleChangeInput}
+              height={100}
+              commandNumber={0}
+              readOnly={isDisabledField}
+            />
+          </div>
           {isDisabledField ? (
             <Tooltip title="Edit question text">
               <IconButton

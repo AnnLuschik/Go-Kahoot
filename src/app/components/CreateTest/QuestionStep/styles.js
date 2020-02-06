@@ -32,7 +32,7 @@ export const Checkbox = styled(MUICheckbox)`
 export const ContainerAnswer = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 600px;
+  max-width: 800px;
   margin: 10px auto;
 `;
 

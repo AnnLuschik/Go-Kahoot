@@ -4,13 +4,13 @@ import { useMutation } from "@apollo/react-hooks";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 
+import MarkDown from "../../MarkDown";
+
 import { CREATE_NEW_QUESTION } from "./graphql";
 
 import {
   Button,
-  TextField,
   Checkbox,
-  TextFieldAnswers,
   ContainerAnswer,
   ContainerAnswers,
   Container,
@@ -36,14 +36,12 @@ const QuestionStep = ({ testUUID, handleNext }) => {
       errorAnswer: true
     }
   ]);
-  const [errorQuestion, setErrorQuestion] = useState(false);
   const [isShowErrorAnswer, setIsShowErrorAnswer] = useState(false);
   const [createNewQuestion, { loading, error }] = useMutation(
     CREATE_NEW_QUESTION
   );
 
-  const handleChangeQuestion = ({ target: { value: text } }) => {
-    setErrorQuestion(false);
+  const handleChangeQuestion = text => {
     changeQuestion({ ...question, text });
   };
 
@@ -51,7 +49,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
     changeQuestion({ ...question, rightAnswer: index });
   };
 
-  const handleChangeAnswer = index => ({ target: { value: text } }) => {
+  const handleChangeAnswer = index => text => {
     setIsShowErrorAnswer(false);
     changeAnswers([
       ...answers.slice(0, index),
@@ -89,11 +87,13 @@ const QuestionStep = ({ testUUID, handleNext }) => {
       answers.filter(elem => elem.errorAnswer).length
     );
 
-    if (isErrorQuestion) setErrorQuestion(true);
+    if (isErrorQuestion || isErrorAnswer) {
+      toast.warn(
+        "You must use at least 4 characters in each field, please make sure that you fill in everything."
+      );
 
-    if (isErrorAnswer) setIsShowErrorAnswer(true);
-
-    if (isErrorQuestion || isErrorAnswer) return;
+      return;
+    }
 
     createNewQuestion({
       variables: { ...question, answers: [...sendAnswers] }
@@ -114,17 +114,14 @@ const QuestionStep = ({ testUUID, handleNext }) => {
           Create Question
         </Typography>
         <Container>
-          <TextField
-            type="text"
-            variant="outlined"
-            label="Enter Question name"
-            value={question.text}
-            onChange={handleChangeQuestion}
-            error={errorQuestion}
-            helperText={
-              errorQuestion && "Sorry text is too short, at least 4 characters"
-            }
-          />
+          <div style={{ width: 700 }}>
+            <MarkDown
+              text={question.text}
+              handleChange={handleChangeQuestion}
+              height={100}
+              commandNumber={0}
+            />
+          </div>
           <Button type="submit" color="primary" variant="contained">
             Next
           </Button>
@@ -134,28 +131,24 @@ const QuestionStep = ({ testUUID, handleNext }) => {
           color="primary"
           variant="contained"
           onClick={handleAddAnswer}
+          disabled={answers.length > 7}
         >
           Add Answer
         </ButtonAnswer>
         <ContainerAnswers>
           {answers.map(({ text, errorAnswer }, index) => {
-            const shouldShowAnswer = errorAnswer && isShowErrorAnswer;
-            const errorHelperText =
-              shouldShowAnswer &&
-              "Sorry text is too short, at least 4 characters";
             const isChecked = index === question.rightAnswer;
 
             return (
               <ContainerAnswer key={index}>
-                <TextFieldAnswers
-                  type="text"
-                  label="Answer"
-                  variant="outlined"
-                  value={text}
-                  onChange={handleChangeAnswer(index)}
-                  error={shouldShowAnswer}
-                  helperText={errorHelperText}
-                />
+                <div style={{ width: 500 }}>
+                  <MarkDown
+                    text={text}
+                    handleChange={handleChangeAnswer(index)}
+                    height={60}
+                    commandNumber={1}
+                  />
+                </div>
                 <Tooltip title="Choose the correct answer">
                   <Checkbox
                     color="primary"

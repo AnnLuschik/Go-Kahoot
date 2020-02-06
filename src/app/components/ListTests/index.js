@@ -62,12 +62,14 @@ const ListTests = () => {
   };
 
   const handleDelete = (id, UUID) => () => {
-    if (deleting) return;
+    if (loading || deleting) return;
 
-    deleteTest({ variables: { id: [id] } }).then(() => {
-      toast("Deleting Test Successful");
-      localStorage.removeItem(`isCreator:${UUID}`);
-      refetch();
+    deleteTest({ variables: { id: [id] } }).then(data => {
+      if (data && refetch) {
+        toast("Deleting Test Successful");
+        localStorage.removeItem(`isCreator:${UUID}`);
+        refetch();
+      }
     });
   };
 

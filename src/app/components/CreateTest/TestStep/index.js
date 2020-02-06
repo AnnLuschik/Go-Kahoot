@@ -27,6 +27,9 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
     }
 
     setErrorInput(true);
+    toast.warn(
+      "You must use at least 4 characters in each field, please make sure that you fill in everything."
+    );
   };
 
   const showToast = ({

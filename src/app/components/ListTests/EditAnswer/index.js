@@ -3,6 +3,7 @@ import { IconButton, Tooltip } from "@material-ui/core";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 
 import { TextField } from "./styles";
+import MarkDown from "../../MarkDown";
 
 const UpdateAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
   const [isErrorAnswer, setIsErrorAnswer] = useState(false);
@@ -25,18 +26,16 @@ const UpdateAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
   };
 
   return (
-    <div>
-      <TextField
-        variant="outlined"
-        label="Answer Text"
-        value={text}
-        onChange={onEditAnswers(id)}
-        disabled={isDisabledField}
-        error={isErrorAnswer}
-        helperText={
-          isErrorAnswer && "Sorry text is too short, at least 4 characters"
-        }
-      />
+    <>
+      <div style={{ width: 500 }}>
+        <MarkDown
+          text={text}
+          handleChange={onEditAnswers(id)}
+          height={60}
+          commandNumber={1}
+          readOnly={isDisabledField}
+        />
+      </div>
       {isDisabledField ? (
         <Tooltip title="Edit answer text">
           <IconButton edge="end" aria-label="edit" onClick={handleEditAnswer}>
@@ -50,7 +49,7 @@ const UpdateAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
           </IconButton>
         </Tooltip>
       )}
-    </div>
+    </>
   );
 };
 

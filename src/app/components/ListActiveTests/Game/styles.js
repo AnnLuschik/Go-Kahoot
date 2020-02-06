@@ -3,6 +3,7 @@ import {
   Button as MUIButton,
   Typography as MUITypography
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const CustomTypography = styled(MUITypography)`
   margin: 45px 0;
@@ -22,14 +23,15 @@ export const Button = styled(MUIButton)`
 export const ButtonAnswer = styled(MUIButton)`
   font-size: 20px;
   margin-bottom: 10px;
+  padding: 3px;
   width: 49%;
-  padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 2px 1px rgba(128, 128, 128, 0.3);
   text-transform: none;
   border: 1px solid #c2c2c2;
   justify-content: flex-start;
   font-family: "Libre Baskerville", serif !important;
+  font-size: 14px !important;
 
   &:hover {
     background: #d1d1d1;
@@ -60,6 +62,7 @@ export const WrapperComponent = styled.div`
   margin: 0 50px 0 160px;
   padding: 0 10px;
   width: 100%;
+  font-size: 22px;
 `;
 
 export const Wrapper = styled.div`
@@ -72,3 +75,34 @@ export const Wrapper = styled.div`
   margin: auto;
   min-height: 80vh;
 `;
+
+const useStyles = makeStyles(theme => ({
+  markDownQuestion: {
+    display: "block",
+    width: "100%",
+    maxHeight: "400px",
+    overflowX: "auto",
+    overflowY: "auto",
+    padding: "0.5em",
+    color: "#333",
+    borderRadius: "10px",
+    background: "#f8f8f8",
+    border: "1px solid lightgray",
+    marginTop: "10px"
+  },
+  markDownAnswer: {
+    display: "block",
+    width: "100%",
+    overflowX: "auto",
+    padding: "0.5em",
+    color: "#333",
+    borderRadius: "5px",
+    background: "#f0f0f0",
+    maxHeight: "200px",
+    "&:hover": {
+      background: "#d1d1d1"
+    }
+  }
+}));
+
+export default useStyles;

@@ -4,9 +4,7 @@ import {
   TextField as MUITextField
 } from "@material-ui/core";
 
-export const Checkbox = styled(MUICheckbox)`
-  width: 58.98px;
-`;
+export const Checkbox = styled(MUICheckbox)``;
 
 export const TextField = styled(MUITextField)`
   width: 80%;
@@ -23,12 +21,17 @@ export const Container = styled.div`
 `;
 
 export const ContainerQuestions = styled.div`
-  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+  align-items: center;
+  margin: 5px 50px 5px 0;
 `;
 
 export const ContainerAnswers = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 5px 0 15px;
   width: 85%;
 `;
