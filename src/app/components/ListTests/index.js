@@ -54,16 +54,24 @@ const ListTests = () => {
     );
   };
 
-  const handleDelete = id => () => {
+  const handleShowDeleteButton = UUID => {
+    const isCreatorLS =
+      JSON.parse(localStorage.getItem(`isCreator:${UUID}`)) || false;
+
+    return isCreatorLS;
+  };
+
+  const handleDelete = (id, UUID) => () => {
     if (deleting) return;
 
     deleteTest({ variables: { id: [id] } }).then(() => {
       toast("Deleting Test Successful");
+      localStorage.removeItem(`isCreator:${UUID}`);
       refetch();
     });
   };
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -72,6 +80,7 @@ const ListTests = () => {
         variant={
           loading || activating || deleting ? "indeterminate" : "determinate"
         }
+        value={100}
       />
       <Container>
         <CustomTypography variant="h4" gutterBottom>
@@ -141,15 +150,17 @@ const ListTests = () => {
                       </IconButton>
                     </Tooltip>
                   </Link>
-                  <Tooltip title="Delete Test">
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={handleDelete(ID)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                  {handleShowDeleteButton(UUID) && (
+                    <Tooltip title="Delete Test">
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={handleDelete(ID, UUID)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                 </ListItemSecondaryAction>
               </ListItem>
             ))}

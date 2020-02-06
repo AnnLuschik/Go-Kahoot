@@ -41,6 +41,13 @@ const ActiveTests = () => {
     DEACTIVATE_TEST
   );
 
+  const handleShowDeactivateButton = CODE => {
+    const isAdminLS =
+      JSON.parse(localStorage.getItem(`isAdmin:${CODE}`)) || false;
+
+    return isAdminLS;
+  };
+
   const handleDeactivate = CODE => () => {
     if (deactivating || loading) return;
 
@@ -48,19 +55,21 @@ const ActiveTests = () => {
       toast("Deactivating Test Successful");
       refetch();
     });
+    localStorage.removeItem(`isAdmin:${CODE}`);
   };
 
   const handleJoinGame = CODE => () => {
     history.push(`/activetests/${CODE}`);
   };
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
   return (
     <>
       <LinearProgress
         variant={loading || deactivating ? "indeterminate" : "determinate"}
+        value={100}
       />
       <Container>
         <CustomTypography variant="h4" gutterBottom>
@@ -121,15 +130,17 @@ const ActiveTests = () => {
                         <FlightTakeoffIcon />
                       </ButtonIcon>
                     </Tooltip>
-                    <Tooltip title="Deactivate test">
-                      <IconButton
-                        edge="end"
-                        aria-label="deactivate"
-                        onClick={handleDeactivate(CODE)}
-                      >
-                        <CancelIcon />
-                      </IconButton>
-                    </Tooltip>
+                    {handleShowDeactivateButton(CODE) && (
+                      <Tooltip title="Deactivate test">
+                        <IconButton
+                          edge="end"
+                          aria-label="deactivate"
+                          onClick={handleDeactivate(CODE)}
+                        >
+                          <CancelIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
                   </ListItemSecondaryAction>
                 </ListItem>
               )

@@ -105,6 +105,9 @@ const Chat = ({ urlCode, playerUUID }) => {
   };
 
   const handleShowChat = () => {
+    if (isOpened) {
+      setIsEmoji(false);
+    }
     setIsOpened(!isOpened);
   };
 
@@ -187,22 +190,23 @@ const Chat = ({ urlCode, playerUUID }) => {
           </ContainerScroll>
         </WrapperScrollElements>
         <Form onSubmit={handleAddMessage}>
-          <TextField
-            type="text"
-            variant="outlined"
-            value={message}
-            placeholder={isOpened ? "Type the message" : "Open the chat"}
-            onChange={handleChangeInput}
-            disabled={!isOpened}
-            inputProps={{
-              style: {
-                height: 30,
-                padding: "0 8px"
-              }
-            }}
-          />
           {isOpened ? (
             <>
+              <TextField
+                type="text"
+                variant="outlined"
+                value={message}
+                placeholder="Type the message"
+                onChange={handleChangeInput}
+                disabled={!isOpened}
+                inputProps={{
+                  style: {
+                    height: 30,
+                    padding: "0 8px"
+                  }
+                }}
+              />
+
               <Button type="submit" color="primary" disabled={!message}>
                 Send
               </Button>
@@ -214,12 +218,24 @@ const Chat = ({ urlCode, playerUUID }) => {
               </IconButton>
             </>
           ) : (
-            <IconButton onClick={handleShowChat}>
-              <KeyboardArrowDownIcon
-                onClick={handleShowChat}
-                fontSize="medium"
-              />
-            </IconButton>
+            <div
+              onClick={handleShowChat}
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center"
+              }}
+            >
+              <IconButton>
+                <KeyboardArrowDownIcon
+                  onClick={handleShowChat}
+                  fontSize="medium"
+                />
+              </IconButton>
+              <div style={{ textAlign: "center", paddingTop: "6px" }}>
+                Click to open chat
+              </div>
+            </div>
           )}
         </Form>
         {isEmoji && (

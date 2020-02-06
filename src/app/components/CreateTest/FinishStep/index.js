@@ -6,7 +6,7 @@ import { Container, Button, Typography, ContainerButton } from "./styles";
 
 const FinishStep = ({ handleReset }) => (
   <Container>
-    <LinearProgress variant="determinate" />
+    <LinearProgress variant="determinate" value={100} />
     <Typography variant="h4" gutterBottom>
       Congratulations, your test has been successfully created!
     </Typography>

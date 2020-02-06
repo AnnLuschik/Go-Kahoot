@@ -35,6 +35,7 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
     }
   }) => {
     toast(`Create ${name} Successful`);
+    localStorage.setItem(`isCreator:${UUID}`, "true");
     setUUID(UUID);
     setID(ID);
     handleNext();
@@ -44,7 +45,10 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress
+        variant={loading ? "indeterminate" : "determinate"}
+        value={100}
+      />
       <Typography variant="h4" gutterBottom>
         Create Test
       </Typography>

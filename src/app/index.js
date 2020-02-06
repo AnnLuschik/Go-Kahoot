@@ -13,10 +13,12 @@ import Home from "./components/Home";
 import ListTests from "./components/ListTests";
 import Steps from "./components/CreateTest/Steps";
 import HomePage from "./components/Home/HomePage";
+import AboutPage from "./components/Home/AboutPage";
 import EditTest from "./components/ListTests/EditTest";
 import ListActiveTests from "./components/ListActiveTests";
-import LoginForGame from "./components/ListActiveTests/LoginForGame";
 import StartTestPage from "./components/ListActiveTests/Game";
+import DocumentationPage from "./components/Home/DocumentationPage";
+import LoginForGame from "./components/ListActiveTests/LoginForGame";
 import EnhancedTable from "./components/ListActiveTests/Game/FinishTable";
 
 import { GlobalStyle } from "./styles";
@@ -57,9 +59,11 @@ const App = () => (
             <Route exact path="/" component={HomePage} />
             <Route exact path="/create" component={Steps} />
             <Route exact path="/tests" component={ListTests} />
+            <Route exact path="/about" component={AboutPage} />
             <Route exact path="/tests/:UUID" component={EditTest} />
             <Route exact path="/activetests" component={ListActiveTests} />
             <Route exact path="/activetests/:CODE" component={LoginForGame} />
+            <Route exact path="/documentation" component={DocumentationPage} />
             <Route
               exact
               path="/activetests/:CODE/game/:UUID"

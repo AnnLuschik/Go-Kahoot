@@ -155,12 +155,15 @@ const FinishTable = () => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
   return (
     <>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress
+        variant={loading ? "indeterminate" : "determinate"}
+        value={100}
+      />
       <Wrapper>
         <div className={classes.root}>
           <Paper className={classes.paper}>

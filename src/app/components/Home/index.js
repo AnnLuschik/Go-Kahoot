@@ -58,7 +58,9 @@ const Home = ({ children }) => {
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
-              className={clsx(classes.menuButton, { [classes.hide]: isOpened })}
+              className={clsx(classes.menuButton, {
+                [classes.hide]: isOpened
+              })}
             >
               <MenuIcon />
             </IconButton>
@@ -129,18 +131,22 @@ const Home = ({ children }) => {
         </List>
         <Divider />
         <List>
-          {["Documentation", "About"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/documentation">
+            <ListItem button>
               <ListItemIcon>
-                {index % 2 === 0 ? (
-                  <AssignmentIcon fontSize="large" />
-                ) : (
-                  <InfoIcon fontSize="large" />
-                )}
+                <AssignmentIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Documentation" />
             </ListItem>
-          ))}
+          </Link>
+          <Link to="/about">
+            <ListItem button>
+              <ListItemIcon>
+                <InfoIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="About" />
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
       <main className={classes.content}>{children}</main>

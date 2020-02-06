@@ -106,7 +106,10 @@ const QuestionStep = ({ testUUID, handleNext }) => {
   return (
     <>
       <form onSubmit={handleSubmitForm}>
-        <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+        <LinearProgress
+          variant={loading ? "indeterminate" : "determinate"}
+          value={100}
+        />
         <Typography variant="h4" gutterBottom>
           Create Question
         </Typography>

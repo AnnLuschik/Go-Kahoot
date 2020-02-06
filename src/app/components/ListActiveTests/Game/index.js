@@ -83,7 +83,7 @@ const StartTestPage = () => {
     }
   }, [playingData, playingLoading, data]);
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error)
     return (
       <Backdrop open={true}>
@@ -93,7 +93,10 @@ const StartTestPage = () => {
 
   return (
     <>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress
+        variant={loading ? "indeterminate" : "determinate"}
+        value={100}
+      />
       <Wrapper>
         {data.gameStatusEnum !== "FINISHED" ? (
           <>

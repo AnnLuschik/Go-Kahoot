@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button as MUIButton,
@@ -7,12 +8,12 @@ import {
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin: 20px;
 `;
 
 export const Button = styled(MUIButton)`
-  margin: 0 10px;
+  margin: 0 10px !important;
 `;
 
 export const CustomTypography = styled(MUITypography)`
@@ -21,9 +22,16 @@ export const CustomTypography = styled(MUITypography)`
   font-family: "Libre Baskerville", serif;
 `;
 
+export const Link = styled(RouterLink)`
+  color: black;
+  text-decoration: none;
+  margin: 0 10px;
+`;
+
 const useStyles = makeStyles({
   card: {
-    minWidth: 275
+    minWidth: 275,
+    margin: "0 10px"
   },
   bullet: {
     display: "inline-block",

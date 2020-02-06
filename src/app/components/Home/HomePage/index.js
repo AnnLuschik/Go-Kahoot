@@ -6,9 +6,9 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 
-import { Link } from "../styles";
-import useStyles, { Container, CustomTypography } from "./styles";
+import useStyles, { Container, CustomTypography, Link } from "./styles";
 
 const HomePage = () => {
   const classes = useStyles();
@@ -16,9 +16,11 @@ const HomePage = () => {
 
   return (
     <>
-      <CustomTypography variant="h4" gutterBottom>
-        Using this application you can:
-      </CustomTypography>
+      <Skeleton animation="wave" variant="rect" width="100%" height="70px">
+        <CustomTypography variant="h4" gutterBottom>
+          Using this application you can:
+        </CustomTypography>
+      </Skeleton>
       <Container>
         <Card className={classes.card}>
           <CardContent>
@@ -89,13 +91,22 @@ const HomePage = () => {
         who is the smartest.
       </CustomTypography>
       <CustomTypography variant="h4" gutterBottom>
-        Want to try? Click on 'Start'!
+        Want to try? Click on 'Start'! Or before reed the "Documentation".
       </CustomTypography>
       <Container>
         <Link to="/create">
-          <Button size="large" color="primary" variant="contained">
-            Start
-          </Button>
+          <Skeleton animation="pulse" variant="rect" width="100%" height="100%">
+            <Button size="large" color="primary" variant="contained">
+              Start
+            </Button>
+          </Skeleton>
+        </Link>
+        <Link to="/documentation">
+          <Skeleton animation="pulse" variant="rect" width="100%" height="100%">
+            <Button size="large" color="primary" variant="contained">
+              Documentation
+            </Button>
+          </Skeleton>
         </Link>
       </Container>
     </>

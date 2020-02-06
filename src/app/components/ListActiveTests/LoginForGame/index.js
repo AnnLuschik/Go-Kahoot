@@ -97,12 +97,15 @@ const LoginForGame = () => {
     history.goBack();
   };
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
   return (
     <>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress
+        variant={loading ? "indeterminate" : "determinate"}
+        value={100}
+      />
       <Container>
         <Dialog
           open={open}

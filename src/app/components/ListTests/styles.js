@@ -18,7 +18,7 @@ export const CustomTypography = styled(MUITypography)`
 `;
 
 export const Button = styled(MUIButton)`
-  margin: 0 10px;
+  margin: 0 10px !important;
 `;
 
 export const ContainerButton = styled.div`

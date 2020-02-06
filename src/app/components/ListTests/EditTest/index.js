@@ -66,7 +66,7 @@ const UpdateTest = () => {
     });
   };
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
   return (
@@ -75,6 +75,7 @@ const UpdateTest = () => {
         variant={
           updating || updatingQuestions ? "indeterminate" : "determinate"
         }
+        value={100}
       />
       {updateError && <p>Error :(</p>}
       <CustomTypography variant="h4">Content of Test</CustomTypography>

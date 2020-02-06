@@ -5,7 +5,7 @@ import { Container, Button, Typography, ContainerButton } from "./styles";
 
 const ValidateQuestionStep = ({ handleBack, handleNext }) => (
   <Container>
-    <LinearProgress variant="determinate" />
+    <LinearProgress variant="determinate" value={100} />
     <Typography variant="h4" gutterBottom>
       You want to create new question for this test?
     </Typography>

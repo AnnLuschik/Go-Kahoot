@@ -1,4 +1,5 @@
 import React from "react";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 
 import { Container } from "./styles";
@@ -9,14 +10,16 @@ const CircleTimer = ({ startTimeSec, currentTimeSec }) => {
 
   return (
     <Container>
-      <CircularProgressbar
-        value={(currentTimeSec * 100) / startTimeSec}
-        text={`${currentTimeSec}s`}
-        styles={buildStyles({
-          textColor: percentLoading > 3 && "red",
-          pathColor: percentLoading > 3 && "red"
-        })}
-      />
+      <Skeleton animation="pulse" variant="circle" width="100%" height="100%">
+        <CircularProgressbar
+          value={(currentTimeSec * 100) / startTimeSec}
+          text={`${currentTimeSec}s`}
+          styles={buildStyles({
+            textColor: percentLoading > 3 && "red",
+            pathColor: percentLoading > 3 && "red"
+          })}
+        />
+      </Skeleton>
     </Container>
   );
 };

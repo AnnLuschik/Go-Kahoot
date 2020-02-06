@@ -82,7 +82,7 @@ const StartTestPage = ({
       );
       addPlayer(newPlayers);
     }
-  }, [deleting, deletingSuccessData, players]);
+  }, [deleting, deletingSuccessData]);
 
   const handleStart = () => {
     startGame({ variables: { code: urlCODE } });
