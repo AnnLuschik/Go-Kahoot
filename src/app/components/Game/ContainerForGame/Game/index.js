@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import toast from "toastr";
 import * as showdown from "showdown";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
@@ -55,10 +56,12 @@ const Game = () => {
   const [isAnswered, setIsAnswer] = useState(null);
   const [isRightAnswer, setIsRightAnswer] = useState("");
 
-  const { loading, error, data: questionData } = useQuery(
+  const { loading, error, data: questionData, refetch } = useQuery(
     QUESTION_BY_UUID(data.currentQuestionUUID)
   );
-  const [answeredQuestion] = useMutation(ANSWER_QUESTION_DY_UUID);
+  const [answeredQuestion, { error: answeredError }] = useMutation(
+    ANSWER_QUESTION_DY_UUID
+  );
   const { data: playingData, loading: playingLoading } = useSubscription(
     ON_PLAYING_GAME,
     {
@@ -134,7 +137,10 @@ const Game = () => {
         <CircularProgress />
       </Backdrop>
     );
-  console.log(rightAnswers);
+  if (answeredError) {
+    toast.warning("You've already answered this question");
+  }
+
   return (
     <>
       <LinearProgress

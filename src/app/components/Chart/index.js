@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 
 const changeData = data => {
   return {
-    labels: data.map(({ name }) => name),
+    labels: data && data.map(({ name }) => name),
     datasets: [
       {
         label: "My First dataset",
@@ -12,7 +12,7 @@ const changeData = data => {
         borderWidth: 1,
         hoverBackgroundColor: "rgba(255,99,132,0.4)",
         hoverBorderColor: "rgba(255,99,132,1)",
-        data: data.map(({ rightAnswers }) => rightAnswers)
+        data: data && data.map(({ rightAnswers }) => rightAnswers)
       }
     ]
   };
