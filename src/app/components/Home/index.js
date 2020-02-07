@@ -28,7 +28,7 @@ import {
 } from "@material-ui/icons";
 
 import useStyles, { Link } from "./styles";
-import "react-toastify/dist/ReactToastify.css";
+import "toastr/build/toastr.min.css";
 
 const Home = ({ children }) => {
   const classes = useStyles();

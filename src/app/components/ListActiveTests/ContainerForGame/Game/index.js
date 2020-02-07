@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import * as showdown from "showdown";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
+import * as showdownHighlight from "showdown-highlight";
 import { useMutation, useQuery, useSubscription } from "@apollo/react-hooks";
 import { Backdrop, CircularProgress, LinearProgress } from "@material-ui/core";
 
@@ -21,8 +23,6 @@ import useStyles, {
   Wrapper,
   WrapperComponent
 } from "./styles";
-import * as showdown from "showdown";
-import * as showdownHighlight from "showdown-highlight";
 
 const converter = new showdown.Converter({
   tables: true,
@@ -33,7 +33,7 @@ const converter = new showdown.Converter({
   extensions: [showdownHighlight]
 });
 
-const StartTestPage = () => {
+const Game = () => {
   const classes = useStyles();
   const history = useHistory();
   const {
@@ -80,7 +80,7 @@ const StartTestPage = () => {
   };
 
   const handleRedirectToFinishPage = () => {
-    history.push(`/activetests/${urlCode}/finishtable`);
+    history.push(`/activetests/${urlCode}/game/${urlUUIDPlayer}/finishtable`);
   };
 
   useEffect(() => {
@@ -166,4 +166,4 @@ const StartTestPage = () => {
   );
 };
 
-export default StartTestPage;
+export default Game;

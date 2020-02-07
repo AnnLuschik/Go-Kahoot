@@ -33,12 +33,13 @@ import {
 } from "./styles";
 import "emoji-mart/css/emoji-mart.css";
 
-const Chat = ({ urlCode, playerUUID }) => {
-  const [isEmoji, setIsEmoji] = useState(false);
-  const [isOpened, setIsOpened] = useState(true);
+const Chat = ({ urlCode, playerUUID, isShow }) => {
+  const [disabled, setDisabled] = useState(isShow);
+  const [isOpened, setIsOpened] = useState(isShow);
   const [offset, setOffset] = useState(0);
   const [message, setMessage] = useState("");
   const [chatData, setChatData] = useState([]);
+  const [isEmoji, setIsEmoji] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(true);
   const [scrollParentRef, setScrollParentRef] = useState(null);
 
@@ -90,12 +91,15 @@ const Chat = ({ urlCode, playerUUID }) => {
 
   const handleAddMessage = e => {
     e.preventDefault();
+    setDisabled(true);
+
     if (message) {
       addMessage({ variables: { playerUUID, message } }).then(() => {
         setMessage("");
         setTimeout(() => {
           scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
-        }, 0);
+          setDisabled(false);
+        }, 100);
       });
     }
   };
@@ -207,14 +211,18 @@ const Chat = ({ urlCode, playerUUID }) => {
                 }}
               />
 
-              <Button type="submit" color="primary" disabled={!message}>
+              <Button
+                type="submit"
+                color="primary"
+                disabled={!message && disabled}
+              >
                 Send
               </Button>
               <IconButton onClick={handleShowEmoji}>
                 <SentimentVerySatisfiedIcon />
               </IconButton>
               <IconButton onClick={handleShowChat}>
-                <KeyboardArrowUpIcon fontSize="medium" />
+                <KeyboardArrowUpIcon />
               </IconButton>
             </>
           ) : (
@@ -226,13 +234,16 @@ const Chat = ({ urlCode, playerUUID }) => {
                 justifyContent: "center"
               }}
             >
-              <IconButton>
-                <KeyboardArrowDownIcon
-                  onClick={handleShowChat}
-                  fontSize="medium"
-                />
+              <IconButton onClick={handleShowChat}>
+                <KeyboardArrowDownIcon />
               </IconButton>
-              <div style={{ textAlign: "center", paddingTop: "6px" }}>
+              <div
+                style={{
+                  textAlign: "center",
+                  paddingTop: "6px",
+                  cursor: "pointer"
+                }}
+              >
                 Click to open chat
               </div>
             </div>

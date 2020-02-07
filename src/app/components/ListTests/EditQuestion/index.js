@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import toast from "toastr";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useMutation } from "@apollo/react-hooks";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";

@@ -165,7 +165,7 @@ const StartTestPage = ({
           })}
         </ContainerListItem>
       </Container>
-      <Chat urlCode={urlCODE} playerUUID={playerLS.UUID} />
+      <Chat urlCode={urlCODE} playerUUID={playerLS.UUID} isShow={true} />
     </>
   );
 };

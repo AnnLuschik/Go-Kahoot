@@ -16,10 +16,10 @@ import HomePage from "./components/Home/HomePage";
 import AboutPage from "./components/Home/AboutPage";
 import EditTest from "./components/ListTests/EditTest";
 import ListActiveTests from "./components/ListActiveTests";
-import StartTestPage from "./components/ListActiveTests/Game";
+import Game from "./components/ListActiveTests/ContainerForGame";
 import DocumentationPage from "./components/Home/DocumentationPage";
 import LoginForGame from "./components/ListActiveTests/LoginForGame";
-import EnhancedTable from "./components/ListActiveTests/Game/FinishTable";
+import FinishTable from "./components/ListActiveTests/ContainerForGame/Game/FinishTable";
 
 import { GlobalStyle } from "./styles";
 
@@ -67,12 +67,12 @@ const App = () => (
             <Route
               exact
               path="/activetests/:CODE/game/:UUID"
-              component={StartTestPage}
+              component={Game}
             />
             <Route
               exact
-              path="/activetests/:CODE/finishtable"
-              component={EnhancedTable}
+              path="/activetests/:CODE/game/:UUID/finishtable"
+              component={FinishTable}
             />
           </Switch>
           <GlobalStyle />

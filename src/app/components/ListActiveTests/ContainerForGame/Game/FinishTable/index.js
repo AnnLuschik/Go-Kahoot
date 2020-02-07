@@ -16,6 +16,8 @@ import {
   LinearProgress
 } from "@material-ui/core";
 
+import Chat from "../../../../ChatForGame";
+
 import { REPORT_GAME_BY_CODE } from "./graphql";
 
 import { stableSort, getSorting, createData } from "./utils";
@@ -63,7 +65,8 @@ const FinishTable = () => {
     location: { pathname }
   } = history;
   const urlArray = pathname.split("/");
-  const urlCode = urlArray[urlArray.length - 2];
+  const urlCode = urlArray[urlArray.length - 4];
+  const urlUUIDPlayer = urlArray[urlArray.length - 2];
 
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -236,6 +239,7 @@ const FinishTable = () => {
           />
         </div>
       </Wrapper>
+      <Chat urlCode={urlCode} playerUUID={urlUUIDPlayer} isShow={true} />
     </>
   );
 };

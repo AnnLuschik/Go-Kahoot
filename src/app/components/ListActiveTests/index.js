@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import toast from "toastr";
 import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/react-hooks";

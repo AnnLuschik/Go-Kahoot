@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import toast from "toastr";
 import { useMutation } from "@apollo/react-hooks";
 import { LinearProgress } from "@material-ui/core";
-import "react-toastify/dist/ReactToastify.css";
 
 import { CREATE_NEW_TEST } from "./graphql";
 
@@ -28,7 +27,7 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
     }
 
     setErrorInput(true);
-    toast.warn(
+    toast.warning(
       "You must use at least 4 characters in each field, please make sure that you fill in everything."
     );
   };

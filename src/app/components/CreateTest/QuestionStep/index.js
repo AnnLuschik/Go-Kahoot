@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "toastr";
 import { useMutation } from "@apollo/react-hooks";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
@@ -99,7 +99,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
     );
 
     if (isErrorQuestion || isErrorAnswer) {
-      toast.warn(
+      toast.warning(
         "You must use at least 4 characters in each field, please make sure that you fill in everything."
       );
 
