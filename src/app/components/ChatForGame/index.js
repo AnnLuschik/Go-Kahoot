@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Moment from "react-moment";
 import moment from "moment";
+import Moment from "react-moment";
 import { Picker } from "emoji-mart";
 import * as sortBy from "lodash.sortby";
 import * as uniqBy from "lodash.uniqby";
 import InfiniteScroll from "react-infinite-scroller";
 import { CircularProgress } from "@material-ui/core";
 import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks";
-
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import {
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  SentimentVerySatisfied as SentimentVerySatisfiedIcon
+} from "@material-ui/icons";
 
 import {
   CHAT_MESSAGES_OF_GAME_BY_CODE,
@@ -29,7 +30,10 @@ import {
   Text,
   Time,
   IconButton,
-  WrapperScrollElements
+  WrapperScrollElements,
+  ContainerFooterChat,
+  ContainerOpenChat,
+  ContainerPicker
 } from "./styles";
 import "emoji-mart/css/emoji-mart.css";
 
@@ -43,17 +47,14 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
   const [isLoadMore, setIsLoadMore] = useState(true);
   const [scrollParentRef, setScrollParentRef] = useState(null);
 
-  const { loading, error, data, refetch } = useQuery(
-    CHAT_MESSAGES_OF_GAME_BY_CODE,
-    {
-      variables: {
-        code: urlCode,
-        offset: offset,
-        limit: 20,
-        order: "DESC"
-      }
+  const { error, refetch } = useQuery(CHAT_MESSAGES_OF_GAME_BY_CODE, {
+    variables: {
+      code: urlCode,
+      offset: offset,
+      limit: 20,
+      order: "DESC"
     }
-  );
+  });
   const [addMessage, { loading: sending }] = useMutation(SEND_MESSAGE_TO_CHAT);
   const { data: dataChatGame, loading: chatLoading } = useSubscription(
     ON_CHAT_GAME,
@@ -91,9 +92,9 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
 
   const handleAddMessage = e => {
     e.preventDefault();
-    setDisabled(true);
 
     if (message) {
+      setDisabled(true);
       addMessage({ variables: { playerUUID, message } }).then(() => {
         setMessage("");
         setTimeout(() => {
@@ -151,10 +152,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
     <>
       <Container>
         <WrapperScrollElements isopened={isOpened}>
-          <ContainerScroll
-            style={{ height: "200px", overflow: "auto" }}
-            ref={ref => setScrollParentRef(ref)}
-          >
+          <ContainerScroll ref={ref => setScrollParentRef(ref)}>
             <div>
               <InfiniteScroll
                 pageStart={0}
@@ -175,19 +173,19 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
                   uniqBy(chatData, o => o.UUID),
                   o => new moment(o.time)
                 ).map(
-                  ({ message, time, player: { name, UUID: plUUID }, UUID }) => (
-                    <Message
-                      className="messages"
-                      isyou={plUUID === playerUUID}
-                      key={UUID}
-                    >
-                      <Name isyou={plUUID === playerUUID}>{name}</Name>
-                      <Text isyou={plUUID === playerUUID}>{message}</Text>
-                      <Time isyou={plUUID === playerUUID}>
-                        <Moment format="HH:mm:ss">{time}</Moment>
-                      </Time>
-                    </Message>
-                  )
+                  ({ message, time, player: { name, UUID: plUUID }, UUID }) => {
+                    const isYou = plUUID === playerUUID;
+
+                    return (
+                      <Message className="messages" isyou={isYou} key={UUID}>
+                        <Name isyou={isYou}>{name}</Name>
+                        <Text isyou={isYou}>{message}</Text>
+                        <Time isyou={isYou}>
+                          <Moment format="HH:mm:ss">{time}</Moment>
+                        </Time>
+                      </Message>
+                    );
+                  }
                 )}
               </InfiniteScroll>
             </div>
@@ -199,10 +197,10 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
               <TextField
                 type="text"
                 variant="outlined"
-                value={message}
                 placeholder="Type the message"
-                onChange={handleChangeInput}
+                value={message}
                 disabled={!isOpened}
+                onChange={handleChangeInput}
                 inputProps={{
                   style: {
                     height: 30,
@@ -210,7 +208,6 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
                   }
                 }}
               />
-
               <Button
                 type="submit"
                 color="primary"
@@ -226,37 +223,22 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
               </IconButton>
             </>
           ) : (
-            <div
-              onClick={handleShowChat}
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center"
-              }}
-            >
+            <ContainerFooterChat onClick={handleShowChat}>
               <IconButton onClick={handleShowChat}>
                 <KeyboardArrowDownIcon />
               </IconButton>
-              <div
-                style={{
-                  textAlign: "center",
-                  paddingTop: "6px",
-                  cursor: "pointer"
-                }}
-              >
-                Click to open chat
-              </div>
-            </div>
+              <ContainerOpenChat>Click to open chat</ContainerOpenChat>
+            </ContainerFooterChat>
           )}
         </Form>
         {isEmoji && (
-          <div style={{ position: "absolute", top: 0, left: "-301px" }}>
+          <ContainerPicker>
             <Picker
               onSelect={handleAddEmoji}
               perLine={15}
               style={{ width: "300px" }}
             />
-          </div>
+          </ContainerPicker>
         )}
       </Container>
     </>

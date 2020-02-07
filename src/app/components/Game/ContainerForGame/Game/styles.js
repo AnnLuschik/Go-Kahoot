@@ -23,13 +23,14 @@ export const Button = styled(MUIButton)`
 export const ButtonAnswer = styled(MUIButton)`
   font-size: 20px;
   margin-bottom: 10px;
-  padding: 3px;
+  padding: 0;
   width: 49%;
   border-radius: 5px;
   box-shadow: 0px 0px 2px 1px rgba(128, 128, 128, 0.3);
   text-transform: none;
   border: 1px solid #c2c2c2;
   justify-content: flex-start;
+  align-items: start;
   font-family: "Libre Baskerville", serif !important;
   font-size: 14px !important;
 
@@ -97,11 +98,7 @@ const useStyles = makeStyles(theme => ({
     padding: "0.5em",
     color: "#333",
     borderRadius: "5px",
-    background: "#f0f0f0",
-    maxHeight: "200px",
-    "&:hover": {
-      background: "#d1d1d1"
-    }
+    maxHeight: "200px"
   }
 }));
 

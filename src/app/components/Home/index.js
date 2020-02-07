@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { ToastContainer } from "react-toastify";
 import { useTheme } from "@material-ui/core/styles";
 import {
   List,
@@ -46,7 +45,6 @@ const Home = ({ children }) => {
 
   return (
     <div className={classes.root}>
-      <ToastContainer />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, { [classes.appBarShift]: isOpened })}

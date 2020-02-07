@@ -36,6 +36,14 @@ export const ContainerAnswer = styled.div`
   margin: 10px auto;
 `;
 
+export const ContainerMarkDown = styled.div`
+  width: 700px;
+`;
+
+export const ContainerMarkDownAnswers = styled.div`
+  width: 500px;
+`;
+
 export const ContainerAnswers = styled.div`
   margin-bottom: 60px;
 `;

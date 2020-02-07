@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import toast from "toastr";
 import { useMutation } from "@apollo/react-hooks";
@@ -16,11 +16,12 @@ import {
   ContainerAnswers,
   Container,
   Typography,
-  ButtonAnswer
+  ButtonAnswer,
+  ContainerMarkDown,
+  ContainerMarkDownAnswers
 } from "./styles";
 
 const QuestionStep = ({ testUUID, handleNext }) => {
-  const history = useHistory();
   const [question, changeQuestion] = useState({
     text: "",
     testUUID,
@@ -125,14 +126,14 @@ const QuestionStep = ({ testUUID, handleNext }) => {
           Create Question
         </Typography>
         <Container>
-          <div style={{ width: 700 }}>
+          <ContainerMarkDown>
             <MarkDown
               text={question.text}
               handleChange={handleChangeQuestion}
               height={100}
               commandNumber={0}
             />
-          </div>
+          </ContainerMarkDown>
           <Button type="submit" color="primary" variant="contained">
             Next
           </Button>
@@ -152,14 +153,14 @@ const QuestionStep = ({ testUUID, handleNext }) => {
 
             return (
               <ContainerAnswer key={index}>
-                <div style={{ width: 500 }}>
+                <ContainerMarkDownAnswers>
                   <MarkDown
                     text={text}
                     handleChange={handleChangeAnswer(index)}
                     height={60}
                     commandNumber={1}
                   />
-                </div>
+                </ContainerMarkDownAnswers>
                 <Tooltip title="Choose the correct answer">
                   <Checkbox
                     color="primary"

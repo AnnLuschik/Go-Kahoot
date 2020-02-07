@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "toastr";
 import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";

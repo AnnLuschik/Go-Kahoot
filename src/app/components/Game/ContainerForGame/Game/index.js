@@ -143,7 +143,14 @@ const Game = () => {
                               disabled={!(isAnswered === null)}
                               onClick={handleAnsweredQuestion(sequential, ID)}
                             >
-                              {ALPHABET[index]})&nbsp;
+                              <div
+                                style={{
+                                  borderRight: "1px solid #c2c2c2",
+                                  borderBottom: "1px solid #c2c2c2"
+                                }}
+                              >
+                                &nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;
+                              </div>
                               <ReactMarkdown
                                 className={classes.markDownAnswer}
                                 source={converter.makeHtml(text)}

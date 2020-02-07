@@ -14,12 +14,12 @@ import ListTests from "./components/ListTests";
 import Steps from "./components/CreateTest/Steps";
 import HomePage from "./components/Home/HomePage";
 import AboutPage from "./components/Home/AboutPage";
-import EditTest from "./components/ListTests/EditTest";
+import EditTest from "./components/EditTest/EditTest";
+import Game from "./components/Game/ContainerForGame";
+import FinishTable from "./components/Game/FinishTable";
+import LoginForGame from "./components/Game/LoginForGame";
 import ListActiveTests from "./components/ListActiveTests";
-import Game from "./components/ListActiveTests/ContainerForGame";
 import DocumentationPage from "./components/Home/DocumentationPage";
-import LoginForGame from "./components/ListActiveTests/LoginForGame";
-import FinishTable from "./components/ListActiveTests/ContainerForGame/Game/FinishTable";
 
 import { GlobalStyle } from "./styles";
 

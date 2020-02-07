@@ -47,7 +47,31 @@ export const TextField = styled(MUITextField)`
 
 export const Button = styled(MUIButton)``;
 
+export const ContainerFooterChat = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const ContainerOpenChat = styled.div`
+  padding-top: 6px;
+  text-align: center;
+  cursor: pointer;
+`;
+
+export const ContainerPicker = styled.div`
+  position: absolute;
+  top: 0;
+  left: -301px;
+`;
+
 export const ContainerScroll = styled.div`
+  position: relative;
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  height: 200px;
+  overflow: auto;
   padding: 5px;
 
   &::-webkit-scrollbar {
@@ -58,10 +82,6 @@ export const ContainerScroll = styled.div`
     border-radius: 4px;
     background-color: blue;
   }
-  display: flex;
-  flex: 1 1 0%;
-  flex-direction: column;
-  position: relative;
 `;
 
 export const Message = styled.div`

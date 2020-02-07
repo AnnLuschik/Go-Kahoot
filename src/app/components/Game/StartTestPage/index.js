@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import { Face as FaceIcon, Cancel as CancelIcon } from "@material-ui/icons";
 
+import Chat from "../../ChatForGame";
+
 import { ON_WAIT_FOR_JOINING_PLAYER_TO_GAME } from "../LoginForGame/graphql";
 import {
   DELETE_PLAYER_FROM_GAME,
@@ -26,7 +28,6 @@ import {
   ListItem,
   ContainerListItem
 } from "./styles";
-import Chat from "../../ChatForGame";
 
 const StartTestPage = ({
   data: {

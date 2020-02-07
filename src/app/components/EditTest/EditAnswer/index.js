@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 
-import { TextField } from "./styles";
 import MarkDown from "../../MarkDown";
 
 const UpdateAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {

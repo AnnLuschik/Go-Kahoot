@@ -3,6 +3,7 @@ import ReactMde, { commands } from "react-mde";
 import * as showdown from "showdown";
 import * as showdownHighlight from "showdown-highlight";
 
+import { ShadowContainer, Container } from "./styles";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "highlight.js/styles/github.css";
 
@@ -42,7 +43,7 @@ const listCommands = [
   ]
 ];
 
-const Index = ({
+const MarkDown = ({
   text,
   handleChange,
   height,
@@ -52,7 +53,7 @@ const Index = ({
   const [selectedTab, setSelectedTab] = useState("write");
 
   return (
-    <div style={{ position: "relative" }}>
+    <Container>
       <ReactMde
         minEditorHeight={height}
         minPreviewHeight={height}
@@ -67,19 +68,9 @@ const Index = ({
         commands={listCommands[commandNumber]}
         readOnly={readOnly}
       />
-      <div
-        style={{
-          width: "100%",
-          height: readOnly ? "100%" : 0,
-          top: 0,
-          left: 0,
-          position: "absolute",
-          zIndex: 10000,
-          background: "rgba(194, 194, 194, 0.3)"
-        }}
-      ></div>
-    </div>
+      <ShadowContainer readonly={readOnly} />
+    </Container>
   );
 };
 
-export default Index;
+export default MarkDown;

@@ -11,10 +11,10 @@ import { UPDATE_QUESTIONS_BY_UUID } from "./graphql";
 import { CustomTypography } from "../EditTest/styles";
 import {
   Checkbox,
-  TextField,
   Container,
   ContainerQuestions,
-  ContainerAnswers
+  ContainerAnswers,
+  ContainerMarkDown
 } from "./styles";
 import MarkDown from "../../MarkDown";
 
@@ -102,7 +102,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
       {updateError && <p>Error :(</p>}
       <div>
         <ContainerQuestions>
-          <div style={{ width: 700 }}>
+          <ContainerMarkDown>
             <MarkDown
               text={text}
               handleChange={handleChangeInput}
@@ -110,7 +110,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
               commandNumber={0}
               readOnly={isDisabledField}
             />
-          </div>
+          </ContainerMarkDown>
           {isDisabledField ? (
             <Tooltip title="Edit question text">
               <IconButton
