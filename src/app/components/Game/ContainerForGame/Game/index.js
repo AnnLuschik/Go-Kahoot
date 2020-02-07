@@ -23,6 +23,7 @@ import useStyles, {
   Wrapper,
   WrapperComponent
 } from "./styles";
+import Chart from "../../../Chart";
 
 const converter = new showdown.Converter({
   tables: true,
@@ -43,6 +44,7 @@ const Game = () => {
   const urlUUIDPlayer = urlArray[urlArray.length - 1];
   const urlCode = urlArray[urlArray.length - 3];
 
+  const [rightAnswers, setRightAnswers] = useState([]);
   const [data, setNewData] = useState({
     currentQuestionUUID: "",
     gameCode: "",
@@ -88,9 +90,39 @@ const Game = () => {
       const { onPlayingGame } = playingData;
       setNewData(onPlayingGame);
 
+      onPlayingGame.answers.length &&
+        setRightAnswers(
+          questionData &&
+            questionData.questionByUUID.answers.map(({ ID }, index) => {
+              const answersForID = onPlayingGame.answers.filter(
+                answer => answer.answerID === ID
+              );
+
+              const count =
+                answersForID.length &&
+                answersForID[0].players &&
+                answersForID[0].players.length;
+
+              // TODO Some logic for count right answers.
+              // const count =
+              //   answersForID.length &&
+              //   answersForID[0].players &&
+              //   answersForID[0].players.filter(
+              //     ({ wasRight }) => wasRight === true
+              //   ).length;
+
+              return {
+                answerID: ID,
+                name: ALPHABET[index],
+                rightAnswers: count
+              };
+            })
+        );
+
       if (data.currentQuestionUUID !== onPlayingGame.currentQuestionUUID) {
         setIsAnswer(null);
         setIsRightAnswer("");
+        setRightAnswers([]);
       }
     }
   }, [playingData, playingLoading, data]);
@@ -102,7 +134,7 @@ const Game = () => {
         <CircularProgress />
       </Backdrop>
     );
-
+  console.log(rightAnswers);
   return (
     <>
       <LinearProgress
@@ -114,12 +146,24 @@ const Game = () => {
           <>
             {questionData && (
               <>
-                <ContainerTimer>
-                  <CircleTimer
-                    startTimeSec={data.startTimeSec}
-                    currentTimeSec={data.currentTimeSec}
-                  />
-                </ContainerTimer>
+                <div
+                  style={{
+                    height: "75vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    alignItems: "center"
+                  }}
+                >
+                  <ContainerTimer>
+                    <CircleTimer
+                      startTimeSec={data.startTimeSec}
+                      currentTimeSec={data.currentTimeSec}
+                    />
+                  </ContainerTimer>
+                  <Chart data={rightAnswers} />
+                </div>
+
                 <WrapperComponent>
                   <ReactMarkdown
                     className={classes.markDownQuestion}

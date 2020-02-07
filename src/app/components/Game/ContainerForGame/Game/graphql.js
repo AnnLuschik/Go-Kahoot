@@ -8,6 +8,17 @@ export const ON_PLAYING_GAME = gql`
       gameCode
       currentQuestionUUID
       gameStatusEnum
+      answers {
+        answerID
+        players {
+          player {
+            UUID
+            gameCode
+            name
+          }
+          wasRight
+        }
+      }
     }
   }
 `;

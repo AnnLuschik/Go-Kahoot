@@ -54,13 +54,14 @@ export const ContainerAnswers = styled.div`
 `;
 
 export const ContainerTimer = styled.div`
-  position: absolute;
+  // position: absolute;
   margin: 10px 10px 10px 30px;
+  margin: 30px auto;
 `;
 
 export const WrapperComponent = styled.div`
   max-width: 1200px;
-  margin: 0 50px 0 160px;
+  margin: 0 30px;
   padding: 0 10px;
   width: 100%;
   font-size: 22px;
