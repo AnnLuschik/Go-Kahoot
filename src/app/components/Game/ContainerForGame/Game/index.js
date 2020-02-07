@@ -105,7 +105,10 @@ const Game = () => {
 
   return (
     <>
-      <LinearProgress variant={loading ? "indeterminate" : "determinate"} />
+      <LinearProgress
+        variant={loading ? "indeterminate" : "determinate"}
+        value={100}
+      />
       <Wrapper>
         {data.gameStatusEnum !== "FINISHED" ? (
           <>
@@ -129,14 +132,16 @@ const Game = () => {
                     {questionData &&
                       questionData.questionByUUID.answers.map(
                         ({ ID, text, sequential }, index) => {
-                          const isRed =
-                            isRightAnswer === "No" && isAnswered === sequential;
-                          const isGreen =
-                            isRightAnswer === "Yes" &&
-                            isAnswered === sequential;
+                          const isRed = (
+                            isRightAnswer === "No" && isAnswered === sequential
+                          ).toString();
+                          const isGreen = (
+                            isRightAnswer === "Yes" && isAnswered === sequential
+                          ).toString();
 
                           return (
                             <ButtonAnswer
+                              key={ID + index}
                               variant="outlined"
                               isred={isRed}
                               isgreen={isGreen}

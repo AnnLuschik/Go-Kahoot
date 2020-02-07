@@ -1,21 +1,20 @@
 import React, { useState } from "react";
+import toast from "toastr";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 
 import MarkDown from "../../MarkDown";
 
 const UpdateAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
-  const [isErrorAnswer, setIsErrorAnswer] = useState(false);
   const [isDisabledField, changeDisable] = useState(true);
 
   const handleEditAnswer = () => {
     changeDisable(false);
-    setIsErrorAnswer(false);
   };
 
   const handleSave = () => {
     if (text.length < 4) {
-      setIsErrorAnswer(true);
+      toast.warning("Sorry text is too short, at least 4 characters");
 
       return;
     }

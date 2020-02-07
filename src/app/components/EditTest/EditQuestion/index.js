@@ -20,7 +20,6 @@ import MarkDown from "../../MarkDown";
 
 const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
   const [isDisabledField, changeDisable] = useState(true);
-  const [isErrorQuestion, setIsErrorQuestion] = useState(false);
   const [text, changeText] = useState(question.text);
   const [answers, changeAnswers] = useState(question.answers);
   const [rightAnswer, changeRightAnswer] = useState(question.rightAnswer);
@@ -32,7 +31,6 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
 
   const handleChangeInput = value => {
     changeText(value);
-    setIsErrorQuestion(false);
   };
 
   const handleEditQuestion = () => {
@@ -54,7 +52,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
 
   const saveQuestion = (e, index = undefined) => {
     if (text.length < 4) {
-      setIsErrorQuestion(true);
+      toast.warning("Sorry text is too short, at least 4 characters");
 
       return;
     }

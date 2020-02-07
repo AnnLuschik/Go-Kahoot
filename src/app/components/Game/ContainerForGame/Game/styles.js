@@ -39,8 +39,8 @@ export const ButtonAnswer = styled(MUIButton)`
   }
 
   ${({ isred, isgreen }) =>
-    (isgreen && "background: #f2ffeb;") ||
-    (isred && "background: #fff0eb;") ||
+    (isgreen === "true" && "background: #f2ffeb;") ||
+    (isred === "true" && "background: #fff0eb;") ||
     "background: #f0f0f0;"}
 `;
 

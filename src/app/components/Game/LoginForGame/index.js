@@ -131,7 +131,7 @@ const LoginForGame = () => {
                     error={isErrorInput}
                     helperText={
                       isErrorInput &&
-                      "The name must contain more than 2 characters"
+                      "The name must contain more than 4 characters"
                     }
                   />
                 </Grid>

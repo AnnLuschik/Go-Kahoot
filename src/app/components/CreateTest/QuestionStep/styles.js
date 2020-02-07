@@ -17,21 +17,12 @@ export const ButtonAnswer = styled(MUIButton)`
   margin: 20px auto 20px;
 `;
 
-export const TextField = styled(MUITextField)`
-  width: 600px;
-`;
-
-export const TextFieldAnswers = styled(MUITextField)`
-  width: 300px;
-`;
-
-export const Checkbox = styled(MUICheckbox)`
-  width: 58.98px;
-`;
+export const Checkbox = styled(MUICheckbox)``;
 
 export const ContainerAnswer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   max-width: 800px;
   margin: 10px auto;
 `;

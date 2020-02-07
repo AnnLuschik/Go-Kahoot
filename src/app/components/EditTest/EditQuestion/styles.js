@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  Checkbox as MUICheckbox,
-  TextField as MUITextField
-} from "@material-ui/core";
+import { Checkbox as MUICheckbox } from "@material-ui/core";
 
 export const Checkbox = styled(MUICheckbox)``;
 
