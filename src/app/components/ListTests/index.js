@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
@@ -36,9 +36,13 @@ import { Link } from "../../styles";
 
 const ListTests = () => {
   const history = useHistory();
+  const [disabled, setDisabled] = useState(false);
+
   const { loading, error, data, refetch } = useQuery(GET_ALL_TESTS);
   const [deleteTest, { loading: deleting }] = useMutation(DELETE_TEST);
   const [activateGame, { loading: activating }] = useMutation(ACTIVATE_GAME);
+
+  refetch && refetch();
 
   const handleActivateGame = UUID => () => {
     activateGame({ variables: { testUUID: UUID } }).then(
@@ -47,7 +51,7 @@ const ListTests = () => {
           activateGame: { CODE }
         }
       }) => {
-        toast("Activating Test Successful");
+        toast.success("Activating Test Successful");
         localStorage.setItem(`isAdmin:${CODE}`, "true");
         history.push(`/activetests/${CODE}`);
       }
@@ -62,13 +66,14 @@ const ListTests = () => {
   };
 
   const handleDelete = (id, UUID) => () => {
+    setDisabled(true);
     if (loading || deleting) return;
 
     deleteTest({ variables: { id: [id] } }).then(data => {
-      if (data && refetch) {
-        toast("Deleting Test Successful");
+      if (data) {
+        toast.success("Deleting Test Successful");
         localStorage.removeItem(`isCreator:${UUID}`);
-        refetch();
+        refetch().then(data => data && setDisabled(false));
       }
     });
   };
@@ -137,6 +142,7 @@ const ListTests = () => {
                     <ButtonIcon
                       edge="end"
                       aria-label="activate"
+                      disabled={disabled}
                       onClick={handleActivateGame(UUID)}
                     >
                       <PlayCircleFilledWhiteIcon />
@@ -147,7 +153,11 @@ const ListTests = () => {
                     style={{ textDecoration: "none" }}
                   >
                     <Tooltip title="Edit test">
-                      <IconButton edge="start" aria-label="show">
+                      <IconButton
+                        edge="start"
+                        aria-label="show"
+                        disabled={disabled}
+                      >
                         <VisibilityIcon />
                       </IconButton>
                     </Tooltip>
@@ -157,6 +167,7 @@ const ListTests = () => {
                       <IconButton
                         edge="end"
                         aria-label="delete"
+                        disabled={disabled}
                         onClick={handleDelete(ID, UUID)}
                       >
                         <DeleteIcon />

@@ -81,7 +81,7 @@ const LoginForGame = () => {
         `player:${data.data.joinPlayerToGame.UUID}`,
         JSON.stringify(player)
       );
-      toast(`You entered the game by name '${name}'`);
+      toast.success(`You entered the game by name '${name}'`);
       refetch();
     });
 

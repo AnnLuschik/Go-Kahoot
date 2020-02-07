@@ -64,7 +64,7 @@ const StartTestPage = () => {
     }
   );
 
-  const handleAnsweredQuestion = (index, ID) => () => {
+  const handleAnsweredQuestion = (sequential, ID) => () => {
     answeredQuestion({
       variables: {
         playerUUID: urlUUIDPlayer,
@@ -72,9 +72,9 @@ const StartTestPage = () => {
         answerID: ID
       }
     }).then(data => {
-      data.data && setIsAnswer(index);
+      data.data && setIsAnswer(sequential);
       setIsRightAnswer(
-        questionData.questionByUUID.rightAnswer === index ? "Yes" : "No"
+        questionData.questionByUUID.rightAnswer === sequential ? "Yes" : "No"
       );
     });
   };
@@ -128,11 +128,12 @@ const StartTestPage = () => {
                   <ContainerAnswers>
                     {questionData &&
                       questionData.questionByUUID.answers.map(
-                        ({ ID, text }, index) => {
+                        ({ ID, text, sequential }, index) => {
                           const isRed =
-                            isRightAnswer === "No" && isAnswered === index;
+                            isRightAnswer === "No" && isAnswered === sequential;
                           const isGreen =
-                            isRightAnswer === "Yes" && isAnswered === index;
+                            isRightAnswer === "Yes" &&
+                            isAnswered === sequential;
 
                           return (
                             <ButtonAnswer
@@ -140,15 +141,12 @@ const StartTestPage = () => {
                               isred={isRed}
                               isgreen={isGreen}
                               disabled={!(isAnswered === null)}
-                              onClick={handleAnsweredQuestion(index, ID)}
+                              onClick={handleAnsweredQuestion(sequential, ID)}
                             >
                               {ALPHABET[index]})&nbsp;
                               <ReactMarkdown
                                 className={classes.markDownAnswer}
-                                source={converter.makeHtml(
-                                  questionData &&
-                                    questionData.questionByUUID.text
-                                )}
+                                source={converter.makeHtml(text)}
                                 escapeHtml={false}
                               />
                             </ButtonAnswer>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/react-hooks";
 import { LinearProgress } from "@material-ui/core";
+import "react-toastify/dist/ReactToastify.css";
 
 import { CREATE_NEW_TEST } from "./graphql";
 
@@ -37,7 +38,7 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
       createNewTest: { name, ID, UUID }
     }
   }) => {
-    toast(`Create ${name} Successful`);
+    toast.success(`Create ${name} Successful`);
     localStorage.setItem(`isCreator:${UUID}`, "true");
     setUUID(UUID);
     setID(ID);

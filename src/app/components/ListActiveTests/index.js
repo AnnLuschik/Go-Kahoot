@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";
@@ -35,11 +35,14 @@ import { Link } from "../../styles";
 
 const ActiveTests = () => {
   const history = useHistory();
+  const [disabled, setDisabled] = useState(false);
 
   const { loading, error, data, refetch } = useQuery(ACTIVATED_GAMES);
   const [deactivateTest, { loading: deactivating }] = useMutation(
     DEACTIVATE_TEST
   );
+
+  refetch && refetch();
 
   const handleShowDeactivateButton = CODE => {
     const isAdminLS =
@@ -49,13 +52,14 @@ const ActiveTests = () => {
   };
 
   const handleDeactivate = CODE => () => {
+    setDisabled(true);
     if (deactivating || loading) return;
 
     deactivateTest({ variables: { codes: [CODE] } }).then(() => {
-      toast("Deactivating Test Successful");
-      refetch();
+      toast.success("Deactivating Test Successful");
+      localStorage.removeItem(`isAdmin:${CODE}`);
+      refetch().then(data => data && setDisabled(false));
     });
-    localStorage.removeItem(`isAdmin:${CODE}`);
   };
 
   const handleJoinGame = CODE => () => {
@@ -125,6 +129,7 @@ const ActiveTests = () => {
                       <ButtonIcon
                         edge="end"
                         aria-label="join"
+                        disabled={disabled}
                         onClick={handleJoinGame(CODE)}
                       >
                         <FlightTakeoffIcon />
@@ -135,6 +140,7 @@ const ActiveTests = () => {
                         <IconButton
                           edge="end"
                           aria-label="deactivate"
+                          disabled={disabled}
                           onClick={handleDeactivate(CODE)}
                         >
                           <CancelIcon />

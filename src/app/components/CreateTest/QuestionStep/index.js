@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/react-hooks";
 import { Delete as DeleteIcon } from "@material-ui/icons";
@@ -19,6 +20,7 @@ import {
 } from "./styles";
 
 const QuestionStep = ({ testUUID, handleNext }) => {
+  const history = useHistory();
   const [question, changeQuestion] = useState({
     text: "",
     testUUID,
@@ -32,7 +34,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
     },
     {
       text: "",
-      sequential: 0,
+      sequential: 1,
       errorAnswer: true
     }
   ]);
@@ -45,8 +47,8 @@ const QuestionStep = ({ testUUID, handleNext }) => {
     changeQuestion({ ...question, text });
   };
 
-  const handleChangeCheckbox = index => () => {
-    changeQuestion({ ...question, rightAnswer: index });
+  const handleChangeCheckbox = sequential => () => {
+    changeQuestion({ ...question, rightAnswer: sequential });
   };
 
   const handleChangeAnswer = index => text => {
@@ -67,13 +69,22 @@ const QuestionStep = ({ testUUID, handleNext }) => {
       ...answers,
       {
         text: "",
-        sequential: 0,
+        sequential: answers[answers.length - 1].sequential + 1,
         errorAnswer: true
       }
     ]);
   };
 
   const handleDeleteAnswer = index => () => {
+    const isCheckedAnswer = answers[index].sequential === question.rightAnswer;
+
+    if (isCheckedAnswer) {
+      if (index === 0) {
+        changeQuestion({ ...question, rightAnswer: answers[1].sequential });
+      } else {
+        changeQuestion({ ...question, rightAnswer: answers[0].sequential });
+      }
+    }
     changeAnswers([...answers.slice(0, index), ...answers.slice(index + 1)]);
   };
 
@@ -98,7 +109,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
     createNewQuestion({
       variables: { ...question, answers: [...sendAnswers] }
     }).then(() => {
-      toast("Create Question Successful");
+      toast.success("Create Question Successful");
       handleNext();
     });
   };
@@ -136,8 +147,8 @@ const QuestionStep = ({ testUUID, handleNext }) => {
           Add Answer
         </ButtonAnswer>
         <ContainerAnswers>
-          {answers.map(({ text, errorAnswer }, index) => {
-            const isChecked = index === question.rightAnswer;
+          {answers.map(({ text, errorAnswer, sequential }, index) => {
+            const isChecked = sequential === question.rightAnswer;
 
             return (
               <ContainerAnswer key={index}>
@@ -154,7 +165,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
                     color="primary"
                     inputProps={{ "aria-label": "secondary checkbox" }}
                     checked={isChecked}
-                    onChange={handleChangeCheckbox(index)}
+                    onChange={handleChangeCheckbox(sequential)}
                   />
                 </Tooltip>
                 <Tooltip title="Delete answer">

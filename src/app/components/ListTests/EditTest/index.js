@@ -61,7 +61,7 @@ const UpdateTest = () => {
 
     updateTestByUUIDs({ variables: { UUID: urlUUID, name: text } }).then(() => {
       changeDisable(true);
-      toast("Updating Name of Test Successful");
+      toast.success("Updating Name of Test Successful");
       refetch();
     });
   };

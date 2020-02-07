@@ -82,7 +82,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
       }
     }).then(() => {
       changeDisable(true);
-      toast("All questions data saved");
+      toast.success("All questions data saved");
     });
   };
 
@@ -136,7 +136,7 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
           </CustomTypography>
         )}
         {answers &&
-          answers.map(({ ID, text }, index) => (
+          answers.map(({ ID, text, sequential }, index) => (
             <ContainerAnswers key={ID + index}>
               <UpdateAnswer
                 id={ID}
@@ -148,8 +148,8 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
                 <Checkbox
                   color="primary"
                   inputProps={{ "aria-label": "secondary checkbox" }}
-                  checked={index === rightAnswer}
-                  onChange={handleChangeCheckbox(index)}
+                  checked={sequential === rightAnswer}
+                  onChange={handleChangeCheckbox(sequential)}
                 />
               </Tooltip>
             </ContainerAnswers>
