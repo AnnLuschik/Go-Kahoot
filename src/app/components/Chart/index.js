@@ -1,35 +1,32 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-const changeData = data => {
-  return {
-    labels: data && data.map(({ name }) => name),
-    datasets: [
-      {
-        label: "My First dataset",
-        backgroundColor: "rgba(255,99,132,0.2)",
-        borderColor: "rgba(255,99,132,1)",
-        borderWidth: 1,
-        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-        hoverBorderColor: "rgba(255,99,132,1)",
-        data: data && data.map(({ rightAnswers }) => rightAnswers)
-      }
-    ]
-  };
-};
+import {
+  OPTIONS,
+  BACKGROUND_COLORS,
+  BORDER_COLORS,
+  HOVER_BACKGROUND_COLORS
+} from "./constants";
+
+const changeData = data => ({
+  labels: data && data.map(({ name }) => name),
+  datasets: [
+    {
+      backgroundColor: BACKGROUND_COLORS,
+      borderColor: BORDER_COLORS,
+      borderWidth: 1,
+      hoverBackgroundColor: HOVER_BACKGROUND_COLORS,
+      data: data && data.map(({ rightAnswers }) => rightAnswers),
+      fill: true
+    }
+  ]
+});
 
 const Chart = ({ data }) => {
   return (
     <div style={{ width: 300 }}>
-      <h2>Bar Example (custom size)</h2>
-      <Bar
-        data={changeData(data)}
-        width={100}
-        height={50}
-        options={{
-          maintainAspectRatio: false
-        }}
-      />
+      <h2>Answer Table</h2>
+      <Bar data={changeData(data)} width={100} height={50} options={OPTIONS} />
     </div>
   );
 };

@@ -53,6 +53,7 @@ const Game = () => {
     startTimeSec: 0,
     currentTimeSec: 0
   });
+  const [isDoubleAnswer, setIsDoubleAnswer] = useState(false);
   const [isAnswered, setIsAnswer] = useState(null);
   const [isRightAnswer, setIsRightAnswer] = useState("");
 
@@ -89,6 +90,14 @@ const Game = () => {
   };
 
   useEffect(() => {
+    setIsDoubleAnswer(true);
+    if (isDoubleAnswer) {
+      toast.warning("You've already answered this question");
+    }
+  }, [answeredError]);
+
+  useEffect(() => {
+    setIsDoubleAnswer(false);
     if (!playingLoading && playingData) {
       const { onPlayingGame } = playingData;
       setNewData(onPlayingGame);
@@ -101,7 +110,21 @@ const Game = () => {
                 answer => answer.answerID === ID
               );
 
+              const isPlayerAnsweredThisQuestion = onPlayingGame.answers.filter(
+                answer =>
+                  answer &&
+                  answer.players &&
+                  answer.players.filter(
+                    player => player.player.UUID === urlUUIDPlayer
+                  )
+              );
+
+              if (isPlayerAnsweredThisQuestion) {
+                setIsDoubleAnswer(true);
+              }
+
               const count =
+                answersForID &&
                 answersForID.length &&
                 answersForID[0].players &&
                 answersForID[0].players.length;
@@ -137,9 +160,6 @@ const Game = () => {
         <CircularProgress />
       </Backdrop>
     );
-  if (answeredError) {
-    toast.warning("You've already answered this question");
-  }
 
   return (
     <>
@@ -195,7 +215,9 @@ const Game = () => {
                               variant="outlined"
                               isred={isRed}
                               isgreen={isGreen}
-                              disabled={!(isAnswered === null)}
+                              disabled={
+                                !(isAnswered === null) || isDoubleAnswer
+                              }
                               onClick={handleAnsweredQuestion(sequential, ID)}
                             >
                               <div
@@ -224,6 +246,7 @@ const Game = () => {
           handleRedirectToFinishPage()
         )}
       </Wrapper>
+      {answeredError && <p>Error :( Please try again</p>}
     </>
   );
 };
