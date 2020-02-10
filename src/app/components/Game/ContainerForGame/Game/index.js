@@ -102,19 +102,6 @@ const Game = () => {
                 answer => answer.answerID === ID
               );
 
-              const isPlayerAnsweredThisQuestion = onPlayingGame.answers.filter(
-                answer =>
-                  answer &&
-                  answer.players &&
-                  answer.players.filter(
-                    player => player.player.UUID === urlUUIDPlayer
-                  )
-              );
-
-              if (isPlayerAnsweredThisQuestion) {
-                setIsDoubleAnswer(true);
-              }
-
               const count =
                 answersForID &&
                 answersForID.length &&
