@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
   Button as MUIButton,
   Checkbox as MUICheckbox,
-  TextField as MUITextField,
   Typography as MUITypography
 } from "@material-ui/core";
 

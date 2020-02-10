@@ -1,13 +1,18 @@
 import React from "react";
+import toast from "toastr";
 import { split } from "apollo-link";
 import ApolloClient from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
-import { CssBaseline } from "@material-ui/core";
 import { getMainDefinition } from "apollo-utilities";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { CssBaseline, LinearProgress } from "@material-ui/core";
+import {
+  ApolloNetworkStatusProvider,
+  useApolloNetworkStatus
+} from "react-apollo-network-status";
 
 import Home from "./components/Home";
 import ListTests from "./components/ListTests";
@@ -22,6 +27,21 @@ import ListActiveTests from "./components/ListActiveTests";
 import DocumentationPage from "./components/Home/DocumentationPage";
 
 import { GlobalStyle } from "./styles";
+
+function GlobalLoadingIndicator() {
+  const status = useApolloNetworkStatus();
+
+  if (status && status.mutationError && status.mutationError.graphQLErrors) {
+    const mutationErrors =
+      status && status.mutationError && status.mutationError.graphQLErrors;
+
+    mutationErrors.forEach(mutation => {
+      toast.warning(mutation.message);
+    });
+  }
+
+  return null;
+}
 
 const httpLink = new HttpLink({
   uri: "https://api-gokahoot.herokuapp.com/query"
@@ -53,31 +73,38 @@ const App = () => (
   <>
     <CssBaseline />
     <ApolloProvider client={apolloClient}>
-      <BrowserRouter>
-        <Home>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/create" component={Steps} />
-            <Route exact path="/tests" component={ListTests} />
-            <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/tests/:UUID" component={EditTest} />
-            <Route exact path="/activetests" component={ListActiveTests} />
-            <Route exact path="/activetests/:CODE" component={LoginForGame} />
-            <Route exact path="/documentation" component={DocumentationPage} />
-            <Route
-              exact
-              path="/activetests/:CODE/game/:UUID"
-              component={Game}
-            />
-            <Route
-              exact
-              path="/activetests/:CODE/game/:UUID/finishtable"
-              component={FinishTable}
-            />
-          </Switch>
-          <GlobalStyle />
-        </Home>
-      </BrowserRouter>
+      <ApolloNetworkStatusProvider>
+        <GlobalLoadingIndicator />
+        <BrowserRouter>
+          <Home>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/create" component={Steps} />
+              <Route exact path="/tests" component={ListTests} />
+              <Route exact path="/about" component={AboutPage} />
+              <Route exact path="/tests/:UUID" component={EditTest} />
+              <Route exact path="/activetests" component={ListActiveTests} />
+              <Route exact path="/activetests/:CODE" component={LoginForGame} />
+              <Route
+                exact
+                path="/documentation"
+                component={DocumentationPage}
+              />
+              <Route
+                exact
+                path="/activetests/:CODE/game/:UUID"
+                component={Game}
+              />
+              <Route
+                exact
+                path="/activetests/:CODE/game/:UUID/finishtable"
+                component={FinishTable}
+              />
+            </Switch>
+            <GlobalStyle />
+          </Home>
+        </BrowserRouter>
+      </ApolloNetworkStatusProvider>
     </ApolloProvider>
   </>
 );

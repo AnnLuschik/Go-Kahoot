@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import toast from "toastr";
 import * as showdown from "showdown";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
@@ -88,13 +87,6 @@ const Game = () => {
   const handleRedirectToFinishPage = () => {
     history.push(`/activetests/${urlCode}/game/${urlUUIDPlayer}/finishtable`);
   };
-
-  useEffect(() => {
-    setIsDoubleAnswer(true);
-    if (isDoubleAnswer) {
-      toast.warning("You've already answered this question");
-    }
-  }, [answeredError]);
 
   useEffect(() => {
     setIsDoubleAnswer(false);
@@ -246,7 +238,6 @@ const Game = () => {
           handleRedirectToFinishPage()
         )}
       </Wrapper>
-      {answeredError && <p>Error :( Please try again</p>}
     </>
   );
 };
