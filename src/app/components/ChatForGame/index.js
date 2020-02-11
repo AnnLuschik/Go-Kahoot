@@ -55,7 +55,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
       order: "DESC"
     }
   });
-  const [addMessage, { loading: sending }] = useMutation(SEND_MESSAGE_TO_CHAT);
+  const [addMessage] = useMutation(SEND_MESSAGE_TO_CHAT);
   const { data: dataChatGame, loading: chatLoading } = useSubscription(
     ON_CHAT_GAME,
     {

@@ -56,12 +56,10 @@ const Game = () => {
   const [isAnswered, setIsAnswer] = useState(null);
   const [isRightAnswer, setIsRightAnswer] = useState("");
 
-  const { loading, error, data: questionData, refetch } = useQuery(
+  const { loading, error, data: questionData } = useQuery(
     QUESTION_BY_UUID(data.currentQuestionUUID)
   );
-  const [answeredQuestion, { error: answeredError }] = useMutation(
-    ANSWER_QUESTION_DY_UUID
-  );
+  const [answeredQuestion] = useMutation(ANSWER_QUESTION_DY_UUID);
   const { data: playingData, loading: playingLoading } = useSubscription(
     ON_PLAYING_GAME,
     {

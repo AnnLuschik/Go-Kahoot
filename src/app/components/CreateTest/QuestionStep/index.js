@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import toast from "toastr";
+import { Prompt } from "react-router";
 import { useMutation } from "@apollo/react-hooks";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
@@ -39,7 +39,6 @@ const QuestionStep = ({ testUUID, handleNext }) => {
       errorAnswer: true
     }
   ]);
-  const [isShowErrorAnswer, setIsShowErrorAnswer] = useState(false);
   const [createNewQuestion, { loading, error }] = useMutation(
     CREATE_NEW_QUESTION
   );
@@ -53,7 +52,6 @@ const QuestionStep = ({ testUUID, handleNext }) => {
   };
 
   const handleChangeAnswer = index => text => {
-    setIsShowErrorAnswer(false);
     changeAnswers([
       ...answers.slice(0, index),
       {
@@ -117,6 +115,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
 
   return (
     <>
+      <Prompt message="You haven’t finished creating the test, do you want to go anyway?" />
       <form onSubmit={handleSubmitForm}>
         <LinearProgress
           variant={loading ? "indeterminate" : "determinate"}

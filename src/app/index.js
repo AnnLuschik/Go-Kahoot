@@ -1,13 +1,15 @@
 import React from "react";
 import toast from "toastr";
 import { split } from "apollo-link";
+import { Switch } from "react-router";
+import Route from "react-router-hooks";
 import ApolloClient from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
+import { BrowserRouter } from "react-router-dom";
 import { getMainDefinition } from "apollo-utilities";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
 import {
   ApolloNetworkStatusProvider,
