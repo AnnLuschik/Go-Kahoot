@@ -152,7 +152,7 @@ const Game = () => {
               <>
                 <div
                   style={{
-                    height: "75vh",
+                    height: "max-content",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",

@@ -61,6 +61,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
+    background: "rgb(172, 142, 206)",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
   },

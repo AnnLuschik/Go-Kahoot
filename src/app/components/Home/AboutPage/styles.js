@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     padding: "0 50px 50px"
   },
   image: {
-    width: "inherit",
+    width: "300px",
+    height: "300px",
     borderRadius: "50%"
   },
   content: {

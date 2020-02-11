@@ -24,7 +24,7 @@ const changeData = data => ({
 
 const Chart = ({ data }) => {
   return (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 300, height: 200 }}>
       <h2>Answer Table</h2>
       <Bar data={changeData(data)} width={100} height={50} options={OPTIONS} />
     </div>

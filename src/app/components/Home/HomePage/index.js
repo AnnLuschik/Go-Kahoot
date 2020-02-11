@@ -6,7 +6,6 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { AnimatedList } from "react-animated-list";
 
 import useStyles, { Container, CustomTypography, Link } from "./styles";
@@ -18,11 +17,10 @@ const HomePage = () => {
   return (
     <>
       <AnimatedList animation={"grow"}>
-        <Skeleton animation="wave" variant="rect" width="100%" height="70px">
-          <CustomTypography variant="h4" gutterBottom>
-            Using this application you can:
-          </CustomTypography>
-        </Skeleton>
+        <CustomTypography variant="h4" gutterBottom>
+          Using this application you can:
+        </CustomTypography>
+
         <Container>
           <Card className={classes.card}>
             <CardContent>
@@ -97,28 +95,14 @@ const HomePage = () => {
         </CustomTypography>
         <Container>
           <Link to="/create">
-            <Skeleton
-              animation="pulse"
-              variant="rect"
-              width="100%"
-              height="100%"
-            >
-              <Button size="large" color="primary" variant="contained">
-                Start
-              </Button>
-            </Skeleton>
+            <Button size="large" color="primary" variant="contained">
+              Start
+            </Button>
           </Link>
           <Link to="/documentation">
-            <Skeleton
-              animation="pulse"
-              variant="rect"
-              width="100%"
-              height="100%"
-            >
-              <Button size="large" color="primary" variant="contained">
-                Documentation
-              </Button>
-            </Skeleton>
+            <Button size="large" color="primary" variant="contained">
+              Documentation
+            </Button>
           </Link>
         </Container>
       </AnimatedList>

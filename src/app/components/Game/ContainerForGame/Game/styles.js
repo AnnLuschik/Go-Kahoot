@@ -54,7 +54,6 @@ export const ContainerAnswers = styled.div`
 `;
 
 export const ContainerTimer = styled.div`
-  // position: absolute;
   margin: 10px 10px 10px 30px;
   margin: 30px auto;
 `;
@@ -68,7 +67,6 @@ export const WrapperComponent = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;

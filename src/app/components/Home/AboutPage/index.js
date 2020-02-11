@@ -6,7 +6,6 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { AnimatedList } from "react-animated-list";
 
 import useStyles from "./styles";
@@ -23,18 +22,11 @@ const AboutPage = () => {
         <div className={classes.root}>
           <Card className={classes.content}>
             <CardContent>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                width={300}
-                height={300}
-              >
-                <img
-                  src="https://avatars0.githubusercontent.com/u/4964014?s=400&v=4"
-                  alt="Sergey Telpuk"
-                  className={classes.image}
-                />
-              </Skeleton>
+              <img
+                src="https://avatars0.githubusercontent.com/u/4964014?s=400&v=4"
+                alt="Sergey Telpuk"
+                className={classes.image}
+              />
             </CardContent>
             <CardActions>
               <a
@@ -49,18 +41,11 @@ const AboutPage = () => {
           </Card>
           <Card className={classes.content}>
             <CardContent>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                width={300}
-                height={300}
-              >
-                <img
-                  src="https://avatars2.githubusercontent.com/u/40957866?s=460&v=4"
-                  alt="Victor Rodzko"
-                  className={classes.image}
-                />
-              </Skeleton>
+              <img
+                src="https://avatars2.githubusercontent.com/u/40957866?s=460&v=4"
+                alt="Victor Rodzko"
+                className={classes.image}
+              />
             </CardContent>
             <CardActions>
               <a
