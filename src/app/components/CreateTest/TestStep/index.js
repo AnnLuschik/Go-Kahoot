@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "toastr";
 import { useMutation } from "@apollo/react-hooks";
+import { AnimatedList } from "react-animated-list";
 import { LinearProgress } from "@material-ui/core";
 
 import { CREATE_NEW_TEST } from "./graphql";
@@ -52,30 +53,32 @@ const TestStep = ({ setID, handleNext, setUUID }) => {
         variant={loading ? "indeterminate" : "determinate"}
         value={100}
       />
-      <Typography variant="h4" gutterBottom>
-        Create Test
-      </Typography>
-      <Container>
-        <TextField
-          type="text"
-          variant="outlined"
-          label="Enter Name of Test"
-          value={name}
-          onChange={handleChangeInput}
-          error={errorInput}
-          helperText={
-            errorInput && "Sorry text is too short, at least 4 characters"
-          }
-        />
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          disabled={errorInput}
-        >
-          Next
-        </Button>
-      </Container>
+      <AnimatedList animation={"grow"}>
+        <Typography variant="h4" gutterBottom>
+          Create Test
+        </Typography>
+        <Container>
+          <TextField
+            type="text"
+            variant="outlined"
+            label="Enter Name of Test"
+            value={name}
+            onChange={handleChangeInput}
+            error={errorInput}
+            helperText={
+              errorInput && "Sorry text is too short, at least 4 characters"
+            }
+          />
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            disabled={errorInput}
+          >
+            Next
+          </Button>
+        </Container>
+      </AnimatedList>
     </form>
   );
 };

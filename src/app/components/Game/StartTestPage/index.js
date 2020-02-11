@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
+import { AnimatedList } from "react-animated-list";
 import { useMutation, useSubscription } from "@apollo/react-hooks";
 import {
   Avatar,
@@ -26,7 +27,8 @@ import {
   Button,
   TextTypography,
   ListItem,
-  ContainerListItem
+  ContainerListItem,
+  ContainerJoiningPeople
 } from "./styles";
 
 const StartTestPage = ({
@@ -117,9 +119,7 @@ const StartTestPage = ({
         <TextTypography variant="p">
           Please wait until the Administrator (Test Creator) launches the game.
         </TextTypography>
-        <TextTypography variant="p">
-          Number of people: {players.length}
-        </TextTypography>
+        <ContainerJoiningPeople>{players.length}</ContainerJoiningPeople>
         <Button
           type="button"
           color="primary"
@@ -130,40 +130,44 @@ const StartTestPage = ({
           Start
         </Button>
         <ContainerListItem>
-          {players.map(({ name, UUID }, index) => {
-            const isThisPlayer = UUID === playerLS.UUID;
-            const shouldHighlightUser =
-              playerLS.name === name && playerLS.UUID === UUID;
+          <AnimatedList animation={"grow"}>
+            {players.map(({ name, UUID }, index) => {
+              const isThisPlayer = UUID === playerLS.UUID;
+              const shouldHighlightUser =
+                playerLS.name === name && playerLS.UUID === UUID;
 
-            return (
-              <ListItem
-                key={name + index}
-                style={shouldHighlightUser ? { background: "lightgray" } : {}}
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <FaceIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    <TextTruncate
-                      line={1}
-                      element="div"
-                      truncateText="…"
-                      text={name ? name : "incognito"}
-                    />
-                  }
-                  secondary={shouldHighlightUser ? "^^^ Your name ^^^" : ""}
-                />
-                {isThisPlayer && (
-                  <IconButton onClick={handleDelete}>
-                    <CancelIcon />
-                  </IconButton>
-                )}
-              </ListItem>
-            );
-          })}
+              return (
+                <ListItem
+                  allplayers={players.length - 1}
+                  islastadded={index}
+                  key={index + UUID}
+                  style={shouldHighlightUser ? { background: "#eee" } : {}}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FaceIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <TextTruncate
+                        line={1}
+                        element="div"
+                        truncateText="…"
+                        text={name ? name : "incognito"}
+                      />
+                    }
+                    secondary={shouldHighlightUser ? "^^^ Your name ^^^" : ""}
+                  />
+                  {isThisPlayer && (
+                    <IconButton onClick={handleDelete}>
+                      <CancelIcon />
+                    </IconButton>
+                  )}
+                </ListItem>
+              );
+            })}
+          </AnimatedList>
         </ContainerListItem>
       </Container>
       <Chat urlCode={urlCODE} playerUUID={playerLS.UUID} isShow={true} />

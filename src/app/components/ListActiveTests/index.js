@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "toastr";
 import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";
+import { AnimatedList } from "react-animated-list";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
   LinearProgress,
@@ -67,7 +68,13 @@ const ActiveTests = () => {
   };
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <p>Error :(</p>;
+  if (error)
+    return (
+      <p>
+        This test is not in the list of active tests. Perhaps it was deleted.
+        Try reloading the page.
+      </p>
+    );
 
   return (
     <>
@@ -91,7 +98,7 @@ const ActiveTests = () => {
         </CustomTypography>
         <List>
           {data && data.activatedGames && !data.activatedGames.length && (
-            <>
+            <div key={0}>
               <CustomTypography variant="h5" gutterBottom>
                 Sorry, but no one test has been activated yet.
               </CustomTypography>
@@ -102,55 +109,57 @@ const ActiveTests = () => {
                   </Button>
                 </Link>
               </ContainerButton>
-            </>
+            </div>
           )}
-          {data &&
-            data.activatedGames &&
-            data.activatedGames.map(
-              ({ CODE, test: { ID, name, UUID } }, index) => (
-                <ListItem key={name + ID + index}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <AlarmOnIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <TextTruncate
-                        line={1}
-                        element="div"
-                        truncateText="…"
-                        text={name ? name : "incognito"}
-                      />
-                    }
-                  />
-                  <ListItemSecondaryAction>
-                    <Tooltip title="Join toward active test">
-                      <ButtonIcon
-                        edge="end"
-                        aria-label="join"
-                        disabled={disabled}
-                        onClick={handleJoinGame(CODE)}
-                      >
-                        <FlightTakeoffIcon />
-                      </ButtonIcon>
-                    </Tooltip>
-                    {handleShowDeactivateButton(CODE) && (
-                      <Tooltip title="Deactivate test">
-                        <IconButton
+          <AnimatedList key={1} animation={"grow"}>
+            {data &&
+              data.activatedGames &&
+              data.activatedGames.map(
+                ({ CODE, test: { ID, name, UUID } }, index) => (
+                  <ListItem key={name + ID + index}>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <AlarmOnIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <TextTruncate
+                          line={1}
+                          element="div"
+                          truncateText="…"
+                          text={name ? name : "incognito"}
+                        />
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <Tooltip title="Join toward active test">
+                        <ButtonIcon
                           edge="end"
-                          aria-label="deactivate"
+                          aria-label="join"
                           disabled={disabled}
-                          onClick={handleDeactivate(CODE)}
+                          onClick={handleJoinGame(CODE)}
                         >
-                          <CancelIcon />
-                        </IconButton>
+                          <FlightTakeoffIcon />
+                        </ButtonIcon>
                       </Tooltip>
-                    )}
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )
-            )}
+                      {handleShowDeactivateButton(CODE) && (
+                        <Tooltip title="Deactivate test">
+                          <IconButton
+                            edge="end"
+                            aria-label="deactivate"
+                            disabled={disabled}
+                            onClick={handleDeactivate(CODE)}
+                          >
+                            <CancelIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )
+              )}
+          </AnimatedList>
         </List>
       </Container>
     </>

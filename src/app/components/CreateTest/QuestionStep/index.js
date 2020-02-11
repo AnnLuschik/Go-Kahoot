@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "toastr";
 import { Prompt } from "react-router";
 import { useMutation } from "@apollo/react-hooks";
+import { AnimatedList } from "react-animated-list";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 
@@ -75,6 +76,11 @@ const QuestionStep = ({ testUUID, handleNext }) => {
   };
 
   const handleDeleteAnswer = index => () => {
+    if (answers.length < 3)
+      return toast.warning(
+        "Sorry, you cannot delete the answer. There should be at least 2."
+      );
+
     const isCheckedAnswer = answers[index].sequential === question.rightAnswer;
 
     if (isCheckedAnswer) {
@@ -121,65 +127,69 @@ const QuestionStep = ({ testUUID, handleNext }) => {
           variant={loading ? "indeterminate" : "determinate"}
           value={100}
         />
-        <Typography variant="h4" gutterBottom>
-          Create Question
-        </Typography>
-        <Container>
-          <ContainerMarkDown>
-            <MarkDown
-              text={question.text}
-              handleChange={handleChangeQuestion}
-              height={100}
-              commandNumber={0}
-            />
-          </ContainerMarkDown>
-          <Button type="submit" color="primary" variant="contained">
-            Next
-          </Button>
-        </Container>
-        <ButtonAnswer
-          type="button"
-          color="primary"
-          variant="contained"
-          onClick={handleAddAnswer}
-          disabled={answers.length > 7}
-        >
-          Add Answer
-        </ButtonAnswer>
-        <ContainerAnswers>
-          {answers.map(({ text, errorAnswer, sequential }, index) => {
-            const isChecked = sequential === question.rightAnswer;
+        <AnimatedList animation={"grow"}>
+          <Typography variant="h4" gutterBottom>
+            Create Question
+          </Typography>
+          <Container>
+            <ContainerMarkDown>
+              <MarkDown
+                text={question.text}
+                handleChange={handleChangeQuestion}
+                height={100}
+                commandNumber={0}
+              />
+            </ContainerMarkDown>
+            <Button type="submit" color="primary" variant="contained">
+              Next
+            </Button>
+          </Container>
+          <ButtonAnswer
+            type="button"
+            color="primary"
+            variant="contained"
+            onClick={handleAddAnswer}
+            disabled={answers.length > 7}
+          >
+            Add Answer
+          </ButtonAnswer>
+          <ContainerAnswers>
+            <AnimatedList animation={"grow"}>
+              {answers.map(({ text, errorAnswer, sequential }, index) => {
+                const isChecked = sequential === question.rightAnswer;
 
-            return (
-              <ContainerAnswer key={index}>
-                <ContainerMarkDownAnswers>
-                  <MarkDown
-                    text={text}
-                    handleChange={handleChangeAnswer(index)}
-                    height={60}
-                    commandNumber={1}
-                  />
-                </ContainerMarkDownAnswers>
-                <Tooltip title="Choose the correct answer">
-                  <Checkbox
-                    color="primary"
-                    inputProps={{ "aria-label": "secondary checkbox" }}
-                    checked={isChecked}
-                    onChange={handleChangeCheckbox(sequential)}
-                  />
-                </Tooltip>
-                <Tooltip title="Delete answer">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={handleDeleteAnswer(index)}
-                  >
-                    <DeleteIcon fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-              </ContainerAnswer>
-            );
-          })}
-        </ContainerAnswers>
+                return (
+                  <ContainerAnswer key={index}>
+                    <ContainerMarkDownAnswers>
+                      <MarkDown
+                        text={text}
+                        handleChange={handleChangeAnswer(index)}
+                        height={60}
+                        commandNumber={1}
+                      />
+                    </ContainerMarkDownAnswers>
+                    <Tooltip title="Choose the correct answer">
+                      <Checkbox
+                        color="primary"
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                        checked={isChecked}
+                        onChange={handleChangeCheckbox(sequential)}
+                      />
+                    </Tooltip>
+                    <Tooltip title="Delete answer">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={handleDeleteAnswer(index)}
+                      >
+                        <DeleteIcon fontSize="large" />
+                      </IconButton>
+                    </Tooltip>
+                  </ContainerAnswer>
+                );
+              })}
+            </AnimatedList>
+          </ContainerAnswers>
+        </AnimatedList>
       </form>
       {error && <p>Something went wrong :(</p>}
     </>

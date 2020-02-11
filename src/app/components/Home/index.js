@@ -94,7 +94,7 @@ const Home = ({ children }) => {
         </Tooltip>
         <Divider />
         <List>
-          <Link to="/">
+          <Link to="/" key={0}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon fontSize="large" />
@@ -102,7 +102,7 @@ const Home = ({ children }) => {
               <ListItemText primary="Home Page" />
             </ListItem>
           </Link>
-          <Link to="/create">
+          <Link to="/create" key={1}>
             <ListItem button>
               <ListItemIcon>
                 <NoteAddIcon fontSize="large" />
@@ -110,7 +110,7 @@ const Home = ({ children }) => {
               <ListItemText primary="Create Test" />
             </ListItem>
           </Link>
-          <Link to="/tests">
+          <Link to="/tests" key={2}>
             <ListItem button>
               <ListItemIcon>
                 <FindInPageIcon fontSize="large" />
@@ -118,7 +118,7 @@ const Home = ({ children }) => {
               <ListItemText primary="List of Tests" />
             </ListItem>
           </Link>
-          <Link to="/activetests">
+          <Link to="/activetests" key={3}>
             <ListItem button>
               <ListItemIcon>
                 <ShopIcon fontSize="large" />
@@ -129,7 +129,7 @@ const Home = ({ children }) => {
         </List>
         <Divider />
         <List>
-          <Link to="/documentation">
+          <Link to="/documentation" key={4}>
             <ListItem button>
               <ListItemIcon>
                 <AssignmentIcon fontSize="large" />
@@ -137,7 +137,7 @@ const Home = ({ children }) => {
               <ListItemText primary="Documentation" />
             </ListItem>
           </Link>
-          <Link to="/about">
+          <Link to="/about" key={5}>
             <ListItem button>
               <ListItemIcon>
                 <InfoIcon fontSize="large" />

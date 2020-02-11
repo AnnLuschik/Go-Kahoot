@@ -42,3 +42,18 @@ export const ContainerListItem = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
+
+export const ContainerJoiningPeople = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  margin: 15px auto;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 4px solid orange;
+  color: orange;
+`;

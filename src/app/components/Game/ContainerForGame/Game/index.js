@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as showdown from "showdown";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
+import { AnimatedList } from "react-animated-list";
 import * as showdownHighlight from "showdown-highlight";
 import { useMutation, useQuery, useSubscription } from "@apollo/react-hooks";
 import { Backdrop, CircularProgress, LinearProgress } from "@material-ui/core";
@@ -168,53 +169,57 @@ const Game = () => {
                 </div>
 
                 <WrapperComponent>
-                  <ReactMarkdown
-                    className={classes.markDownQuestion}
-                    source={converter.makeHtml(
-                      questionData && questionData.questionByUUID.text
-                    )}
-                    escapeHtml={false}
-                  />
-                  <ContainerAnswers>
-                    {questionData &&
-                      questionData.questionByUUID.answers.map(
-                        ({ ID, text, sequential }, index) => {
-                          const isRed = (
-                            isRightAnswer === "No" && isAnswered === sequential
-                          ).toString();
-                          const isGreen = (
-                            isRightAnswer === "Yes" && isAnswered === sequential
-                          ).toString();
-
-                          return (
-                            <ButtonAnswer
-                              key={ID + index}
-                              variant="outlined"
-                              isred={isRed}
-                              isgreen={isGreen}
-                              disabled={
-                                !(isAnswered === null) || isDoubleAnswer
-                              }
-                              onClick={handleAnsweredQuestion(sequential, ID)}
-                            >
-                              <div
-                                style={{
-                                  borderRight: "1px solid #c2c2c2",
-                                  borderBottom: "1px solid #c2c2c2"
-                                }}
-                              >
-                                &nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;
-                              </div>
-                              <ReactMarkdown
-                                className={classes.markDownAnswer}
-                                source={converter.makeHtml(text)}
-                                escapeHtml={false}
-                              />
-                            </ButtonAnswer>
-                          );
-                        }
+                  <AnimatedList animation={"grow"}>
+                    <ReactMarkdown
+                      className={classes.markDownQuestion}
+                      source={converter.makeHtml(
+                        questionData && questionData.questionByUUID.text
                       )}
-                  </ContainerAnswers>
+                      escapeHtml={false}
+                    />
+                    <ContainerAnswers>
+                      {questionData &&
+                        questionData.questionByUUID.answers.map(
+                          ({ ID, text, sequential }, index) => {
+                            const isRed = (
+                              isRightAnswer === "No" &&
+                              isAnswered === sequential
+                            ).toString();
+                            const isGreen = (
+                              isRightAnswer === "Yes" &&
+                              isAnswered === sequential
+                            ).toString();
+
+                            return (
+                              <ButtonAnswer
+                                key={ID + index}
+                                variant="outlined"
+                                isred={isRed}
+                                isgreen={isGreen}
+                                disabled={
+                                  !(isAnswered === null) || isDoubleAnswer
+                                }
+                                onClick={handleAnsweredQuestion(sequential, ID)}
+                              >
+                                <div
+                                  style={{
+                                    borderRight: "1px solid #c2c2c2",
+                                    borderBottom: "1px solid #c2c2c2"
+                                  }}
+                                >
+                                  &nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;
+                                </div>
+                                <ReactMarkdown
+                                  className={classes.markDownAnswer}
+                                  source={converter.makeHtml(text)}
+                                  escapeHtml={false}
+                                />
+                              </ButtonAnswer>
+                            );
+                          }
+                        )}
+                    </ContainerAnswers>
+                  </AnimatedList>
                 </WrapperComponent>
               </>
             )}

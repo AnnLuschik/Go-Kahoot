@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
+import { AnimatedList } from "react-animated-list";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
   LinearProgress,
@@ -105,7 +106,7 @@ const ListTests = () => {
         </CustomTypography>
         <List>
           {data && data.tests && !data.tests.length && (
-            <>
+            <div key={0}>
               <CustomTypography variant="h5" gutterBottom>
                 Sorry, but no one test has been created yet.
               </CustomTypography>
@@ -116,67 +117,69 @@ const ListTests = () => {
                   </Button>
                 </Link>
               </ContainerButton>
-            </>
+            </div>
           )}
-          {data &&
-            data.tests &&
-            data.tests.map(({ ID, name, UUID }, index) => (
-              <ListItem key={name + ID}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <PermMediaIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    <TextTruncate
-                      line={1}
-                      element="div"
-                      truncateText="…"
-                      text={name ? name : "incognito"}
-                    />
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <Tooltip title="Activate test">
-                    <ButtonIcon
-                      edge="end"
-                      aria-label="activate"
-                      disabled={disabled}
-                      onClick={handleActivateGame(UUID)}
-                    >
-                      <PlayCircleFilledWhiteIcon />
-                    </ButtonIcon>
-                  </Tooltip>
-                  <Link
-                    to={`/tests/${UUID}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Tooltip title="Edit test">
-                      <IconButton
-                        edge="start"
-                        aria-label="show"
-                        disabled={disabled}
-                      >
-                        <VisibilityIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Link>
-                  {handleShowDeleteButton(UUID) && (
-                    <Tooltip title="Delete Test">
-                      <IconButton
+          <AnimatedList key={1} animation={"grow"}>
+            {data &&
+              data.tests &&
+              data.tests.map(({ ID, name, UUID }, index) => (
+                <ListItem key={name + ID + index}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <PermMediaIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <TextTruncate
+                        line={1}
+                        element="div"
+                        truncateText="…"
+                        text={name ? name : "incognito"}
+                      />
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <Tooltip title="Activate test">
+                      <ButtonIcon
                         edge="end"
-                        aria-label="delete"
+                        aria-label="activate"
                         disabled={disabled}
-                        onClick={handleDelete(ID, UUID)}
+                        onClick={handleActivateGame(UUID)}
                       >
-                        <DeleteIcon />
-                      </IconButton>
+                        <PlayCircleFilledWhiteIcon />
+                      </ButtonIcon>
                     </Tooltip>
-                  )}
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
+                    <Link
+                      to={`/tests/${UUID}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Tooltip title="Edit test">
+                        <IconButton
+                          edge="start"
+                          aria-label="show"
+                          disabled={disabled}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Link>
+                    {handleShowDeleteButton(UUID) && (
+                      <Tooltip title="Delete Test">
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          disabled={disabled}
+                          onClick={handleDelete(ID, UUID)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+          </AnimatedList>
         </List>
       </Container>
     </>
