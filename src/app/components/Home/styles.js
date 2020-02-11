@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 
 import { DRAWER_WIDTH } from "./config";
 
@@ -9,9 +9,41 @@ export const Link = styled(RouterLink)`
   text-decoration: none;
 `;
 
+export const theme = createMuiTheme({
+  palette: {
+    common: { black: "#000", white: "#fff" },
+    background: { paper: "#fff", default: "#fafafa" },
+    primary: {
+      light: "rgba(191, 120, 255, 1)",
+      main: "rgba(144, 19, 254, 1)",
+      dark: "rgba(107, 0, 202, 1)",
+      contrastText: "#fff"
+    },
+    secondary: {
+      light: "#ff4081",
+      main: "#f50057",
+      dark: "#c51162",
+      contrastText: "#fff"
+    },
+    error: {
+      light: "#e57373",
+      main: "#f44336",
+      dark: "#d32f2f",
+      contrastText: "#fff"
+    },
+    text: {
+      primary: "rgba(0, 0, 0, 0.87)",
+      secondary: "rgba(0, 0, 0, 0.54)",
+      disabled: "rgba(0, 0, 0, 0.38)",
+      hint: "rgba(0, 0, 0, 0.38)"
+    }
+  }
+});
+
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    primary: "rgb(172, 142, 206)"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -26,7 +58,8 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
-    })
+    }),
+    background: "rgb(172, 142, 206)"
   },
   menuButton: {
     marginRight: 36
@@ -61,7 +94,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    background: "rgb(172, 142, 206)",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar
   },

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { useTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import {
   List,
   Drawer,
@@ -26,12 +26,11 @@ import {
   ChevronRight as ChevronRightIcon
 } from "@material-ui/icons";
 
-import useStyles, { Link } from "./styles";
+import useStyles, { Link, theme } from "./styles";
 import "toastr/build/toastr.min.css";
 
 const Home = ({ children }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [isOpened, setOpen] = useState(false);
 
@@ -44,7 +43,7 @@ const Home = ({ children }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <ThemeProvider theme={theme} className={classes.root}>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, { [classes.appBarShift]: isOpened })}
@@ -148,7 +147,7 @@ const Home = ({ children }) => {
         </List>
       </Drawer>
       <main className={classes.content}>{children}</main>
-    </div>
+    </ThemeProvider>
   );
 };
 
