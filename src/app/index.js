@@ -8,7 +8,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import { CssBaseline, LinearProgress } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import {
   ApolloNetworkStatusProvider,
   useApolloNetworkStatus
@@ -26,18 +26,27 @@ import LoginForGame from "./components/Game/LoginForGame";
 import ListActiveTests from "./components/ListActiveTests";
 import DocumentationPage from "./components/Home/DocumentationPage";
 
-import { GlobalStyle } from "./styles";
+import { GlobalStyle, LinearProgress } from "./styles";
 
 function GlobalLoadingIndicator() {
   const status = useApolloNetworkStatus();
 
-  if (status && status.mutationError && status.mutationError.graphQLErrors) {
-    const mutationErrors =
-      status && status.mutationError && status.mutationError.graphQLErrors;
+  if (status.mutationError && status.mutationError.graphQLErrors) {
+    const mutationErrors = status.mutationError.graphQLErrors;
 
     mutationErrors.forEach(mutation => {
       toast.warning(mutation.message);
     });
+  }
+
+  if (status.mutationError && status.mutationError.networkError) {
+    const networkError = status.mutationError.networkError;
+
+    toast.warning(networkError.message);
+  }
+
+  if (status.numPendingQueries > 0 || status.numPendingMutations > 0) {
+    return <LinearProgress value={100} />;
   }
 
   return null;
