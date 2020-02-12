@@ -26,6 +26,8 @@ import {
   ChevronRight as ChevronRightIcon
 } from "@material-ui/icons";
 
+import { logoImage } from "../../assets";
+
 import useStyles, { Link, theme as customTheme } from "./styles";
 import "toastr/build/toastr.min.css";
 
@@ -64,8 +66,9 @@ const Home = ({ children }) => {
                 <MenuIcon />
               </IconButton>
             </Tooltip>
-            <Typography variant="h6" noWrap>
-              Go-Kahoot
+            <img src={logoImage} alt="Logo" />
+            <Typography variant="h6" noWrap style={{ color: "yellow" }}>
+              <i>Ooh-banana</i>
             </Typography>
           </Toolbar>
         </AppBar>
