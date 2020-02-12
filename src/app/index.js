@@ -39,12 +39,16 @@ function GlobalLoadingIndicator() {
     mutationErrors.forEach(mutation => {
       toast.warning(mutation.message);
     });
+
+    return null;
   }
 
   if (status.mutationError && status.mutationError.networkError) {
     const networkError = status.mutationError.networkError;
 
     toast.warning(networkError.message);
+
+    return null;
   }
 
   if (status.numPendingQueries > 0 || status.numPendingMutations > 0) {
