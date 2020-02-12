@@ -15,7 +15,7 @@ const HomePage = () => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <>
+    <div>
       <AnimatedList animation={"grow"}>
         <CustomTypography variant="h4" gutterBottom>
           Using this application you can:
@@ -106,7 +106,7 @@ const HomePage = () => {
           </Link>
         </Container>
       </AnimatedList>
-    </>
+    </div>
   );
 };
 

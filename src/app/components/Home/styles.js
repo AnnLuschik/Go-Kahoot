@@ -42,8 +42,7 @@ export const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    primary: "rgb(172, 142, 206)"
+    display: "flex"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -58,8 +57,7 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
-    }),
-    background: "rgb(172, 142, 206)"
+    })
   },
   menuButton: {
     marginRight: 36
