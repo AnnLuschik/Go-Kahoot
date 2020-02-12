@@ -105,21 +105,21 @@ const ListTests = () => {
           </Tooltip>
         </CustomTypography>
         <List>
-          {data && data.tests && !data.tests.length && (
-            <div key={0}>
-              <CustomTypography variant="h5" gutterBottom>
-                Sorry, but no one test has been created yet.
-              </CustomTypography>
-              <ContainerButton>
-                <Link to="/create">
-                  <Button color="primary" variant="contained" size="large">
-                    Create Test
-                  </Button>
-                </Link>
-              </ContainerButton>
-            </div>
-          )}
           <AnimatedList key={1} animation={"grow"}>
+            {data && data.tests && !data.tests.length && (
+              <div key={0}>
+                <CustomTypography variant="h5" gutterBottom>
+                  Sorry, but no one test has been created yet.
+                </CustomTypography>
+                <ContainerButton>
+                  <Link to="/create">
+                    <Button color="primary" variant="contained" size="large">
+                      Create Test
+                    </Button>
+                  </Link>
+                </ContainerButton>
+              </div>
+            )}
             {data &&
               data.tests &&
               data.tests.map(({ ID, name, UUID }, index) => (

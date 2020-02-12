@@ -97,21 +97,21 @@ const ActiveTests = () => {
           </Tooltip>
         </CustomTypography>
         <List>
-          {data && data.activatedGames && !data.activatedGames.length && (
-            <div key={0}>
-              <CustomTypography variant="h5" gutterBottom>
-                Sorry, but no one test has been activated yet.
-              </CustomTypography>
-              <ContainerButton>
-                <Link to="/tests">
-                  <Button size="large" color="primary" variant="contained">
-                    Activate Test
-                  </Button>
-                </Link>
-              </ContainerButton>
-            </div>
-          )}
           <AnimatedList key={1} animation={"grow"}>
+            {data && data.activatedGames && !data.activatedGames.length && (
+              <div key={0}>
+                <CustomTypography variant="h5" gutterBottom>
+                  Sorry, but no one test has been activated yet.
+                </CustomTypography>
+                <ContainerButton>
+                  <Link to="/tests">
+                    <Button size="large" color="primary" variant="contained">
+                      Activate Test
+                    </Button>
+                  </Link>
+                </ContainerButton>
+              </div>
+            )}
             {data &&
               data.activatedGames &&
               data.activatedGames.map(
