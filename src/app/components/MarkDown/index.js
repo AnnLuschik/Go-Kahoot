@@ -15,6 +15,7 @@ const converter = new showdown.Converter({
   openLinksInNewWindow: true,
   extensions: [showdownHighlight]
 });
+
 const listCommands = [
   [
     {

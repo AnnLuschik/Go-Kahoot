@@ -170,13 +170,15 @@ const Game = () => {
 
                 <WrapperComponent>
                   <AnimatedList animation={"grow"}>
-                    <ReactMarkdown
-                      className={classes.markDownQuestion}
-                      source={converter.makeHtml(
-                        questionData && questionData.questionByUUID.text
-                      )}
-                      escapeHtml={false}
-                    />
+                    <div>
+                      <ReactMarkdown
+                        className={classes.markDownQuestion}
+                        source={converter.makeHtml(
+                          questionData && questionData.questionByUUID.text
+                        )}
+                        escapeHtml={false}
+                      />
+                    </div>
                     <ContainerAnswers>
                       {questionData &&
                         questionData.questionByUUID.answers.map(

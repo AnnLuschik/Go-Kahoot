@@ -28,11 +28,10 @@ export const ButtonAnswer = styled(MUIButton)`
   border-radius: 5px;
   box-shadow: 0px 0px 2px 1px rgba(128, 128, 128, 0.3);
   text-transform: none;
+  text-align: left;
   border: 1px solid #c2c2c2;
   justify-content: flex-start;
   align-items: start;
-  font-family: "Libre Baskerville", serif !important;
-  font-size: 14px !important;
 
   &:hover {
     background: #d1d1d1;
@@ -80,7 +79,8 @@ const useStyles = makeStyles(theme => ({
   markDownQuestion: {
     display: "block",
     width: "100%",
-    maxHeight: "400px",
+    maxHeight: "350px",
+    maxWidth: "900px",
     overflowX: "auto",
     overflowY: "auto",
     padding: "0.5em",
@@ -93,6 +93,7 @@ const useStyles = makeStyles(theme => ({
   markDownAnswer: {
     display: "block",
     width: "100%",
+    maxWidth: "350px",
     overflowX: "auto",
     padding: "0.5em",
     color: "#333",
