@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import {
   Stepper,
   Step,
-  StepLabel,
-  Button,
-  Typography
+  StepLabel
 } from "@material-ui/core";
 
 import { getStepContent } from "./utils";
@@ -42,24 +40,15 @@ const Steps = () => {
         ))}
       </Stepper>
       <div>
-        {activeStep === STEPS_NAMES.length ? (
-          <div>
-            <Typography className={classes.instructions}>Finish</Typography>
-            <Button onClick={handleReset}>Reset</Button>
-          </div>
-        ) : (
-          <div>
-            {getStepContent(
-              activeStep,
-              ID,
-              setID,
-              UUID,
-              setUUID,
-              handleBack,
-              handleNext,
-              handleReset
-            )}
-          </div>
+        {getStepContent(
+          activeStep,
+          ID,
+          setID,
+          UUID,
+          setUUID,
+          handleBack,
+          handleNext,
+          handleReset
         )}
       </div>
     </div>
