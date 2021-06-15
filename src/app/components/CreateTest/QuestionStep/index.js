@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "toastr";
 import { Prompt } from "react-router";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { AnimatedList } from "react-animated-list";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";

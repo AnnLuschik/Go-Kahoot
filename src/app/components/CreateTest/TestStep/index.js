@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "toastr";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { AnimatedList } from "react-animated-list";
 import { LinearProgress } from "@material-ui/core";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 

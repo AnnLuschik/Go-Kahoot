@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
-import { useMutation, useSubscription } from "@apollo/react-hooks";
+import { useMutation, useSubscription } from "@apollo/client";
 import {
   Avatar,
   IconButton,
@@ -73,7 +73,7 @@ const StartTestPage = ({
     if (!subLoading && subData) {
       addPlayer([subData.onWaitForJoiningPlayerToGame, ...players]);
     }
-  }, [subLoading, subData]);
+  }, [subLoading, subData, players]);
 
   useEffect(() => {
     if (!deleting && deletingSuccessData) {
@@ -84,7 +84,7 @@ const StartTestPage = ({
       );
       addPlayer(newPlayers);
     }
-  }, [deleting, deletingSuccessData]);
+  }, [deleting, deletingSuccessData, players]);
 
   const handleStart = () => {
     startGame({ variables: { code: urlCODE } });

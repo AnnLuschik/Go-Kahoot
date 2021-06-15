@@ -1,20 +1,15 @@
 import React from "react";
 import toast from "toastr";
-import { split } from "apollo-link";
 import { Switch } from "react-router";
 import Route from "react-router-hooks";
-import ApolloClient from "apollo-client";
-import { HttpLink } from "apollo-link-http";
-import { ApolloProvider } from "react-apollo";
-import { WebSocketLink } from "apollo-link-ws";
-import { BrowserRouter } from "react-router-dom";
-import { getMainDefinition } from "apollo-utilities";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { CssBaseline } from "@material-ui/core";
 import {
-  ApolloNetworkStatusProvider,
-  useApolloNetworkStatus
+  createNetworkStatusNotifier
 } from "react-apollo-network-status";
+import { ApolloClient, HttpLink, ApolloProvider, InMemoryCache, split } from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { BrowserRouter } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
 
 import Home from "./components/Home";
 import ListTests from "./components/ListTests";
@@ -29,6 +24,8 @@ import ListActiveTests from "./components/ListActiveTests";
 import DocumentationPage from "./components/Home/DocumentationPage";
 
 import { GlobalStyle, LinearProgress } from "./styles";
+
+const { useApolloNetworkStatus } = createNetworkStatusNotifier();
 
 function GlobalLoadingIndicator() {
   const status = useApolloNetworkStatus();
@@ -81,14 +78,14 @@ const link = split(
 
 const apolloClient = new ApolloClient({
   link: link,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 const App = () => (
   <>
     <CssBaseline />
     <ApolloProvider client={apolloClient}>
-      <ApolloNetworkStatusProvider>
+      {/* <ApolloNetworkStatusProvider> */}
         <GlobalLoadingIndicator />
         <BrowserRouter>
           <Home>
@@ -119,7 +116,7 @@ const App = () => (
             <GlobalStyle />
           </Home>
         </BrowserRouter>
-      </ApolloNetworkStatusProvider>
+      {/* </ApolloNetworkStatusProvider> */}
     </ApolloProvider>
   </>
 );

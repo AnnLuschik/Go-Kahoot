@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const ON_PLAYING_GAME = gql`
   subscription onPlayingGame($gameCode: String!, $playerUUID: String!) {

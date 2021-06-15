@@ -6,7 +6,7 @@ import * as sortBy from "lodash.sortby";
 import * as uniqBy from "lodash.uniqby";
 import InfiniteScroll from "react-infinite-scroller";
 import { CircularProgress } from "@material-ui/core";
-import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks";
+import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -77,7 +77,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
           });
       }, 0);
     }
-  }, [isOpened]);
+  }, [chatData.length, isOpened]);
 
   useEffect(() => {
     if (!chatLoading && dataChatGame) {
@@ -88,7 +88,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
         scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
       }, 0);
     }
-  }, [dataChatGame, chatLoading]);
+  }, [dataChatGame, chatLoading, chatData, scrollParentRef.scrollTop, scrollParentRef.scrollHeight]);
 
   const handleAddMessage = e => {
     e.preventDefault();

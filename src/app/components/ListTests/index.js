@@ -3,7 +3,7 @@ import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
 import { AnimatedList } from "react-animated-list";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import {
   LinearProgress,
   List,

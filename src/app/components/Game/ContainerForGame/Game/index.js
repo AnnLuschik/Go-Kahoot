@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
 import { AnimatedList } from "react-animated-list";
 import * as showdownHighlight from "showdown-highlight";
-import { useMutation, useQuery, useSubscription } from "@apollo/react-hooks";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { Backdrop, CircularProgress, LinearProgress } from "@material-ui/core";
 
 import CircleTimer from "./CircleTimer";
@@ -129,7 +129,7 @@ const Game = () => {
         setRightAnswers([]);
       }
     }
-  }, [playingData, playingLoading, data]);
+  }, [playingData, playingLoading, data, questionData]);
 
   if (loading) return <LinearProgress value={100} />;
   if (error)
