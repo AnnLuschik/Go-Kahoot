@@ -45,7 +45,7 @@ const QuestionStep = ({ testUUID, handleNext }) => {
   );
 
   const handleChangeQuestion = text => {
-    changeQuestion({ ...question, text });
+    changeQuestion({ ...question, text});
   };
 
   const handleChangeCheckbox = sequential => () => {

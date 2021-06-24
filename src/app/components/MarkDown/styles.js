@@ -5,11 +5,24 @@ export const ShadowContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: ${({ readonly }) => (readonly ? "100%;" : "0;")}
+  height: ${({ readonly }) => (readonly ? "100%" : "0")};
   z-index: 10000;
   background: rgba(194, 194, 194, 0.3);
 `;
 
 export const Container = styled.div`
   position: relative;
+`;
+
+export const Box = styled.div`
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 2em;
+  border: 1px solid #dddddd;
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: inset 0px 1px 8px -3px #ABABAB;
+  cursor: text;
 `;

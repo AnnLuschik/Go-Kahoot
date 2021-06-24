@@ -75,7 +75,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
             block: "center",
             inline: "nearest"
           });
-      }, 0);
+      }, 500);
     }
   }, [chatData.length, isOpened]);
 
@@ -83,12 +83,14 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
     if (!chatLoading && dataChatGame) {
       const { onChatGame } = dataChatGame;
 
-      setChatData([...chatData, onChatGame]);
-      setTimeout(() => {
-        scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
-      }, 0);
+      setTimeout(() => setChatData([...chatData, onChatGame]), 0);
+      if (scrollParentRef) { 
+        setTimeout(() => {
+          scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
+        }, 500);
+      }
     }
-  }, [dataChatGame, chatLoading, chatData, scrollParentRef.scrollTop, scrollParentRef.scrollHeight]);
+  }, [dataChatGame, chatLoading, chatData, scrollParentRef]);
 
   const handleAddMessage = e => {
     e.preventDefault();
@@ -100,7 +102,7 @@ const Chat = ({ urlCode, playerUUID, isShow }) => {
         setTimeout(() => {
           scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
           setDisabled(false);
-        }, 100);
+        }, 500);
       });
     }
   };

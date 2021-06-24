@@ -1,7 +1,6 @@
 import React from "react";
 import toast from "toastr";
-import { Switch } from "react-router";
-import Route from "react-router-hooks";
+import { Switch, Route } from "react-router";
 import {
   createNetworkStatusNotifier
 } from "react-apollo-network-status";
