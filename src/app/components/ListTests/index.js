@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
@@ -43,8 +43,10 @@ const ListTests = () => {
   const [deleteTest, { loading: deleting }] = useMutation(DELETE_TEST);
   const [activateGame, { loading: activating }] = useMutation(ACTIVATE_GAME);
 
-  refetch && refetch();
-
+  useEffect(() => {
+    refetch && refetch();
+  }, [refetch]);
+  
   const handleActivateGame = UUID => () => {
     activateGame({ variables: { testUUID: UUID } }).then(
       ({

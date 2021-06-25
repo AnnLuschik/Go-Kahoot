@@ -1,8 +1,8 @@
 import React from "react";
 
 import TestStep from "../TestStep";
+import { QuestionStep } from '../QuestionStep';
 import FinishStep from "../FinishStep";
-import QuestionStep from "../QuestionStep";
 import ValidateQuestionStep from "../ValidateQuestionStep";
 
 export const getStepContent = (
@@ -22,7 +22,7 @@ export const getStepContent = (
       );
     case 1:
       return (
-        <QuestionStep testID={ID} testUUID={UUID} handleNext={handleNext} />
+        <QuestionStep UUID={UUID} handleNext={handleNext} />
       );
     case 2:
       return (

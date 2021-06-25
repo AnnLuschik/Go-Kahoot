@@ -35,3 +35,12 @@ export const ContainerQuestions = styled.div`
   width: 100%;
   margin: 5px auto;
 `;
+
+export const AddQuestionButton = styled(MUIButton)`
+  margin: 0 10px !important;
+  color: #ffffff;
+  background: #9013FE;
+  &:hover {
+    color: #000000;
+  }
+`; 

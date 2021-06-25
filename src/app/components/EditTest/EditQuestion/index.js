@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "toastr";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
@@ -89,11 +89,13 @@ const UpdateQuestion = ({ question, UUID, onUpdatingQuestions }) => {
     saveQuestion(index, index);
   };
 
-  if (updating) {
-    onUpdatingQuestions(true);
-  } else {
-    onUpdatingQuestions(false);
-  }
+  useEffect(() => {
+    if (updating) {
+      onUpdatingQuestions(true);
+    } else {
+      onUpdatingQuestions(false);
+    }
+  }, [updating, onUpdatingQuestions]);
 
   return (
     <Container>
