@@ -3,23 +3,18 @@ import toast from "toastr";
 import { Prompt } from "react-router";
 import { useMutation } from "@apollo/client";
 import { AnimatedList } from "react-animated-list";
-import { Delete as DeleteIcon } from "@material-ui/icons";
-import { IconButton, Tooltip } from "@material-ui/core";
 
-import MarkDown from "../MarkDown/index";
+import { MarkDown } from "../MarkDown/index";
+import { Answer, AddAnswer } from './components';
 
 import { CREATE_NEW_QUESTION } from "./graphql";
 
 import {
   Button,
-  Checkbox,
-  ContainerAnswer,
-  ContainerAnswers,
   Container,
+  ContainerAnswers,
   Typography,
-  ButtonAnswer,
   ContainerMarkDown,
-  ContainerMarkDownAnswers,
 } from "./styles";
 
 export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) => {
@@ -144,48 +139,21 @@ export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) 
               {buttonText}
             </Button>
           </Container>
-          <ButtonAnswer
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={handleAddAnswer}
-            disabled={answers.length > 7}
-          >
-            Add Answer
-          </ButtonAnswer>
+          <AddAnswer onClick={handleAddAnswer} isDisabled={answers.length > 7} />
           <ContainerAnswers>
             <AnimatedList animation={"grow"}>
               {answers.map(({ text, errorAnswer, sequential }, index) => {
                 const isChecked = sequential === question.rightAnswer;
 
-                return (
-                  <ContainerAnswer key={index}>
-                    <ContainerMarkDownAnswers>
-                      <MarkDown
-                        text={text}
-                        handleChange={handleChangeAnswer(index)}
-                        height={60}
-                        commandNumber={1}
-                      />
-                    </ContainerMarkDownAnswers>
-                    <Tooltip title="Choose the correct answer">
-                      <Checkbox
-                        color="primary"
-                        inputProps={{ "aria-label": "secondary checkbox" }}
-                        checked={isChecked}
-                        onChange={handleChangeCheckbox(sequential)}
-                      />
-                    </Tooltip>
-                    <Tooltip title="Delete answer">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={handleDeleteAnswer(index)}
-                      >
-                        <DeleteIcon fontSize="large" />
-                      </IconButton>
-                    </Tooltip>
-                  </ContainerAnswer>
-                );
+                return <Answer key={index} 
+                  id={index}
+                  sequential={sequential}
+                  text={text}
+                  changeAnswer={handleChangeAnswer(index)}
+                  changeCheckbox={handleChangeCheckbox}
+                  deleteAnswer={handleDeleteAnswer}
+                  isChecked={isChecked}
+                />
               })}
             </AnimatedList>
           </ContainerAnswers>

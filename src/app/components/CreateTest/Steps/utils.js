@@ -1,9 +1,9 @@
 import React from "react";
 
-import TestStep from "../TestStep";
+import { TestStep } from "../TestStep";
 import { QuestionStep } from '../QuestionStep';
-import FinishStep from "../FinishStep";
-import ValidateQuestionStep from "../ValidateQuestionStep";
+import { FinishStep } from "../FinishStep";
+import { ValidateQuestionStep } from "../ValidateQuestionStep";
 
 export const getStepContent = (
   stepIndex,

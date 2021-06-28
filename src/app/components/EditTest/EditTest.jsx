@@ -5,9 +5,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 
-import UpdateQuestion from "../EditQuestion";
-
-import { CreateQuestion } from '../../CreateQuestion';
+import { EditQuestion } from "./EditQuestion";
+import { CreateQuestion } from '../CreateQuestion';
 
 import { GET_TEST_BY_UUID, UPDATE_TEST_BY_UUID } from "./graphql";
 
@@ -19,7 +18,7 @@ import {
   AddQuestionButton
 } from "./styles";
 
-const UpdateTest = () => {
+export const EditTest = () => {
   const {
     location: { pathname }
   } = useHistory();
@@ -127,7 +126,7 @@ const UpdateTest = () => {
           data.testByUUID &&
           data.testByUUID.questions &&
           data.testByUUID.questions.map((question, index) => (
-            <UpdateQuestion
+            <EditQuestion
               key={question.text + index}
               question={question}
               UUID={urlUUID}
@@ -155,5 +154,3 @@ const UpdateTest = () => {
     </div>
   );
 };
-
-export default UpdateTest;
