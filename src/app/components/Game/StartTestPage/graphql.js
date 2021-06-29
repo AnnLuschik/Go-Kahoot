@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const DELETE_PLAYER_FROM_GAME = gql`
   mutation deletePlayerFromGame($gameCode: String!, $playerUUID: String!) {

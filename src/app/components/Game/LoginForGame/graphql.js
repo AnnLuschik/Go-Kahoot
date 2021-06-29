@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const ACTIVATED_GAME_BY_CODE = CODE => gql`
   query {

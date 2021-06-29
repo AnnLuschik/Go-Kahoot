@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "toastr";
 import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";
 import { AnimatedList } from "react-animated-list";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   LinearProgress,
   List,
@@ -34,7 +34,7 @@ import {
 } from "./styles";
 import { Link } from "../../styles";
 
-const ActiveTests = () => {
+export const ActiveTests = () => {
   const history = useHistory();
   const [disabled, setDisabled] = useState(false);
 
@@ -43,7 +43,9 @@ const ActiveTests = () => {
     DEACTIVATE_TEST
   );
 
-  refetch && refetch();
+  useEffect(() => {
+    if (refetch) refetch();
+  }, [refetch]);
 
   const handleShowDeactivateButton = CODE => {
     const isAdminLS =
@@ -165,5 +167,3 @@ const ActiveTests = () => {
     </>
   );
 };
-
-export default ActiveTests;

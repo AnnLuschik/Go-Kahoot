@@ -3,7 +3,6 @@ import {
   Button as MUIButton,
   ListItem as MUIListItem,
   Typography as MUITypography,
-  ListItemText as MUIListItemText
 } from "@material-ui/core";
 
 export const Container = styled.div`

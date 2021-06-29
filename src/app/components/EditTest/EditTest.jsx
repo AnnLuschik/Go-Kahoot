@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
 
-import UpdateQuestion from "../EditQuestion";
+import { EditQuestion } from "./EditQuestion";
+import { CreateQuestion } from '../CreateQuestion';
 
 import { GET_TEST_BY_UUID, UPDATE_TEST_BY_UUID } from "./graphql";
 
@@ -13,10 +14,11 @@ import {
   CustomTypography,
   TestTextField,
   Container,
-  ContainerQuestions
+  ContainerQuestions,
+  AddQuestionButton
 } from "./styles";
 
-const UpdateTest = () => {
+export const EditTest = () => {
   const {
     location: { pathname }
   } = useHistory();
@@ -28,6 +30,9 @@ const UpdateTest = () => {
   const [isErrorQuestion, setIsErrorQuestion] = useState(false);
   const [updatingQuestions, setUpdatingQuestions] = useState(false);
 
+  const [addQuestion, setAddQuestion] = useState(false);
+  const [addingQuestion, setAddingQuestion] = useState(false);
+
   const { loading, error, data, refetch } = useQuery(GET_TEST_BY_UUID(urlUUID));
   const [
     updateTestByUUIDs,
@@ -37,10 +42,6 @@ const UpdateTest = () => {
   const handleChangeInput = ({ target: { value } }) => {
     changeText(value);
     setIsErrorQuestion(false);
-  };
-
-  const handleUpdatingQuestions = isUpdating => {
-    setUpdatingQuestions(isUpdating);
   };
 
   const handleEditTest = () => {
@@ -65,6 +66,11 @@ const UpdateTest = () => {
       refetch();
     });
   };
+
+  const saveNewQuestion = () => {
+    setAddQuestion(false);
+    refetch();
+  }
 
   if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
@@ -120,16 +126,31 @@ const UpdateTest = () => {
           data.testByUUID &&
           data.testByUUID.questions &&
           data.testByUUID.questions.map((question, index) => (
-            <UpdateQuestion
+            <EditQuestion
               key={question.text + index}
               question={question}
               UUID={urlUUID}
-              onUpdatingQuestions={handleUpdatingQuestions}
+              onUpdatingQuestions={(v) => setUpdatingQuestions(v)}
             />
           ))}
+          {addingQuestion 
+            ? <LinearProgress
+                variant="indeterminate"
+                value={100}
+              />
+            : null
+          }
+          {addQuestion 
+            ? <CreateQuestion 
+              testUUID={urlUUID} 
+              buttonHandler={saveNewQuestion}
+              onLoad={(v) => setAddingQuestion(v)} 
+              buttonText="Save" 
+              />
+            : null
+        }
+        <AddQuestionButton onClick={() => setAddQuestion(true)}>Add question</AddQuestionButton> 
       </ContainerQuestions>
     </div>
   );
 };
-
-export default UpdateTest;

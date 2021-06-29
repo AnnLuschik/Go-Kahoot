@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const CHAT_MESSAGES_OF_GAME_BY_CODE = gql`
   query chatMessagesOfGameByCode(
