@@ -124,7 +124,7 @@ export const ListTests = () => {
             )}
             {data &&
               data.tests &&
-              data.tests.map(({ ID, name, UUID }, index) => (
+              data.tests.map(({ ID, name, UUID, questions }, index) => (
                 <ListItem key={name + ID + index}>
                   <ListItemAvatar>
                     <Avatar>
@@ -137,7 +137,7 @@ export const ListTests = () => {
                         line={1}
                         element="div"
                         truncateText="…"
-                        text={name ? name : "incognito"}
+                        text={`${name ? name : "incognito"} (${questions.length} ${questions.length > 1 ? "questions" : "question"})`}
                       />
                     }
                   />
