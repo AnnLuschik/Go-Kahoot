@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
-import { AnimatedList } from "react-animated-list";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   LinearProgress,
@@ -31,9 +30,16 @@ import {
   Button,
   ContainerButton,
   ButtonIcon,
-  ListItemText
+  ListItemText,
+  SearchForm,
+  SearchButton,
+  StyledInput
 } from "./styles";
 import { Link } from "../../styles";
+
+const getFilteredTests = (input, arr) => {
+  return arr.filter(({ name }) => name.toLowerCase().includes(input.toLowerCase()));
+}
 
 export const ListTests = () => {
   const history = useHistory();
@@ -42,6 +48,9 @@ export const ListTests = () => {
   const { loading, error, data, refetch } = useQuery(GET_ALL_TESTS);
   const [deleteTest, { loading: deleting }] = useMutation(DELETE_TEST);
   const [activateGame, { loading: activating }] = useMutation(ACTIVATE_GAME);
+
+  const [resultData, setResultData] = useState(null);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     refetch && refetch();
@@ -76,10 +85,28 @@ export const ListTests = () => {
       if (data) {
         toast.success("Deleting Test Successful");
         localStorage.removeItem(`isCreator:${UUID}`);
-        refetch().then(data => data && setDisabled(false));
+        refetch().then(res => {
+          if (res) {
+            setDisabled(false);
+            setResultData(() => getFilteredTests(searchText, res.data.tests));
+          } 
+        });
       }
     });
   };
+
+  const handleSearchTests = useCallback((e) => {
+    e.preventDefault();
+    if (data && data.tests) {
+      setResultData(() => getFilteredTests(searchText, data.tests));
+    }
+  }, [data, searchText]);
+
+  useEffect(() => {
+    if (!searchText && data && data.tests) {
+      setResultData(data.tests);
+    }
+  }, [data, searchText]);
 
   if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
@@ -106,8 +133,17 @@ export const ListTests = () => {
             </CustomFab>
           </Tooltip>
         </CustomTypography>
+        <SearchForm onSubmit={handleSearchTests}>
+          <StyledInput 
+            placeholder="Enter keywords..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            type="search"
+          />
+          <SearchButton type="submit">Search</SearchButton>
+        </SearchForm>
         <List>
-          <AnimatedList key={1} animation={"grow"}>
+          <div >
             {data && data.tests && !data.tests.length && (
               <div key={0}>
                 <CustomTypography variant="h5" gutterBottom>
@@ -122,9 +158,8 @@ export const ListTests = () => {
                 </ContainerButton>
               </div>
             )}
-            {data &&
-              data.tests &&
-              data.tests.map(({ ID, name, UUID }, index) => (
+            {resultData
+              ? resultData.map(({ ID, name, UUID }, index) => (
                 <ListItem key={name + ID + index}>
                   <ListItemAvatar>
                     <Avatar>
@@ -186,8 +221,9 @@ export const ListTests = () => {
                     )}
                   </ListItemSecondaryAction>
                 </ListItem>
-              ))}
-          </AnimatedList>
+              ))
+              : null}
+          </div>
         </List>
       </Container>
     </>
