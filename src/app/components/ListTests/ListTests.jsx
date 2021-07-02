@@ -255,7 +255,9 @@ export const ListTests = () => {
           total={resultData ? resultData.length : 0}
           buttons={buttons}
           activePage={activePage}
-          onClick={(page) => setActivePage(page)}
+          changePage={(page) => setActivePage(page)}
+          nextPage={() => setActivePage(prev => prev + 1)}
+          prevPage={() => setActivePage(prev => prev - 1)}
         />
       </Container>
     </>

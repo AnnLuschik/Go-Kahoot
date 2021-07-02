@@ -5,9 +5,21 @@ const PageButton = ({ onClick, number, isActive }) => (
   <StyledButton onClick={onClick} isActive={isActive}>{number}</StyledButton>
 );
 
-export const PaginationBar = ({ total, buttons, activePage, onClick }) => (
+const NextPageButton = ({ onClick, isHidden }) => (
+  <StyledButton onClick={onClick} isHidden={isHidden}>+</StyledButton>
+);
+
+const PrevPageButton = ({ onClick, isHidden }) => (
+  <StyledButton onClick={onClick} isHidden={isHidden}>-</StyledButton>
+);
+
+export const PaginationBar = ({ total, buttons, activePage, changePage, nextPage, prevPage }) => (
   <Container>
     <FooterText>Total: {total}</FooterText>
+    { buttons.length > 1 
+      ? <PrevPageButton onClick={prevPage} isHidden={activePage === buttons[0]} /> 
+      : null}
+      {console.log(activePage === buttons[0])}
     { buttons.length
       ?  (<PagesContainer>
             {
@@ -16,12 +28,14 @@ export const PaginationBar = ({ total, buttons, activePage, onClick }) => (
                   key={page} 
                   number={page} 
                   isActive={page === activePage}
-                  onClick={() => onClick(page)} 
+                  onClick={() => changePage(page)}
                 />
               )}
           </PagesContainer>)
-      : null
-    }
+      : null}
+    { buttons.length > 1
+      ? <NextPageButton onClick={nextPage} isHidden={activePage === buttons.length} /> 
+      : null}
   </Container>
 );
 
@@ -58,6 +72,7 @@ const StyledButton = styled.button`
   background: ${(props) => props.isActive ? '#FFFFFF' : '#E5E5E5'};
   border: 1px solid #000000;
   border-radius: 5px;
+  visibility: ${props => props.isHidden ? 'hidden' : 'visible'};
   &:not(:last-of-type) {
     margin-right: 5px;
   }
