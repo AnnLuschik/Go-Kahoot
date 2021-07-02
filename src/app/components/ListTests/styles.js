@@ -11,6 +11,10 @@ export const Container = styled.div`
   margin: auto;
 `;
 
+export const MainContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
 export const CustomTypography = styled(MUITypography)`
   margin: 15px 0 30px;
   text-align: center;

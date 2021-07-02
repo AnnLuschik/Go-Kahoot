@@ -3,6 +3,7 @@ import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
 import { useQuery, useMutation } from "@apollo/client";
+
 import {
   LinearProgress,
   List,
@@ -21,11 +22,17 @@ import {
   PlayCircleFilledWhite as PlayCircleFilledWhiteIcon
 } from "@material-ui/icons";
 
+import { PaginationBar } from '../PaginationBar';
+
 import { GET_ALL_TESTS, DELETE_TEST, ACTIVATE_GAME } from "./graphql";
+
+import { testsPerPage } from './constants';
+import { getFilteredTests, getPages } from './utils';
 
 import { CustomFab } from "../ActiveTests/styles";
 import {
   Container,
+  MainContainer,
   CustomTypography,
   Button,
   ContainerButton,
@@ -36,10 +43,6 @@ import {
   StyledInput
 } from "./styles";
 import { Link } from "../../styles";
-
-const getFilteredTests = (input, arr) => {
-  return arr.filter(({ name }) => name.toLowerCase().includes(input.toLowerCase()));
-}
 
 export const ListTests = () => {
   const history = useHistory();
@@ -52,9 +55,18 @@ export const ListTests = () => {
   const [resultData, setResultData] = useState(null);
   const [searchText, setSearchText] = useState("");
 
+  const [activePage, setActivePage] = useState(1);
+  const [buttons, setButtons] = useState([]);
+
   useEffect(() => {
     refetch && refetch();
   }, [refetch]);
+
+  const getPaginatedData = useCallback(() => {
+    const startIndex = activePage * testsPerPage - testsPerPage;
+    const endIndex = startIndex + testsPerPage;
+    return resultData.slice(startIndex, endIndex);
+  }, [activePage, resultData]);
   
   const handleActivateGame = UUID => () => {
     activateGame({ variables: { testUUID: UUID } }).then(
@@ -108,6 +120,20 @@ export const ListTests = () => {
     }
   }, [data, searchText]);
 
+  useEffect(() => {
+    if (resultData && resultData.length > testsPerPage) {
+      setButtons(getPages(Math.ceil(resultData.length / testsPerPage)));
+    } else {
+      setButtons([]);
+    }
+  }, [resultData]);
+
+  useEffect(() => {
+    if (activePage > buttons[buttons.length - 1]) {
+      setActivePage(buttons[buttons.length - 1]);
+    } else if (!buttons.length) setActivePage(1);
+  }, [activePage, buttons]);
+
   if (loading) return <LinearProgress value={100} />;
   if (error) return <p>Error :(</p>;
 
@@ -143,7 +169,7 @@ export const ListTests = () => {
           <SearchButton type="submit">Search</SearchButton>
         </SearchForm>
         <List>
-          <div >
+          <MainContainer >
             {data && data.tests && !data.tests.length && (
               <div key={0}>
                 <CustomTypography variant="h5" gutterBottom>
@@ -159,7 +185,7 @@ export const ListTests = () => {
               </div>
             )}
             {resultData
-              ? resultData.map(({ ID, name, UUID }, index) => (
+              ? getPaginatedData().map(({ ID, name, UUID }, index) => (
                 <ListItem key={name + ID + index}>
                   <ListItemAvatar>
                     <Avatar>
@@ -223,8 +249,14 @@ export const ListTests = () => {
                 </ListItem>
               ))
               : null}
-          </div>
+          </MainContainer>
         </List>
+        <PaginationBar 
+          total={resultData ? resultData.length : 0}
+          buttons={buttons}
+          activePage={activePage}
+          onClick={(page) => setActivePage(page)}
+        />
       </Container>
     </>
   );
