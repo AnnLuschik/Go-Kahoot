@@ -198,7 +198,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
                 type="text"
                 variant="outlined"
                 placeholder="Type the message"
-                style={{color: "#000000"}}
+                color="secondary"
                 value={message}
                 disabled={!isOpened}
                 onChange={handleChangeInput}
