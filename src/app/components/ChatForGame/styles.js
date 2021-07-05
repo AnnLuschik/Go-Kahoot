@@ -43,6 +43,7 @@ export const Form = styled.form`
 
 export const TextField = styled(MUITextField)`
   width: 100%;
+  color: "secondary";
 `;
 
 export const Button = styled(MUIButton)``;
@@ -57,6 +58,7 @@ export const ContainerOpenChat = styled.div`
   padding-top: 6px;
   text-align: center;
   cursor: pointer;
+  color: #000000;
 `;
 
 export const ContainerPicker = styled.div`
@@ -85,7 +87,7 @@ export const ContainerScroll = styled.div`
 `;
 
 export const Message = styled.div`
-  background-color: ${({ isyou }) =>
+  background: ${({ isyou }) =>
     isyou ? "rgb(0, 132, 255);" : "#DADADA;"};
   position: relative;
   border-radius: ${({ isyou }) =>

@@ -12,7 +12,8 @@ import {
   ListItemSecondaryAction,
   Avatar,
   IconButton,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 import {
   Cached as CachedIcon,
@@ -82,7 +83,7 @@ export const ListTests = () => {
   };
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color="error">Error :(</Typography>;
 
   return (
     <>
@@ -93,7 +94,7 @@ export const ListTests = () => {
         value={100}
       />
       <Container>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color="textPrimary">
           List of tests
           <Tooltip title="Reload tests">
             <CustomFab
@@ -110,7 +111,7 @@ export const ListTests = () => {
           <AnimatedList key={1} animation={"grow"}>
             {data && data.tests && !data.tests.length && (
               <div key={0}>
-                <CustomTypography variant="h5" gutterBottom>
+                <CustomTypography variant="h5" gutterBottom color="textSecondary">
                   Sorry, but no one test has been created yet.
                 </CustomTypography>
                 <ContainerButton>
@@ -132,15 +133,18 @@ export const ListTests = () => {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={
-                      <TextTruncate
-                        line={1}
-                        element="div"
-                        truncateText="…"
-                        text={name ? name : "incognito"}
-                      />
-                    }
-                  />
+                      disableTypography
+                      primary={
+                        <Typography color="textPrimary">
+                          <TextTruncate
+                            line={1}
+                            element="div"
+                            truncateText="…"
+                            text={name ? name : "incognito"}
+                          />
+                        </Typography>
+                      }
+                    />
                   <ListItemSecondaryAction>
                     <Tooltip title="Activate test">
                       <span>

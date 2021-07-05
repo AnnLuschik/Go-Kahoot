@@ -10,7 +10,7 @@ export const ValidateQuestionStep = ({ handleBack, handleNext }) => (
     <Prompt message="You haven’t finished creating the test, do you want to go anyway?" />
     <LinearProgress variant="determinate" value={100} />
     <AnimatedList animation={"grow"}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom color="textPrimary">
         You want to create new question for this test?
       </Typography>
       <ContainerButton>

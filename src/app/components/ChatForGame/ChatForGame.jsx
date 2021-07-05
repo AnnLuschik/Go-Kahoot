@@ -5,7 +5,7 @@ import { Picker } from "emoji-mart";
 import * as sortBy from "lodash.sortby";
 import * as uniqBy from "lodash.uniqby";
 import InfiniteScroll from "react-infinite-scroller";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
@@ -85,10 +85,10 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
 
       setChatData([...chatData, onChatGame]);
       setTimeout(() => {
-        scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
+        if (scrollParentRef) scrollParentRef.scrollTop = scrollParentRef.scrollHeight;
       }, 0);
     }
-  }, [dataChatGame, chatLoading, chatData, scrollParentRef.scrollTop, scrollParentRef.scrollHeight]);
+  }, [dataChatGame, chatLoading, chatData, scrollParentRef]);
 
   const handleAddMessage = e => {
     e.preventDefault();
@@ -146,7 +146,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
     setMessage(message + emoji.native);
   };
 
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color="error">Error :(</Typography>;
 
   return (
     <>
@@ -198,6 +198,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
                 type="text"
                 variant="outlined"
                 placeholder="Type the message"
+                style={{color: "#000000"}}
                 value={message}
                 disabled={!isOpened}
                 onChange={handleChangeInput}
@@ -210,22 +211,22 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
               />
               <Button
                 type="submit"
-                color="primary"
+                style={{color: '#000000'}}
                 disabled={!message && disabled}
               >
                 Send
               </Button>
               <IconButton onClick={handleShowEmoji}>
-                <SentimentVerySatisfiedIcon />
+                <SentimentVerySatisfiedIcon color="primary" />
               </IconButton>
               <IconButton onClick={handleShowChat}>
-                <KeyboardArrowUpIcon />
+                <KeyboardArrowUpIcon color="primary" />
               </IconButton>
             </>
           ) : (
             <ContainerFooterChat onClick={handleShowChat}>
               <IconButton onClick={handleShowChat}>
-                <KeyboardArrowDownIcon />
+                <KeyboardArrowDownIcon color="primary" />
               </IconButton>
               <ContainerOpenChat>Click to open chat</ContainerOpenChat>
             </ContainerFooterChat>
@@ -236,7 +237,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
             <Picker
               onSelect={handleAddEmoji}
               perLine={15}
-              style={{ width: "300px" }}
+              style={{ width: "300px", color: '#000000' }}
             />
           </ContainerPicker>
         )}

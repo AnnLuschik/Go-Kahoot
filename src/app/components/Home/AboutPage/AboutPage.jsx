@@ -16,7 +16,7 @@ export const AboutPage = () => {
   return (
     <>
       <AnimatedList animation={"grow"}>
-        <Typography className={classes.typography} variant="h3" gutterBottom>
+        <Typography className={classes.typography} variant="h3" gutterBottom color="textPrimary">
           Developers:
         </Typography>
         <div className={classes.root}>

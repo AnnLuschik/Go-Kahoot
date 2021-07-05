@@ -6,7 +6,8 @@ import {
   Avatar,
   IconButton,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 import { Face as FaceIcon, Cancel as CancelIcon } from "@material-ui/icons";
 
@@ -107,7 +108,7 @@ export const StartTestPage = ({
   return (
     <>
       <Container>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color="textPrimary">
           <TextTruncate
             line={1}
             element="div"
@@ -115,8 +116,10 @@ export const StartTestPage = ({
             text={`Test: ${test.name}`}
           />
         </CustomTypography>
-        <TextTypography variant="p">
-          Please wait until the Administrator (Test Creator) launches the game.
+        <TextTypography>
+          <Typography color="textSecondary">
+            Please wait until the Administrator (Test Creator) launches the game.
+            </Typography>
         </TextTypography>
         <ContainerJoiningPeople>{players.length}</ContainerJoiningPeople>
         <Button
@@ -138,7 +141,7 @@ export const StartTestPage = ({
               <ListItem
                 islastadded={index}
                 key={index + UUID}
-                style={shouldHighlightUser ? { background: "#eee" } : {}}
+                style={shouldHighlightUser ? { background: "background" } : {}}
               >
                 <ListItemAvatar>
                   <Avatar>
@@ -146,15 +149,20 @@ export const StartTestPage = ({
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
+                  disableTypography
                   primary={
-                    <TextTruncate
-                      line={1}
-                      element="div"
-                      truncateText="…"
-                      text={name ? name : "incognito"}
-                    />
+                    <Typography color="textSecondary">
+                      <TextTruncate
+                        line={1}
+                        element="div"
+                        truncateText="…"
+                        text={name ? name : "incognito"}
+                      />
+                    </Typography>
                   }
-                  secondary={shouldHighlightUser ? "^^^ Your name ^^^" : ""}
+                  secondary={shouldHighlightUser 
+                    ? <Typography color="textSecondary">^^^ Your name ^^^</Typography> 
+                    : ""}
                 />
                 {isThisPlayer && (
                   <IconButton onClick={handleDelete}>

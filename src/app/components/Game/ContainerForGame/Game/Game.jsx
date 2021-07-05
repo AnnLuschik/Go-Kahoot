@@ -25,6 +25,7 @@ import useStyles, {
   Wrapper,
   WrapperComponent
 } from "./styles";
+import { Typography } from "@material-ui/core";
 
 const converter = new showdown.Converter({
   tables: true,
@@ -209,7 +210,7 @@ export const Game = () => {
                                     borderBottom: "1px solid #c2c2c2"
                                   }}
                                 >
-                                  &nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;
+                                  <Typography color="primary">&nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;</Typography>
                                 </div>
                                 <ReactMarkdown
                                   className={classes.markDownAnswer}

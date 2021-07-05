@@ -12,7 +12,8 @@ import {
   ListItemSecondaryAction,
   Avatar,
   IconButton,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 import {
   Cancel as CancelIcon,
@@ -72,10 +73,10 @@ export const ActiveTests = () => {
   if (loading) return <LinearProgress value={100} />;
   if (error)
     return (
-      <p>
+      <Typography color="textPrimary">
         This test is not in the list of active tests. Perhaps it was deleted.
         Try reloading the page.
-      </p>
+      </Typography>
     );
 
   return (
@@ -85,7 +86,7 @@ export const ActiveTests = () => {
         value={100}
       />
       <Container>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color="textPrimary">
           List of Active Tests
           <Tooltip title="Reload active tests">
             <CustomFab
@@ -102,7 +103,7 @@ export const ActiveTests = () => {
           <AnimatedList key={1} animation={"grow"}>
             {data && data.activatedGames && !data.activatedGames.length && (
               <div key={0}>
-                <CustomTypography variant="h5" gutterBottom>
+                <CustomTypography variant="h5" gutterBottom color="textSecondary">
                   Sorry, but no one test has been activated yet.
                 </CustomTypography>
                 <ContainerButton>
@@ -125,13 +126,16 @@ export const ActiveTests = () => {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
+                      disableTypography
                       primary={
-                        <TextTruncate
-                          line={1}
-                          element="div"
-                          truncateText="…"
-                          text={name ? name : "incognito"}
-                        />
+                        <Typography color="textPrimary">
+                          <TextTruncate
+                            line={1}
+                            element="div"
+                            truncateText="…"
+                            text={name ? name : "incognito"}
+                          />
+                        </Typography>
                       }
                     />
                     <ListItemSecondaryAction>

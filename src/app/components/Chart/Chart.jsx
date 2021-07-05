@@ -1,6 +1,8 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
+import { Typography } from '@material-ui/core'
+
 import {
   OPTIONS,
   BACKGROUND_COLORS,
@@ -25,7 +27,9 @@ const changeData = data => ({
 export const Chart = ({ data }) => {
   return (
     <div style={{ width: 300, height: 200 }}>
-      <h2>Answer Table</h2>
+      <Typography variant="h5" color="textPrimary" style={{marginBottom: '20px'}}>
+        Answer Table
+      </Typography>
       <Bar data={changeData(data)} width={100} height={50} options={OPTIONS} />
     </div>
   );

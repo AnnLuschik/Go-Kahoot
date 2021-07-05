@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import toast from "toastr";
 import { Prompt } from "react-router";
 import { useMutation } from "@apollo/client";
@@ -123,7 +123,7 @@ export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) 
       <Prompt message="You haven’t finished creating the test, do you want to go anyway?" />
       <form onSubmit={handleSubmitForm}>
         <AnimatedList animation={"grow"}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom color="textPrimary">
             Create Question
           </Typography>
           <Container>

@@ -9,7 +9,7 @@ export const FinishStep = ({ handleReset }) => (
   <Container>
     <LinearProgress variant="determinate" value={100} />
     <AnimatedList animation={"grow"}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom color="textPrimary">
         Congratulations, your test has been successfully created!
       </Typography>
       <ContainerButton>

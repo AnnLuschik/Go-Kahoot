@@ -45,7 +45,7 @@ export const TestStep = ({ setID, handleNext, setUUID }) => {
     handleNext();
   };
 
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color="error">Error :(</Typography>;
 
   return (
     <form onSubmit={handleSubmitForm}>
@@ -54,7 +54,7 @@ export const TestStep = ({ setID, handleNext, setUUID }) => {
         value={100}
       />
       <AnimatedList animation={"grow"}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom color="textPrimary">
           Create Test
         </Typography>
         <Container>

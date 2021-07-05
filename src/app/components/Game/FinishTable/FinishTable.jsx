@@ -11,7 +11,8 @@ import {
   Paper,
   FormControlLabel,
   Switch,
-  LinearProgress
+  LinearProgress,
+  Typography
 } from "@material-ui/core";
 
 import { ChatForGame } from "../../ChatForGame";
@@ -124,7 +125,7 @@ export const FinishTable = () => {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color="error">Error :(</Typography>;
 
   return (
     <>
@@ -200,7 +201,7 @@ export const FinishTable = () => {
           </Paper>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
+            label={<Typography color="textPrimary">Dense padding</Typography>}
           />
         </div>
       </Wrapper>

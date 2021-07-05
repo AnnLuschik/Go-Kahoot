@@ -17,7 +17,7 @@ export const HomePage = () => {
   return (
     <div>
       <AnimatedList animation={"grow"}>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color="textSecondary">
           Using this application you can:
         </CustomTypography>
 
@@ -86,11 +86,11 @@ export const HomePage = () => {
             </CardActions>
           </Card>
         </Container>
-        <CustomTypography variant="h5" gutterBottom>
+        <CustomTypography variant="h5" gutterBottom color="textSecondary">
           After that, you and your friends can take these speed tests to find
           out who is the smartest.
         </CustomTypography>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color="textSecondary">
           Want to try? Click on 'Start'! Or before reed the "Documentation".
         </CustomTypography>
         <Container>

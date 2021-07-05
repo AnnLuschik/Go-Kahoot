@@ -3,7 +3,7 @@ import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
-import { IconButton, LinearProgress, Tooltip } from "@material-ui/core";
+import { IconButton, LinearProgress, Tooltip, Typography } from "@material-ui/core";
 
 import { EditQuestion } from "./EditQuestion";
 import { CreateQuestion } from '../CreateQuestion';
@@ -73,7 +73,7 @@ export const EditTest = () => {
   }
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color="error">Error :(</Typography>;;
 
   return (
     <div>
@@ -84,7 +84,7 @@ export const EditTest = () => {
         value={100}
       />
       {updateError && <p>Error :(</p>}
-      <CustomTypography variant="h4">Content of Test</CustomTypography>
+      <CustomTypography variant="h4" color="textPrimary">Content of Test</CustomTypography>
       <Container>
         <TestTextField
           label="Test Name"
@@ -115,10 +115,10 @@ export const EditTest = () => {
           </div>
         )}
       </Container>
-      <CustomTypography variant="h5">Content of Questions</CustomTypography>
+      <CustomTypography variant="h5"  color="textPrimary">Content of Questions</CustomTypography>
       <ContainerQuestions>
         {data && data.testByUUID && !data.testByUUID.questions && (
-          <CustomTypography variant="h5" gutterBottom>
+          <CustomTypography variant="h5" gutterBottom  color="textSecondary">
             Sorry, there are no answers to this question..
           </CustomTypography>
         )}

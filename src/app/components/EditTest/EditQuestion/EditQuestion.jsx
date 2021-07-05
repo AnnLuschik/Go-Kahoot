@@ -129,7 +129,7 @@ export const EditQuestion = ({ question, UUID, onUpdatingQuestions }) => {
             </Tooltip>
           )}
         </ContainerQuestions>
-        <CustomTypography variant="h6">Content of Answers</CustomTypography>
+        <CustomTypography variant="h6" color="textPrimary">Content of Answers</CustomTypography>
         {answers && !answers.length && (
           <CustomTypography variant="h5" gutterBottom>
             Sorry, there are no answers to this question..

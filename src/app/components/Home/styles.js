@@ -1,44 +1,14 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { DRAWER_WIDTH } from "./config";
+import { relativeTimeRounding } from "moment";
 
 export const Link = styled(RouterLink)`
   color: black;
   text-decoration: none;
 `;
-
-export const theme = createMuiTheme({
-  palette: {
-    common: { black: "#000", white: "#fff" },
-    background: { paper: "#fff", default: "#fafafa" },
-    primary: {
-      light: "rgba(191, 120, 255, 1)",
-      main: "rgba(144, 19, 254, 1)",
-      dark: "rgba(107, 0, 202, 1)",
-      contrastText: "#fff"
-    },
-    secondary: {
-      light: "#ff4081",
-      main: "#f50057",
-      dark: "#c51162",
-      contrastText: "#fff"
-    },
-    error: {
-      light: "#e57373",
-      main: "#f44336",
-      dark: "#d32f2f",
-      contrastText: "#fff"
-    },
-    text: {
-      primary: "rgba(0, 0, 0, 0.87)",
-      secondary: "rgba(0, 0, 0, 0.54)",
-      disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)"
-    }
-  }
-});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,6 +28,10 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
   menuButton: {
     marginRight: 36
@@ -96,9 +70,14 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar
   },
   content: {
+    position: "relative",
     flexGrow: 1,
     marginTop: theme.spacing(8)
-  }
+  },
+  title: {
+    color: "yellow",
+    flexGrow: 1,
+  },
 }));
 
 export default useStyles;
