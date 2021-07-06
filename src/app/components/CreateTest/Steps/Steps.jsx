@@ -13,7 +13,6 @@ import useStyles from "./styles";
 
 export const Steps = () => {
   const classes = useStyles();
-
   const [ID, setID] = useState(0);
   const [UUID, setUUID] = useState("");
   const [activeStep, setActiveStep] = useState(0);

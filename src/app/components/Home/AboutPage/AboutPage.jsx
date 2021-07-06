@@ -9,6 +9,7 @@ import {
 import { AnimatedList } from "react-animated-list";
 
 import useStyles from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const AboutPage = () => {
   const classes = useStyles();
@@ -16,7 +17,7 @@ export const AboutPage = () => {
   return (
     <>
       <AnimatedList animation={"grow"}>
-        <Typography className={classes.typography} variant="h3" gutterBottom>
+        <Typography className={classes.typography} variant="h3" gutterBottom color={themeStyles.textPrimary}>
           Developers:
         </Typography>
         <div className={classes.root}>

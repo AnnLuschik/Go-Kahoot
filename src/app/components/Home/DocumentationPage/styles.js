@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     width: "60%"
   },
   summary: {
-    background: "#f4f4f4"
+    background: theme.palette.background,
   }
 }));
 

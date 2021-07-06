@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { IconButton, Tooltip, Checkbox as MUICheckbox } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 
+import { themeStyles } from '../../../../CustomThemeProvider';
+
 import { MarkDown } from "../../../MarkDown";
 
 export const Answer = ({
@@ -39,7 +41,7 @@ export const Answer = ({
       </ContainerMarkDownAnswers>
       <Tooltip title="Choose the correct answer">
         <Checkbox
-          color="primary"
+          color={themeStyles.primary}
           inputProps={{ "aria-label": "secondary checkbox" }}
           checked={isChecked}
           onChange={handleChangeCheckbox}

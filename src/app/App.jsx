@@ -27,6 +27,8 @@ import {
 
 import { GlobalStyle, LinearProgress } from "./styles";
 
+import { CustomThemeProvider } from './CustomThemeProvider';
+
 const { useApolloNetworkStatus } = createNetworkStatusNotifier();
 
 function GlobalLoadingIndicator() {
@@ -84,7 +86,7 @@ const apolloClient = new ApolloClient({
 });
 
 export const App = () => (
-  <>
+  <CustomThemeProvider>
     <CssBaseline />
     <ApolloProvider client={apolloClient}>
       {/* <ApolloNetworkStatusProvider> */}
@@ -120,5 +122,5 @@ export const App = () => (
         </BrowserRouter>
       {/* </ApolloNetworkStatusProvider> */}
     </ApolloProvider>
-  </>
+  </CustomThemeProvider>
 );

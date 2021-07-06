@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import clsx from "clsx";
 import { ThemeProvider, useTheme } from "@material-ui/core/styles";
 import {
@@ -12,7 +12,9 @@ import {
   ListItemText,
   IconButton,
   ListItemIcon,
-  Tooltip
+  Tooltip,
+  Switch,
+  FormControlLabel
 } from "@material-ui/core";
 import {
   Shop as ShopIcon,
@@ -28,14 +30,23 @@ import {
 
 import { logoImage } from "../../assets";
 
-import useStyles, { Link, theme as customTheme } from "./styles";
+import useStyles, { Link } from "./styles";
 import "toastr/build/toastr.min.css";
+
+import { ThemeContext, lightTheme, darkTheme, themeStyles } from '../../CustomThemeProvider';
 
 export const Home = ({ children }) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const { theme: darkMode, toggleTheme: toggleDarkMode } = useContext(ThemeContext);
+
   const [isOpened, setOpen] = useState(false);
+
+  const toggleTheme = useCallback(() => {
+    toggleDarkMode();
+    localStorage.setItem('theme', `${darkMode === 'dark' ? 'light' : 'dark'}`); 
+  }, [toggleDarkMode, darkMode]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -46,13 +57,13 @@ export const Home = ({ children }) => {
   };
 
   return (
-    <ThemeProvider theme={customTheme}>
+    <ThemeProvider theme={darkMode === 'dark' ? darkTheme : lightTheme}>
       <div className={classes.root}>
         <AppBar
           position="fixed"
           className={clsx(classes.appBar, { [classes.appBarShift]: isOpened })}
         >
-          <Toolbar>
+          <Toolbar className={classes.header}>
             <Tooltip title="Show menu">
               <IconButton
                 edge="start"
@@ -67,9 +78,19 @@ export const Home = ({ children }) => {
               </IconButton>
             </Tooltip>
             <img src={logoImage} alt="Logo" />
-            <Typography variant="h6" noWrap style={{ color: "yellow" }}>
+            <Typography variant="h6" noWrap className={classes.title}>
               <i>Ooh-banana</i>
             </Typography>
+            <FormControlLabel
+              control={<Switch 
+                checked={darkMode === 'dark'} 
+                onChange={toggleTheme} 
+              />}
+              label={<Typography color={themeStyles.textSecondary}>
+                {darkMode === 'dark' ? 'Dark mode' : 'Light mode'}
+                </Typography>}
+              labelPlacement="bottom"
+            />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -93,7 +114,7 @@ export const Home = ({ children }) => {
                 ) : (
                   <ChevronLeftIcon />
                 )}
-              </IconButton>
+              </IconButton> 
             </div>
           </Tooltip>
           <Divider />
@@ -103,7 +124,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <HomeIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="Home Page" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    Home Page
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
             <Link to="/create" key={1}>
@@ -111,7 +138,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <NoteAddIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="Create Test" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    Create Test
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
             <Link to="/tests" key={2}>
@@ -119,7 +152,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <FindInPageIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="List of Tests" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    List of Tests
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
             <Link to="/activetests" key={3}>
@@ -127,7 +166,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <ShopIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="List of Active Tests" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    List of Active Tests
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
           </List>
@@ -138,7 +183,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <AssignmentIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="Documentation" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    Documentation
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
             <Link to="/about" key={5}>
@@ -146,7 +197,13 @@ export const Home = ({ children }) => {
                 <ListItemIcon>
                   <InfoIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText primary="About" />
+                <ListItemText 
+                  disableTypography
+                  primary={
+                  <Typography color={themeStyles.textPrimary}>
+                    About
+                  </Typography>
+          }     />
               </ListItem>
             </Link>
           </List>

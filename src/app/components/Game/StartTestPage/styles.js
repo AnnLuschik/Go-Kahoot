@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import TextTruncate from "react-text-truncate";
 import {
   Button as MUIButton,
   ListItem as MUIListItem,
@@ -73,4 +74,12 @@ export const ContainerJoiningPeople = styled.div`
   border-radius: 50%;
   border: 4px solid orange;
   color: orange;
+`;
+
+export const StyledTruncate = styled(TextTruncate)`
+  color: ${props => props.isDark ? '#ffffff' : '#000000'};
+`;
+
+export const StyledListItem = styled(ListItem)`
+  background: ${props => props.isBackground ? "background" : ""};
 `;

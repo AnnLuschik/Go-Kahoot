@@ -7,6 +7,7 @@ import { LinearProgress } from "@material-ui/core";
 import { CREATE_NEW_TEST } from "./graphql";
 
 import { Button, TextField, Typography, Container } from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const TestStep = ({ setID, handleNext, setUUID }) => {
   const [name, setName] = useState("");
@@ -45,7 +46,7 @@ export const TestStep = ({ setID, handleNext, setUUID }) => {
     handleNext();
   };
 
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color={themeStyles.error}>Error :(</Typography>;
 
   return (
     <form onSubmit={handleSubmitForm}>
@@ -54,7 +55,7 @@ export const TestStep = ({ setID, handleNext, setUUID }) => {
         value={100}
       />
       <AnimatedList animation={"grow"}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom color={themeStyles.textPrimary}>
           Create Test
         </Typography>
         <Container>
@@ -71,7 +72,7 @@ export const TestStep = ({ setID, handleNext, setUUID }) => {
           />
           <Button
             type="submit"
-            color="primary"
+            color={themeStyles.primary}
             variant="contained"
             disabled={errorInput}
           >

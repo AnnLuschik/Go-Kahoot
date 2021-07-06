@@ -1,5 +1,9 @@
 import React from "react";
+import styled from 'styled-components';
 import { Bar } from "react-chartjs-2";
+
+import { Typography } from '@material-ui/core';
+import { themeStyles } from '../../CustomThemeProvider';
 
 import {
   OPTIONS,
@@ -24,9 +28,20 @@ const changeData = data => ({
 
 export const Chart = ({ data }) => {
   return (
-    <div style={{ width: 300, height: 200 }}>
-      <h2>Answer Table</h2>
+    <Container>
+      <StyledTypography variant="h5" color={themeStyles.textPrimary}>
+        Answer Table
+      </StyledTypography>
       <Bar data={changeData(data)} width={100} height={50} options={OPTIONS} />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 300px;
+  height: 200px;
+`;
+
+const StyledTypography = styled(Typography)`
+  margin-bottom: 20px;
+`;

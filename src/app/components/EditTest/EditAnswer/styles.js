@@ -5,3 +5,7 @@ export const TextField = styled(MUITextField)`
   margin-right: 20px;
   width: 400px;
 `;
+
+export const MarkdownContainer = styled.div`
+   width: 500px;
+`;

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import toast from "toastr";
-import TextTruncate from "react-text-truncate";
 import { useHistory } from "react-router-dom";
 import { AnimatedList } from "react-animated-list";
 import { useMutation, useQuery } from "@apollo/client";
@@ -12,7 +11,8 @@ import {
   ListItemSecondaryAction,
   Avatar,
   IconButton,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 import {
   Cancel as CancelIcon,
@@ -30,9 +30,11 @@ import {
   ContainerButton,
   ButtonIcon,
   CustomFab,
-  ListItemText
+  ListItemText,
+  StyledTruncate
 } from "./styles";
 import { Link } from "../../styles";
+import { ThemeContext, themeStyles } from '../../CustomThemeProvider';
 
 export const ActiveTests = () => {
   const history = useHistory();
@@ -42,6 +44,8 @@ export const ActiveTests = () => {
   const [deactivateTest, { loading: deactivating }] = useMutation(
     DEACTIVATE_TEST
   );
+
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (refetch) refetch();
@@ -72,10 +76,10 @@ export const ActiveTests = () => {
   if (loading) return <LinearProgress value={100} />;
   if (error)
     return (
-      <p>
+      <Typography color={themeStyles.textPrimary}>
         This test is not in the list of active tests. Perhaps it was deleted.
         Try reloading the page.
-      </p>
+      </Typography>
     );
 
   return (
@@ -85,12 +89,12 @@ export const ActiveTests = () => {
         value={100}
       />
       <Container>
-        <CustomTypography variant="h4" gutterBottom>
+        <CustomTypography variant="h4" gutterBottom color={themeStyles.textPrimary}>
           List of Active Tests
           <Tooltip title="Reload active tests">
             <CustomFab
               size="medium"
-              color="primary"
+              color={themeStyles.primary}
               aria-label="reload"
               onClick={() => refetch()}
             >
@@ -102,12 +106,12 @@ export const ActiveTests = () => {
           <AnimatedList key={1} animation={"grow"}>
             {data && data.activatedGames && !data.activatedGames.length && (
               <div key={0}>
-                <CustomTypography variant="h5" gutterBottom>
+                <CustomTypography variant="h5" gutterBottom color={themeStyles.textSecondary}>
                   Sorry, but no one test has been activated yet.
                 </CustomTypography>
                 <ContainerButton>
                   <Link to="/tests">
-                    <Button size="large" color="primary" variant="contained">
+                    <Button size="large" color={themeStyles.primary} variant="contained">
                       Activate Test
                     </Button>
                   </Link>
@@ -126,12 +130,13 @@ export const ActiveTests = () => {
                     </ListItemAvatar>
                     <ListItemText
                       primary={
-                        <TextTruncate
-                          line={1}
-                          element="div"
-                          truncateText="…"
-                          text={name ? name : "incognito"}
-                        />
+                        <StyledTruncate
+                        line={1}
+                        element="div"
+                        truncateText="…"
+                        text={name ? name : "incognito"}
+                        isDark={theme === 'dark'}
+                      />   
                       }
                     />
                     <ListItemSecondaryAction>

@@ -8,7 +8,8 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  LinearProgress
+  LinearProgress,
+  Typography
 } from "@material-ui/core";
 import { AccountCircle as AccountCircleIcon } from "@material-ui/icons";
 
@@ -17,6 +18,7 @@ import { StartTestPage } from "../StartTestPage";
 import { ACTIVATED_GAME_BY_CODE, JOIN_PLAYER_TO_GAME } from "./graphql";
 
 import { Container, Button, Form, TextField } from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const LoginForGame = () => {
   const history = useHistory();
@@ -98,7 +100,7 @@ export const LoginForGame = () => {
   };
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <p>Error :(</p>;
+  if (error) return <Typography color={themeStyles.error}>Error :(</Typography>;
 
   return (
     <>
@@ -138,10 +140,10 @@ export const LoginForGame = () => {
               </Grid>
             </DialogContent>
             <DialogActions>
-              <Button color="secondary" onClick={handleReturn}>
+              <Button color={themeStyles.secondary} onClick={handleReturn}>
                 Return
               </Button>
-              <Button type="submit" color="primary" disabled={isErrorInput}>
+              <Button type="submit" color={themeStyles.primary} disabled={isErrorInput}>
                 Next
               </Button>
             </DialogActions>

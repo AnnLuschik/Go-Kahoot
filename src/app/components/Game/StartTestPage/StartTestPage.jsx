@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import TextTruncate from "react-text-truncate";
 import { useMutation, useSubscription } from "@apollo/client";
 import {
   Avatar,
   IconButton,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 import { Face as FaceIcon, Cancel as CancelIcon } from "@material-ui/icons";
 
@@ -25,10 +25,13 @@ import {
   Container,
   Button,
   TextTypography,
-  ListItem,
   ContainerListItem,
-  ContainerJoiningPeople
+  ContainerJoiningPeople,
+  StyledTruncate, 
+  StyledListItem
 } from "./styles";
+
+import { ThemeContext, themeStyles } from '../../../CustomThemeProvider';
 
 export const StartTestPage = ({
   data: {
@@ -41,6 +44,8 @@ export const StartTestPage = ({
   const history = useHistory();
 
   const [players, addPlayer] = useState([...dataPlayers]);
+
+  const { theme } = useContext(ThemeContext);
 
   const [startGame] = useMutation(START_GAME_BY_CODE);
   const [deletePlayer] = useMutation(DELETE_PLAYER_FROM_GAME);
@@ -107,21 +112,23 @@ export const StartTestPage = ({
   return (
     <>
       <Container>
-        <CustomTypography variant="h4" gutterBottom>
-          <TextTruncate
+        <CustomTypography variant="h4" gutterBottom color={themeStyles.textPrimary}>
+          <StyledTruncate
             line={1}
             element="div"
             truncateText="…"
             text={`Test: ${test.name}`}
           />
         </CustomTypography>
-        <TextTypography variant="p">
-          Please wait until the Administrator (Test Creator) launches the game.
+        <TextTypography>
+          <Typography color={themeStyles.textSecondary}>
+            Please wait until the Administrator (Test Creator) launches the game.
+            </Typography>
         </TextTypography>
         <ContainerJoiningPeople>{players.length}</ContainerJoiningPeople>
         <Button
           type="button"
-          color="primary"
+          color={themeStyles.primary}
           variant="contained"
           disabled={!isAdmin}
           onClick={handleStart}
@@ -135,10 +142,10 @@ export const StartTestPage = ({
               playerLS.name === name && playerLS.UUID === UUID;
 
             return (
-              <ListItem
+              <StyledListItem
                 islastadded={index}
                 key={index + UUID}
-                style={shouldHighlightUser ? { background: "#eee" } : {}}
+                isBackground={shouldHighlightUser}
               >
                 <ListItemAvatar>
                   <Avatar>
@@ -147,21 +154,24 @@ export const StartTestPage = ({
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <TextTruncate
-                      line={1}
-                      element="div"
-                      truncateText="…"
-                      text={name ? name : "incognito"}
-                    />
+                    <StyledTruncate
+                    line={1}
+                    element="div"
+                    truncateText="…"
+                    text={name ? name : "incognito"}
+                    isDark={theme === 'dark'}
+                  />   
                   }
-                  secondary={shouldHighlightUser ? "^^^ Your name ^^^" : ""}
+                  secondary={shouldHighlightUser 
+                    ? <Typography color={themeStyles.textSecondary}>^^^ Your name ^^^</Typography> 
+                    : ""}
                 />
                 {isThisPlayer && (
                   <IconButton onClick={handleDelete}>
                     <CancelIcon />
                   </IconButton>
                 )}
-              </ListItem>
+              </StyledListItem>
             );
           })}
         </ContainerListItem>

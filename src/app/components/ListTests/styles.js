@@ -5,10 +5,20 @@ import {
   Typography as MUITypography,
   ListItemText as MUIListItemText
 } from "@material-ui/core";
+import TextTruncate from "react-text-truncate";
+import { Link } from "../../styles";
 
 export const Container = styled.div`
   max-width: 700px;
   margin: auto;
+`;
+
+export const StyledTruncate = styled(TextTruncate)`
+  color: ${props => props.isDark ? '#ffffff' : '#000000'};
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export const CustomTypography = styled(MUITypography)`
