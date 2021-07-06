@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
@@ -35,6 +35,7 @@ import {
   ListItemText
 } from "./styles";
 import { Link } from "../../styles";
+import { ThemeContext } from '../../CustomThemeProvider';
 
 export const ListTests = () => {
   const history = useHistory();
@@ -43,6 +44,8 @@ export const ListTests = () => {
   const { loading, error, data, refetch } = useQuery(GET_ALL_TESTS);
   const [deleteTest, { loading: deleting }] = useMutation(DELETE_TEST);
   const [activateGame, { loading: activating }] = useMutation(ACTIVATE_GAME);
+
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     refetch && refetch();
@@ -133,16 +136,14 @@ export const ListTests = () => {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                      disableTypography
                       primary={
-                        <Typography color="textPrimary">
-                          <TextTruncate
-                            line={1}
-                            element="div"
-                            truncateText="…"
-                            text={name ? name : "incognito"}
-                          />
-                        </Typography>
+                        <TextTruncate
+                        line={1}
+                        element="div"
+                        truncateText="…"
+                        text={name ? name : "incognito"}
+                        style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}
+                      />   
                       }
                     />
                   <ListItemSecondaryAction>

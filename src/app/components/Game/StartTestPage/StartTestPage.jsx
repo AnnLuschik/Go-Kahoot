@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import TextTruncate from "react-text-truncate";
 import { useMutation, useSubscription } from "@apollo/client";
@@ -31,6 +31,8 @@ import {
   ContainerJoiningPeople
 } from "./styles";
 
+import { ThemeContext } from '../../../CustomThemeProvider';
+
 export const StartTestPage = ({
   data: {
     activatedGameByCode: { players: dataPlayers, test }
@@ -42,6 +44,8 @@ export const StartTestPage = ({
   const history = useHistory();
 
   const [players, addPlayer] = useState([...dataPlayers]);
+
+  const { theme } = useContext(ThemeContext);
 
   const [startGame] = useMutation(START_GAME_BY_CODE);
   const [deletePlayer] = useMutation(DELETE_PLAYER_FROM_GAME);
@@ -149,16 +153,14 @@ export const StartTestPage = ({
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  disableTypography
                   primary={
-                    <Typography color="textSecondary">
-                      <TextTruncate
-                        line={1}
-                        element="div"
-                        truncateText="…"
-                        text={name ? name : "incognito"}
-                      />
-                    </Typography>
+                    <TextTruncate
+                    line={1}
+                    element="div"
+                    truncateText="…"
+                    text={name ? name : "incognito"}
+                    style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}
+                  />   
                   }
                   secondary={shouldHighlightUser 
                     ? <Typography color="textSecondary">^^^ Your name ^^^</Typography> 

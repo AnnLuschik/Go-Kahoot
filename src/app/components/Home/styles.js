@@ -3,7 +3,6 @@ import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { DRAWER_WIDTH } from "./config";
-import { relativeTimeRounding } from "moment";
 
 export const Link = styled(RouterLink)`
   color: black;
