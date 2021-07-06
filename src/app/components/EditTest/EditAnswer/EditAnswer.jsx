@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "toastr";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
+import { MarkdownContainer } from './styles';
 
 import { MarkDown } from "../../MarkDown";
 
@@ -25,7 +26,7 @@ export const EditAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
 
   return (
     <>
-      <div style={{ width: 500 }}>
+      <MarkdownContainer>
         <MarkDown
           text={text}
           handleChange={onEditAnswers(id)}
@@ -33,7 +34,7 @@ export const EditAnswer = ({ onEditAnswers, text, onSaveQuestion, id }) => {
           commandNumber={1}
           readOnly={isDisabledField}
         />
-      </div>
+      </MarkdownContainer>
       {isDisabledField ? (
         <Tooltip title="Edit answer text">
           <IconButton edge="end" aria-label="edit" onClick={handleEditAnswer}>

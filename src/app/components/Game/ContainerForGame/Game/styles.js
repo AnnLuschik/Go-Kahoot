@@ -75,6 +75,19 @@ export const Wrapper = styled.div`
   min-height: 80vh;
 `;
 
+export const AsideContainer = styled.div`
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const AnswerIndex = styled.div`
+  border-right: 1px solid #c2c2c2;
+  border-bottom: 1px solid #c2c2c2;
+`;
+
 const useStyles = makeStyles(theme => ({
   markDownQuestion: {
     display: "block",

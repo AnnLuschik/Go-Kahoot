@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import toast from "toastr";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 import { Edit as EditIcon, Save as SaveIcon } from "@material-ui/icons";
 
@@ -17,6 +17,7 @@ import {
   ContainerAnswers,
   ContainerMarkDown
 } from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const EditQuestion = ({ question, UUID, onUpdatingQuestions }) => {
   const [isDisabledField, changeDisable] = useState(true);
@@ -99,7 +100,7 @@ export const EditQuestion = ({ question, UUID, onUpdatingQuestions }) => {
 
   return (
     <Container>
-      {updateError && <p>Error :(</p>}
+      {updateError && <Typography color={themeStyles.error}>Error :(</Typography>}
       <div>
         <ContainerQuestions>
           <ContainerMarkDown>
@@ -129,9 +130,9 @@ export const EditQuestion = ({ question, UUID, onUpdatingQuestions }) => {
             </Tooltip>
           )}
         </ContainerQuestions>
-        <CustomTypography variant="h6" color="textPrimary">Content of Answers</CustomTypography>
+        <CustomTypography variant="h6" color={themeStyles.textPrimary}>Content of Answers</CustomTypography>
         {answers && !answers.length && (
-          <CustomTypography variant="h5" gutterBottom>
+          <CustomTypography variant="h5" gutterBottom color={themeStyles.textSecondary}>
             Sorry, there are no answers to this question..
           </CustomTypography>
         )}
@@ -146,7 +147,7 @@ export const EditQuestion = ({ question, UUID, onUpdatingQuestions }) => {
               />
               <Tooltip title="Choose the correct answer">
                 <Checkbox
-                  color="primary"
+                  color={themeStyles.primary}
                   inputProps={{ "aria-label": "secondary checkbox" }}
                   checked={sequential === rightAnswer}
                   onChange={handleChangeCheckbox(sequential)}

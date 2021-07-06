@@ -23,7 +23,9 @@ import useStyles, {
   ContainerAnswers,
   ContainerTimer,
   Wrapper,
-  WrapperComponent
+  WrapperComponent,
+  AsideContainer,
+  AnswerIndex
 } from "./styles";
 import { Typography } from "@material-ui/core";
 
@@ -151,15 +153,7 @@ export const Game = () => {
           <>
             {questionData && (
               <>
-                <div
-                  style={{
-                    height: "max-content",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-around",
-                    alignItems: "center"
-                  }}
-                >
+                <AsideContainer>
                   <ContainerTimer>
                     <CircleTimer
                       startTimeSec={data.startTimeSec}
@@ -167,7 +161,7 @@ export const Game = () => {
                     />
                   </ContainerTimer>
                   <Chart data={rightAnswers} />
-                </div>
+                </AsideContainer>
 
                 <WrapperComponent>
                   <AnimatedList animation={"grow"}>
@@ -204,14 +198,9 @@ export const Game = () => {
                                 }
                                 onClick={handleAnsweredQuestion(sequential, ID)}
                               >
-                                <div
-                                  style={{
-                                    borderRight: "1px solid #c2c2c2",
-                                    borderBottom: "1px solid #c2c2c2"
-                                  }}
-                                >
+                                <AnswerIndex>
                                   <Typography color="primary">&nbsp;&nbsp;{ALPHABET[index]})&nbsp;&nbsp;</Typography>
-                                </div>
+                                </AnswerIndex>
                                 <ReactMarkdown
                                   className={classes.markDownAnswer}
                                   source={converter.makeHtml(text)}

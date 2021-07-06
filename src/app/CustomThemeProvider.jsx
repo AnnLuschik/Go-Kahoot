@@ -60,3 +60,12 @@ export const darkTheme = createMuiTheme({
     }
   },
 });
+
+export const themeStyles = {
+  primary: 'primary',
+  secondary: 'secondary',
+  textPrimary: 'textPrimary',
+  textSecondary: 'textSecondary',
+  background: 'background',
+  error: 'error',
+};

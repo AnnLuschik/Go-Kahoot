@@ -7,9 +7,15 @@ import {
   ListItemText as MUIListItemText
 } from "@material-ui/core";
 
+import TextTruncate from "react-text-truncate";
+
 export const Container = styled.div`
   max-width: 700px;
   margin: auto;
+`;
+
+export const StyledTruncate = styled(TextTruncate)`
+  color: ${props => props.isDark ? '#ffffff' : '#000000'};
 `;
 
 export const CustomTypography = styled(MUITypography)`

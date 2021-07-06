@@ -23,6 +23,7 @@ import { REPORT_GAME_BY_CODE } from "./graphql";
 import { stableSort, getSorting, createData } from "./utils";
 
 import useStyles from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 import { Wrapper } from "../ContainerForGame/Game/styles";
 
 export const FinishTable = () => {
@@ -125,7 +126,7 @@ export const FinishTable = () => {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <Typography color="error">Error :(</Typography>;
+  if (error) return <Typography color={themeStyles.error}>Error :(</Typography>;
 
   return (
     <>
@@ -201,7 +202,7 @@ export const FinishTable = () => {
           </Paper>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label={<Typography color="textPrimary">Dense padding</Typography>}
+            label={<Typography color={themeStyles.textPrimary}>Dense padding</Typography>}
           />
         </div>
       </Wrapper>

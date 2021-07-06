@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Button as MUIButton } from "@material-ui/core";
+import { themeStyles } from '../../../../CustomThemeProvider';
 
 export const AddAnswer = ({ isDisabled, onClick }) => {
 	return (
 		<ButtonAnswer
     type="button"
-    color="primary"
+    color={themeStyles.primary}
     variant="contained"
     onClick={onClick}
     disabled={isDisabled}

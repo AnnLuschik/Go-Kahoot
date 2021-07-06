@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import moment from "moment";
 import Moment from "react-moment";
-import { Picker } from "emoji-mart";
 import * as sortBy from "lodash.sortby";
 import * as uniqBy from "lodash.uniqby";
 import InfiniteScroll from "react-infinite-scroller";
@@ -19,6 +18,8 @@ import {
   ON_CHAT_GAME
 } from "./graphql";
 
+import { ThemeContext, themeStyles } from '../../CustomThemeProvider';
+
 import {
   Container,
   Form,
@@ -33,9 +34,17 @@ import {
   WrapperScrollElements,
   ContainerFooterChat,
   ContainerOpenChat,
-  ContainerPicker
+  ContainerPicker,
+  StyledPicker
 } from "./styles";
 import "emoji-mart/css/emoji-mart.css";
+
+const inputProps = {
+  style: {
+    height: 30,
+    padding: "0 8px"
+  }
+};
 
 export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
   const [disabled, setDisabled] = useState(isShow);
@@ -46,6 +55,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
   const [isEmoji, setIsEmoji] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(true);
   const [scrollParentRef, setScrollParentRef] = useState(null);
+  const { theme } = useContext(ThemeContext);
 
   const { error, refetch } = useQuery(CHAT_MESSAGES_OF_GAME_BY_CODE, {
     variables: {
@@ -146,7 +156,7 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
     setMessage(message + emoji.native);
   };
 
-  if (error) return <Typography color="error">Error :(</Typography>;
+  if (error) return <Typography color={themeStyles.error}>Error :(</Typography>;
 
   return (
     <>
@@ -198,35 +208,29 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
                 type="text"
                 variant="outlined"
                 placeholder="Type the message"
-                color="secondary"
+                color={themeStyles.secondary}
                 value={message}
                 disabled={!isOpened}
                 onChange={handleChangeInput}
-                inputProps={{
-                  style: {
-                    height: 30,
-                    padding: "0 8px"
-                  }
-                }}
+                inputProps={inputProps}
               />
               <Button
                 type="submit"
-                style={{color: '#000000'}}
                 disabled={!message && disabled}
               >
                 Send
               </Button>
               <IconButton onClick={handleShowEmoji}>
-                <SentimentVerySatisfiedIcon color="primary" />
+                <SentimentVerySatisfiedIcon color={themeStyles.primary} />
               </IconButton>
               <IconButton onClick={handleShowChat}>
-                <KeyboardArrowUpIcon color="primary" />
+                <KeyboardArrowUpIcon color={themeStyles.primary} />
               </IconButton>
             </>
           ) : (
             <ContainerFooterChat onClick={handleShowChat}>
               <IconButton onClick={handleShowChat}>
-                <KeyboardArrowDownIcon color="primary" />
+                <KeyboardArrowDownIcon color={themeStyles.primary} />
               </IconButton>
               <ContainerOpenChat>Click to open chat</ContainerOpenChat>
             </ContainerFooterChat>
@@ -234,10 +238,10 @@ export const ChatForGame = ({ urlCode, playerUUID, isShow }) => {
         </Form>
         {isEmoji && (
           <ContainerPicker>
-            <Picker
+            <StyledPicker
               onSelect={handleAddEmoji}
               perLine={15}
-              style={{ width: "300px", color: '#000000' }}
+              theme={theme === 'dark' ? 'dark' : 'light'}
             />
           </ContainerPicker>
         )}

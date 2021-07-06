@@ -4,20 +4,21 @@ import { LinearProgress } from "@material-ui/core";
 
 import { Link } from "../../Home/styles";
 import { Container, Button, Typography, ContainerButton } from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const FinishStep = ({ handleReset }) => (
   <Container>
     <LinearProgress variant="determinate" value={100} />
     <AnimatedList animation={"grow"}>
-      <Typography variant="h4" gutterBottom color="textPrimary">
+      <Typography variant="h4" gutterBottom color={themeStyles.textPrimary}>
         Congratulations, your test has been successfully created!
       </Typography>
       <ContainerButton>
-        <Button color="primary" variant="contained" onClick={handleReset}>
+        <Button color={themeStyles.primary} variant="contained" onClick={handleReset}>
           Create New Test
         </Button>
         <Link to="/tests">
-          <Button color="primary" variant="contained">
+          <Button color={themeStyles.primary} variant="contained">
             Show All Tests
           </Button>
         </Link>

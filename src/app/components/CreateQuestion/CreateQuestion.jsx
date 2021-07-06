@@ -9,6 +9,8 @@ import { Answer, AddAnswer } from './components';
 
 import { CREATE_NEW_QUESTION } from "./graphql";
 
+import { themeStyles } from '../../CustomThemeProvider';
+
 import {
   Button,
   Container,
@@ -123,7 +125,7 @@ export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) 
       <Prompt message="You haven’t finished creating the test, do you want to go anyway?" />
       <form onSubmit={handleSubmitForm}>
         <AnimatedList animation={"grow"}>
-          <Typography variant="h4" gutterBottom color="textPrimary">
+          <Typography variant="h4" gutterBottom color={themeStyles.textPrimary}>
             Create Question
           </Typography>
           <Container>
@@ -135,7 +137,7 @@ export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) 
                 commandNumber={0}
               />
             </ContainerMarkDown>
-            <Button type="submit" color="primary" variant="contained">
+            <Button type="submit" color={themeStyles.primary} variant="contained">
               {buttonText}
             </Button>
           </Container>
@@ -159,7 +161,7 @@ export const CreateQuestion = ({ testUUID, buttonText, buttonHandler, onLoad }) 
           </ContainerAnswers>
         </AnimatedList>
       </form>
-      {error && <p>Something went wrong :(</p>}
+      {error && <Typography color={themeStyles.error}>Something went wrong :(</Typography>}
     </>
   );
 };

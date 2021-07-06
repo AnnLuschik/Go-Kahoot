@@ -33,7 +33,7 @@ import { logoImage } from "../../assets";
 import useStyles, { Link } from "./styles";
 import "toastr/build/toastr.min.css";
 
-import { ThemeContext, lightTheme, darkTheme } from '../../CustomThemeProvider';
+import { ThemeContext, lightTheme, darkTheme, themeStyles } from '../../CustomThemeProvider';
 
 export const Home = ({ children }) => {
   const classes = useStyles();
@@ -86,7 +86,9 @@ export const Home = ({ children }) => {
                 checked={darkMode === 'dark'} 
                 onChange={toggleTheme} 
               />}
-              label={<Typography color="textSecondary">{darkMode === 'dark' ? 'Dark mode' : 'Light mode'}</Typography>}
+              label={<Typography color={themeStyles.textSecondary}>
+                {darkMode === 'dark' ? 'Dark mode' : 'Light mode'}
+                </Typography>}
               labelPlacement="bottom"
             />
           </Toolbar>
@@ -125,7 +127,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     Home Page
                   </Typography>
           }     />
@@ -139,7 +141,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     Create Test
                   </Typography>
           }     />
@@ -153,7 +155,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     List of Tests
                   </Typography>
           }     />
@@ -167,7 +169,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     List of Active Tests
                   </Typography>
           }     />
@@ -184,7 +186,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     Documentation
                   </Typography>
           }     />
@@ -198,7 +200,7 @@ export const Home = ({ children }) => {
                 <ListItemText 
                   disableTypography
                   primary={
-                  <Typography color="textPrimary">
+                  <Typography color={themeStyles.textPrimary}>
                     About
                   </Typography>
           }     />

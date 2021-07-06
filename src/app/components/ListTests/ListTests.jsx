@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import toast from "toastr";
 import { useHistory } from "react-router-dom";
-import TextTruncate from "react-text-truncate";
 import { AnimatedList } from "react-animated-list";
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -32,10 +31,12 @@ import {
   Button,
   ContainerButton,
   ButtonIcon,
-  ListItemText
+  ListItemText,
+  StyledTruncate,
+  StyledLink,
 } from "./styles";
 import { Link } from "../../styles";
-import { ThemeContext } from '../../CustomThemeProvider';
+import { ThemeContext, themeStyles } from '../../CustomThemeProvider';
 
 export const ListTests = () => {
   const history = useHistory();
@@ -86,7 +87,7 @@ export const ListTests = () => {
   };
 
   if (loading) return <LinearProgress value={100} />;
-  if (error) return <Typography color="error">Error :(</Typography>;
+  if (error) return <Typography color={themeStyles.error}>Error :(</Typography>;
 
   return (
     <>
@@ -97,12 +98,12 @@ export const ListTests = () => {
         value={100}
       />
       <Container>
-        <CustomTypography variant="h4" gutterBottom color="textPrimary">
+        <CustomTypography variant="h4" gutterBottom color={themeStyles.textPrimary}>
           List of tests
           <Tooltip title="Reload tests">
             <CustomFab
               size="medium"
-              color="primary"
+              color={themeStyles.primary}
               aria-label="reload"
               onClick={() => refetch()}
             >
@@ -114,12 +115,12 @@ export const ListTests = () => {
           <AnimatedList key={1} animation={"grow"}>
             {data && data.tests && !data.tests.length && (
               <div key={0}>
-                <CustomTypography variant="h5" gutterBottom color="textSecondary">
+                <CustomTypography variant="h5" gutterBottom color={themeStyles.textSecondary}>
                   Sorry, but no one test has been created yet.
                 </CustomTypography>
                 <ContainerButton>
                   <Link to="/create">
-                    <Button color="primary" variant="contained" size="large">
+                    <Button color={themeStyles.primary} variant="contained" size="large">
                       Create Test
                     </Button>
                   </Link>
@@ -137,12 +138,12 @@ export const ListTests = () => {
                   </ListItemAvatar>
                   <ListItemText
                       primary={
-                        <TextTruncate
+                        <StyledTruncate
                         line={1}
                         element="div"
                         truncateText="…"
                         text={name ? name : "incognito"}
-                        style={{color: theme === 'dark' ? '#ffffff' : '#000000'}}
+                        isDark={theme === 'dark'}
                       />   
                       }
                     />
@@ -159,9 +160,8 @@ export const ListTests = () => {
                         </ButtonIcon>
                       </span>
                     </Tooltip>
-                    <Link
+                    <StyledLink
                       to={`/tests/${UUID}`}
-                      style={{ textDecoration: "none" }}
                     >
                       <Tooltip title="Edit test">
                         <span>
@@ -174,7 +174,7 @@ export const ListTests = () => {
                           </IconButton>
                         </span>
                       </Tooltip>
-                    </Link>
+                    </StyledLink>
                     {handleShowDeleteButton(UUID) && (
                       <Tooltip title="Delete Test">
                         <span>

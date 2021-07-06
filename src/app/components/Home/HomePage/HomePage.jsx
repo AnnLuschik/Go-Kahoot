@@ -9,6 +9,7 @@ import {
 import { AnimatedList } from "react-animated-list";
 
 import useStyles, { Container, CustomTypography, Link } from "./styles";
+import { themeStyles } from '../../../CustomThemeProvider';
 
 export const HomePage = () => {
   const classes = useStyles();
@@ -17,20 +18,20 @@ export const HomePage = () => {
   return (
     <div>
       <AnimatedList animation={"grow"}>
-        <CustomTypography variant="h4" gutterBottom color="textSecondary">
+        <CustomTypography variant="h4" gutterBottom color={themeStyles.textSecondary}>
           Using this application you can:
         </CustomTypography>
 
         <Container>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h4" color="textSecondary" gutterBottom>
+              <Typography variant="h4" color={themeStyles.textSecondary} gutterBottom>
                 Create Tests
               </Typography>
               <Typography variant="h5" component="h2">
                 Enter{bull}the{bull}name
               </Typography>
-              <Typography className={classes.pos} color="textSecondary">
+              <Typography className={classes.pos} color={themeStyles.textSecondary}>
                 obligatorily
               </Typography>
               <Typography variant="body2" component="p">
@@ -45,13 +46,13 @@ export const HomePage = () => {
           </Card>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h4" color="textSecondary" gutterBottom>
+              <Typography variant="h4" color={themeStyles.textSecondary} gutterBottom>
                 Create Questions
               </Typography>
               <Typography variant="h5" component="h2">
                 Enter{bull}the{bull}text
               </Typography>
-              <Typography className={classes.pos} color="textSecondary">
+              <Typography className={classes.pos} color={themeStyles.textSecondary}>
                 obligatorily
               </Typography>
               <Typography variant="body2" component="p">
@@ -66,13 +67,13 @@ export const HomePage = () => {
           </Card>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h4" color="textSecondary" gutterBottom>
+              <Typography variant="h4" color={themeStyles.textSecondary} gutterBottom>
                 Create Answers
               </Typography>
               <Typography variant="h5" component="h2">
                 Enter{bull}the{bull}text
               </Typography>
-              <Typography className={classes.pos} color="textSecondary">
+              <Typography className={classes.pos} color={themeStyles.textSecondary}>
                 and{bull}choose{bull}right{bull}answer
               </Typography>
               <Typography variant="body2" component="p">
@@ -86,21 +87,21 @@ export const HomePage = () => {
             </CardActions>
           </Card>
         </Container>
-        <CustomTypography variant="h5" gutterBottom color="textSecondary">
+        <CustomTypography variant="h5" gutterBottom color={themeStyles.textSecondary}>
           After that, you and your friends can take these speed tests to find
           out who is the smartest.
         </CustomTypography>
-        <CustomTypography variant="h4" gutterBottom color="textSecondary">
+        <CustomTypography variant="h4" gutterBottom color={themeStyles.textSecondary}>
           Want to try? Click on 'Start'! Or before reed the "Documentation".
         </CustomTypography>
         <Container>
           <Link to="/create">
-            <Button size="large" color="primary" variant="contained">
+            <Button size="large" color={themeStyles.primary} variant="contained">
               Start
             </Button>
           </Link>
           <Link to="/documentation">
-            <Button size="large" color="primary" variant="contained">
+            <Button size="large" color={themeStyles.primary} variant="contained">
               Documentation
             </Button>
           </Link>
